@@ -5,7 +5,7 @@
 //  Created by Lucca de Mello on 4/16/23.
 //
 
-extension ProbabilityDistribution where RealType: BinaryFloatingPoint, RealType.RawSignificand: FixedWidthInteger {
+extension ProbabilityDistribution where RealType.RawSignificand: FixedWidthInteger {
     func sample() -> Value {
         quantile(.random(in: 0...1))
     }

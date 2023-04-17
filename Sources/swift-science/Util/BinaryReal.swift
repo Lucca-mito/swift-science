@@ -7,4 +7,5 @@
 
 import Numerics
 
+/// A real number with a binary, floating-point encoding.
 typealias BinaryReal = Real & BinaryFloatingPoint
