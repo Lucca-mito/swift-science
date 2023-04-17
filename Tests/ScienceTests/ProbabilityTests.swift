@@ -26,7 +26,7 @@ final class ProbabilityTests: XCTestCase {
     }
     
     func test68_95_99Rule() {
-        let mean = Double.random(in: -1E6 ... 1E6)
+        let mean = Double.random(in: -1E6...1E6)
         let stdev = Double.random(in: 1...10)
         
         let normal = NormalDistribution(mean: mean, standardDeviation: stdev)
