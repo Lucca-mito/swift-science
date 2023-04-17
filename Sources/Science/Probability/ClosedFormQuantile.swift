@@ -12,13 +12,7 @@ public protocol ClosedFormQuantile: ClosedFormMedian, Samplable {
 
 // MARK: - ClosedFormMedian conformance.
 extension ClosedFormQuantile {
-    public var median: Value {
-        if let mean = mean as? Value, isSymmetric {
-            return mean
-        } else {
-            return quantile(1/2)
-        }
-    }
+    public var median: Value { quantile(1/2) }
     
     /// A first percentile of the distribution.
     ///
@@ -32,6 +26,7 @@ extension ClosedFormQuantile {
 }
 
 // MARK: - Samplable conformance.
+// ClosedFormQuantile conforms to Samplable via inverse transform sampling.
 extension ClosedFormQuantile {
     public func sample() -> Value {
         quantile(.random(in: 0...1))

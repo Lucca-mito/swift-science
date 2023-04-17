@@ -11,7 +11,7 @@ public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, 
     public var mean: RealType { p }
     public var variance: RealType { p * (1 - p) }
     
-    public var isSymmetric: Bool { p == 0 }
+    public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
     
     public init(p: RealType) {
         self.p = p
