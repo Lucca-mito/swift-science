@@ -5,8 +5,6 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-import Numerics
-
 public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, ClosedFormQuantile {
     public let p: RealType
     

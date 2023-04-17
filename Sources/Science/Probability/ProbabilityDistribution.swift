@@ -5,8 +5,6 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-import Numerics
-
 public protocol ProbabilityDistribution {
     associatedtype Value: Comparable, AdditiveArithmetic
     

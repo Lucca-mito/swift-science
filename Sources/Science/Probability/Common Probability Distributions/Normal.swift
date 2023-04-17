@@ -5,8 +5,6 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-import Numerics
-
 public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution, ClosedFormMedian, Samplable {
     public let mean: RealType
     public let variance: RealType
