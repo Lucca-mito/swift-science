@@ -7,7 +7,7 @@
 
 import Numerics
 
-public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
+public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, ClosedFormQuantile {
     public let p: RealType
     
     public var mean: RealType { p }

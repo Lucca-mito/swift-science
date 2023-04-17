@@ -22,8 +22,6 @@ public protocol ProbabilityDistribution {
     
     func probability(ofExactly value: Value) -> RealType
     func probability(ofAtMost value: Value) -> RealType
-    
-    func quantile(_ quantileFraction: RealType) -> Value
 }
 
 // MARK: - Common statistics of probability distributions.
@@ -31,31 +29,6 @@ extension ProbabilityDistribution {
     var standardDeviation: RealType { .sqrt(variance) }
     
     // TODO: When moment-generating functions are added, add skewness and kurtosis.
-    
-    // MARK: Quantile-derived statistics.
-    
-    /// A median of the distribution.
-    ///
-    /// If there are multiple medians, the smallest is chosen.
-    ///
-    /// If the distribution is symmetric and the ``mean`` can be converted to ``Value``, the median is calculated by returning the mean. Otherwise, the mean is calculated using ``quantile``.
-    public var median: Value {
-        if isSymmetric, let mean = mean as? Value {
-            return mean
-        } else {
-            return quantile(1/2)
-        }
-    }
-    
-    /// A first percentile of the distribution.
-    ///
-    /// If there are multiple, the smallest is chosen.
-    public var bottomOnePercent: Value { quantile(0.01) }
-    
-    /// A 99th percentile of the distribution.
-    ///
-    /// If there are multiple, the smallest is chosen.
-    public var topOnePercent: Value { quantile(0.99) }
 }
 
 // MARK: - Probabilities derived from CDF and PMF.

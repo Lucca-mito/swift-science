@@ -7,11 +7,12 @@
 
 import Numerics
 
-public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution {
+public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution, ClosedFormMedian {
     public let mean: RealType
     public let variance: RealType
     
     public let isSymmetric = true
+    public var median: RealType { mean }
     
     public init(mean: RealType, variance: RealType) {
         self.mean = mean
@@ -34,10 +35,6 @@ public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution {
             (mean - value) /
             (.sqrt(2) * standardDeviation)
         ) / 2
-    }
-    
-    public func quantile(_ quantileFraction: RealType) -> RealType {
-        fatalError("Not implemented.")
     }
 }
 
