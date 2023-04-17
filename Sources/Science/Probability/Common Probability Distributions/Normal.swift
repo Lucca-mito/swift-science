@@ -7,7 +7,7 @@
 
 import Numerics
 
-public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution, ClosedFormMedian {
+public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution, ClosedFormMedian, Samplable {
     public let mean: RealType
     public let variance: RealType
     
@@ -35,6 +35,11 @@ public struct NormalDistribution<RealType: BinaryReal>: ContinuousDistribution, 
             (mean - value) /
             (.sqrt(2) * standardDeviation)
         ) / 2
+    }
+    
+    public func sample() -> RealType {
+        // TODO: Implement the Box–Muller transform.
+        fatalError("TODO")
     }
 }
 
