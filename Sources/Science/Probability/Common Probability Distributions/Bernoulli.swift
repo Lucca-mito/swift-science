@@ -7,15 +7,19 @@
 
 import Numerics
 
-struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
-    let p: RealType
+public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
+    public let p: RealType
     
-    var mean: RealType { p }
-    var variance: RealType { p * (1 - p) }
+    public var mean: RealType { p }
+    public var variance: RealType { p * (1 - p) }
     
-    var isSymmetric: Bool { p == 0 }
+    public var isSymmetric: Bool { p == 0 }
     
-    func probability(ofExactly value: Value) -> RealType {
+    public init(p: RealType) {
+        self.p = p
+    }
+    
+    public func probability(ofExactly value: Value) -> RealType {
         switch value {
         case 0:
             return 1 - p
@@ -26,7 +30,7 @@ struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
         }
     }
     
-    func probability(ofAtMost value: Int) -> RealType {
+    public func probability(ofAtMost value: Int) -> RealType {
         switch value {
         case _ where value < 0:
             return 0
@@ -37,7 +41,7 @@ struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
         }
     }
     
-    func quantile(_ quantileFraction: RealType) -> Int {
+    public func quantile(_ quantileFraction: RealType) -> Int {
         precondition(0 <= quantileFraction && quantileFraction <= 1)
         return quantileFraction > 1 - p ? 1 : 0
     }
@@ -45,7 +49,7 @@ struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution {
 
 extension BernoulliDistribution {
     /// Models a fair coin.
-    static var fair: BernoulliDistribution {
+    public static var fair: BernoulliDistribution {
         BernoulliDistribution(p: 1/2)
     }
 }

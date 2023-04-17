@@ -6,11 +6,11 @@
 //
 
 extension ProbabilityDistribution where RealType.RawSignificand: FixedWidthInteger {
-    func sample() -> Value {
+    public func sample() -> Value {
         quantile(.random(in: 0...1))
     }
     
-    func sample(count: Int) -> [Value] {
+    public func sample(count: Int) -> [Value] {
         (1...count).map { _ in sample() }
     }
 }

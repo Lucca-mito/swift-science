@@ -7,7 +7,7 @@
 
 import Numerics
 
-protocol ProbabilityDistribution {
+public protocol ProbabilityDistribution {
     associatedtype Value: Comparable, AdditiveArithmetic
     
     /// The type used for probabilities and statistics of this distribution.
@@ -39,7 +39,7 @@ extension ProbabilityDistribution {
     /// If there are multiple medians, the smallest is chosen.
     ///
     /// If the distribution is symmetric and the ``mean`` can be converted to ``Value``, the median is calculated by returning the mean. Otherwise, the mean is calculated using ``quantile``.
-    var median: Value {
+    public var median: Value {
         if isSymmetric, let mean = mean as? Value {
             return mean
         } else {
@@ -50,45 +50,45 @@ extension ProbabilityDistribution {
     /// A first percentile of the distribution.
     ///
     /// If there are multiple, the smallest is chosen.
-    var bottomOnePercent: Value { quantile(0.01) }
+    public var bottomOnePercent: Value { quantile(0.01) }
     
     /// A 99th percentile of the distribution.
     ///
     /// If there are multiple, the smallest is chosen.
-    var topOnePercent: Value { quantile(0.99) }
+    public var topOnePercent: Value { quantile(0.99) }
 }
 
 // MARK: - Probabilities derived from CDF and PMF.
 extension ProbabilityDistribution {
-    func probability(ofNot value: Value) -> RealType {
+    public func probability(ofNot value: Value) -> RealType {
         1 - probability(ofExactly: value)
     }
     
-    func probability(ofLessThan value: Value) -> RealType {
+    public func probability(ofLessThan value: Value) -> RealType {
         probability(ofAtMost: value) - probability(ofExactly: value)
     }
     
-    func probability(ofGreaterThan value: Value) -> RealType {
+    public func probability(ofGreaterThan value: Value) -> RealType {
         1 - probability(ofAtMost: value)
     }
     
-    func probability(ofAtLeast value: Value) -> RealType {
+    public func probability(ofAtLeast value: Value) -> RealType {
         1 - probability(ofLessThan: value)
     }
     
-    func probability(ofIn range: Range<Value>) -> RealType {
+    public func probability(ofIn range: Range<Value>) -> RealType {
         probability(ofLessThan: range.upperBound) - probability(ofLessThan: range.lowerBound)
     }
     
-    func probability(ofIn range: ClosedRange<Value>) -> RealType {
+    public func probability(ofIn range: ClosedRange<Value>) -> RealType {
         probability(ofAtMost: range.upperBound) - probability(ofLessThan: range.lowerBound)
     }
     
-    func probability(ofIn collection: some Collection<Value>) -> RealType {
+    public func probability(ofIn collection: some Collection<Value>) -> RealType {
         collection.reduce(0) { total, value in total + probability(ofExactly: value) }
     }
     
-    func probability(ofWithin tolerance: Value, from center: Value) -> RealType {
+    public func probability(ofWithin tolerance: Value, from center: Value) -> RealType {
         probability(ofIn: center - tolerance ... center + tolerance)
     }
 }

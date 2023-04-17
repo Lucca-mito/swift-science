@@ -7,10 +7,10 @@
 
 import Numerics
 
-protocol ContinuousDistribution: ProbabilityDistribution where Value == RealType {
+public protocol ContinuousDistribution: ProbabilityDistribution where Value == RealType {
     func probabilityDensity(at value: Value) -> RealType
 }
 
 extension ContinuousDistribution {
-    func probability(ofExactly value: Value) -> RealType { 0 }
+    public func probability(ofExactly value: Value) -> RealType { 0 }
 }
