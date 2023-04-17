@@ -1,6 +1,5 @@
 import XCTest
 import Science
-import Numerics
 
 final class ProbabilityTests: XCTestCase {
     func testNormalDistribution() {
