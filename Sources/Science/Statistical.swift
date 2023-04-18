@@ -7,7 +7,7 @@
 
 import Numerics
 
-/// A binary real number with fixed-width significand
+/// A binary real number with a fixed-width significand.
 ///
 /// This type's conformance to `BinaryFloatingPoint` allows it to be initialized from a float literal. Moreover, the conformance of `RawSignificand` to `FixedWidthInteger` allows instances of ``Statistical`` to be randomly generated via `.random(in:)`. Neither of these features are available with the standard `Real`, making this type more useful for working with probability distributions.
 public protocol Statistical: Real, BinaryFloatingPoint where RawSignificand: FixedWidthInteger {}
