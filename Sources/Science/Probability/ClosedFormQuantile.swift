@@ -7,7 +7,7 @@
 
 /// A probability distribution whose quantile function is closed-form.
 public protocol ClosedFormQuantile: ClosedFormMedian, Samplable {
-    func quantile(_ quantileFraction: RealType) -> Value
+    func quantile(_ quantileFraction: Statistic) -> Value
 }
 
 // MARK: - ClosedFormMedian conformance.

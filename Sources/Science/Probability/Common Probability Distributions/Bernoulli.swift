@@ -5,19 +5,19 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, ClosedFormQuantile {
-    public let p: RealType
+public struct BernoulliDistribution<Statistic: Statistical>: IntegerDistribution, ClosedFormQuantile {
+    public let p: Statistic
     
-    public var mean: RealType { p }
-    public var variance: RealType { p * (1 - p) }
+    public var mean: Statistic { p }
+    public var variance: Statistic { p * (1 - p) }
     
     public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
     
-    public init(p: RealType) {
+    public init(p: Statistic) {
         self.p = p
     }
     
-    public func probability(ofExactly value: Value) -> RealType {
+    public func probability(ofExactly value: Value) -> Statistic {
         switch value {
         case 0:
             return 1 - p
@@ -28,7 +28,7 @@ public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, 
         }
     }
     
-    public func probability(ofAtMost value: Int) -> RealType {
+    public func probability(ofAtMost value: Int) -> Statistic {
         switch value {
         case _ where value < 0:
             return 0
@@ -39,7 +39,7 @@ public struct BernoulliDistribution<RealType: BinaryReal>: IntegerDistribution, 
         }
     }
     
-    public func quantile(_ quantileFraction: RealType) -> Int {
+    public func quantile(_ quantileFraction: Statistic) -> Int {
         precondition(0 <= quantileFraction && quantileFraction <= 1)
         return quantileFraction > 1 - p ? 1 : 0
     }
