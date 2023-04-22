@@ -6,13 +6,12 @@
 //
 
 /// A probability distribution whose quantile function is closed-form.
-public protocol ClosedFormQuantile: ClosedFormMedian, Samplable {
+public protocol ClosedFormQuantile: ClosedFormMedian {
     func quantile(_ quantileFraction: Statistic) -> Value
 }
 
-// MARK: - ClosedFormMedian conformance.
-extension ClosedFormQuantile {
-    public var median: Value { quantile(1/2) }
+extension ClosedFormQuantile where Statistic: ExpressibleByFloatLiteral {
+    public var median: Value { quantile(0.5) }
     
     /// A first percentile of the distribution.
     ///
@@ -25,9 +24,8 @@ extension ClosedFormQuantile {
     public var topOnePercent: Value { quantile(0.99) }
 }
 
-// MARK: - Samplable conformance.
 // ClosedFormQuantile conforms to Samplable via inverse transform sampling.
-extension ClosedFormQuantile {
+extension ClosedFormQuantile where Statistic: BinaryFloatingPoint, Statistic.RawSignificand: FixedWidthInteger {
     public func sample() -> Value {
         quantile(.random(in: 0...1))
     }

@@ -5,11 +5,12 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-public struct BernoulliDistribution<Statistic: Statistical> {
-    public let p: Statistic
+import RealModule
+
+public struct BernoulliDistribution<Statistic: Real & ExpressibleByFloatLiteral> {
     
-    public var mean: Statistic { p }
-    public var variance: Statistic { p * (1 - p) }
+    public let p: Statistic
+    public var q: Statistic { 1 - p }
     
     public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
     
@@ -20,7 +21,7 @@ public struct BernoulliDistribution<Statistic: Statistical> {
     public func probability(ofExactly value: Value) -> Statistic {
         switch value {
         case 0:
-            return 1 - p
+            return q
         case 1:
             return p
         default:
@@ -33,7 +34,7 @@ public struct BernoulliDistribution<Statistic: Statistical> {
         case _ where value < 0:
             return 0
         case 0:
-            return 1 - p
+            return q
         default:
             return 1
         }
@@ -43,18 +44,35 @@ public struct BernoulliDistribution<Statistic: Statistical> {
 extension BernoulliDistribution {
     /// Models a fair coin.
     public static var fair: BernoulliDistribution {
-        BernoulliDistribution(p: 1/2)
+        BernoulliDistribution(p: 0.5)
+    }
+}
+
+extension BernoulliDistribution: MomentGeneratable {
+    public var mean: Statistic { p }
+    
+    public var variance: Statistic { p * q }
+    
+    func momentGeneratingFunction(_ t: Int) -> Statistic {
+        precondition(0 <= t)
+        return q + p * .exp(Statistic(t))
+    }
+    
+    var skewness: Statistic {
+        (q - p) / .sqrt(p * q)
     }
 }
 
 extension BernoulliDistribution: BoundedIntegerDistribution {
-    public var min: Value { 0 }
-    public var max: Value { 1 }
+    public var min: Value { p == 0 ? 1 : 0 }
+    public var max: Value { p == 0 ? 0 : 1 }
 }
 
 extension BernoulliDistribution: ClosedFormQuantile {
     public func quantile(_ quantileFraction: Statistic) -> Int {
         precondition(0 <= quantileFraction && quantileFraction <= 1)
-        return quantileFraction > 1 - p ? 1 : 0
+        return quantileFraction > q ? 1 : 0
     }
 }
+
+extension BernoulliDistribution: Samplable where Statistic: BinaryFloatingPoint, Statistic.RawSignificand: FixedWidthInteger {}
