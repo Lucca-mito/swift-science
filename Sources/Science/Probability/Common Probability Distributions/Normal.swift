@@ -49,13 +49,13 @@ extension NormalDistribution: ContinuousDistribution {
 }
 
 extension NormalDistribution: MomentGeneratable {
-    func momentGeneratingFunction(_ t: Int) -> Statistic {
+    public func momentGeneratingFunction(_ t: Int) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
         return .exp(mean * t) + variance * .pow(t, 2) / 2
     }
     
-    var skewness: Statistic { 0 }
+    public var skewness: Statistic { 0 }
 }
 
 extension NormalDistribution: ClosedFormMedian {

@@ -53,12 +53,12 @@ extension BernoulliDistribution: MomentGeneratable {
     
     public var variance: Statistic { p * q }
     
-    func momentGeneratingFunction(_ t: Int) -> Statistic {
+    public func momentGeneratingFunction(_ t: Int) -> Statistic {
         precondition(0 <= t)
         return q + p * .exp(Statistic(t))
     }
     
-    var skewness: Statistic {
+    public var skewness: Statistic {
         (q - p) / .sqrt(p * q)
     }
 }
