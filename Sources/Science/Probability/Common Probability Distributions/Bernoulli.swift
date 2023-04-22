@@ -5,7 +5,7 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-public struct BernoulliDistribution<Statistic: Statistical>: IntegerDistribution, ClosedFormQuantile {
+public struct BernoulliDistribution<Statistic: Statistical> {
     public let p: Statistic
     
     public var mean: Statistic { p }
@@ -38,16 +38,23 @@ public struct BernoulliDistribution<Statistic: Statistical>: IntegerDistribution
             return 1
         }
     }
-    
-    public func quantile(_ quantileFraction: Statistic) -> Int {
-        precondition(0 <= quantileFraction && quantileFraction <= 1)
-        return quantileFraction > 1 - p ? 1 : 0
-    }
 }
 
 extension BernoulliDistribution {
     /// Models a fair coin.
     public static var fair: BernoulliDistribution {
         BernoulliDistribution(p: 1/2)
+    }
+}
+
+extension BernoulliDistribution: BoundedIntegerDistribution {
+    public var min: Value { 0 }
+    public var max: Value { 1 }
+}
+
+extension BernoulliDistribution: ClosedFormQuantile {
+    public func quantile(_ quantileFraction: Statistic) -> Int {
+        precondition(0 <= quantileFraction && quantileFraction <= 1)
+        return quantileFraction > 1 - p ? 1 : 0
     }
 }
