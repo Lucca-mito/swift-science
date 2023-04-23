@@ -16,10 +16,12 @@
 ///
 /// [inverse transform sampling]:https://en.wikipedia.org/wiki/Inverse_transform_sampling
 public protocol Samplable: ProbabilityDistribution {
+    /// Generates one random sample from this probability distribution.
     func sample() -> Value
 }
 
 extension Samplable {
+    /// Generates `count` random samples from this probability distribution.
     public func sample(count: Int) -> [Value] {
         (1...count).map { _ in sample() }
     }

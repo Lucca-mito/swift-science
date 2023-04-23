@@ -14,17 +14,31 @@ public struct NormalDistribution<Statistic: Real> {
     public let mean: Statistic
     public let variance: Statistic
     
-    public let isSymmetric = true
+    // NormalDistribution conforms to DistributionWithVariance via MomenGeneratable; see below.
+    // As a result, NormalDistribution inherits the default implementation of standardDeviation (as
+    // the computed property `.sqrt(variance)`) defined in DistributionWithVariance.
+    //
+    // However, it's common for normal distributions to be initialized with a standard deviation
+    // instead of a variance. So keeping standardDeviation as the computed property `.sqrt(variance)`
+    // would often involve an unecessary computation step. This is why NormalDistribution overrides
+    // the default (computed) implementation of standardDeviation with this stored property:
+    public let standardDeviation: Statistic
     
+    // The variance-based initializer.
     public init(mean: Statistic, variance: Statistic) {
         self.mean = mean
         self.variance = variance
+        self.standardDeviation = .sqrt(variance)
     }
     
+    // The standardDeviation-based initializer.
     public init(mean: Statistic, standardDeviation: Statistic) {
         self.mean = mean
         self.variance = .pow(standardDeviation, 2)
+        self.standardDeviation = standardDeviation
     }
+    
+    public let isSymmetric = true
 }
 
 extension NormalDistribution {
@@ -63,8 +77,14 @@ extension NormalDistribution: ClosedFormMedian {
 }
 
 extension NormalDistribution: Samplable where Statistic: BinaryFloatingPoint, Statistic.RawSignificand: FixedWidthInteger {
+    /// Generates a random sample from this normal distribution.
+    ///
+    /// The sample is generated using the [Box-Muller transform].
+    ///
+    /// [Box-Muller transform]:https://en.wikipedia.org/wiki/Box–Muller_transform#Basic_form
     public func sample() -> Value {
-        // TODO: Implement the Box–Muller transform.
-        fatalError("TODO")
+        let uniform1 = Value.random(in: 0...1)
+        let uniform2 = Value.random(in: 0...1)
+        return .sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
     }
 }
