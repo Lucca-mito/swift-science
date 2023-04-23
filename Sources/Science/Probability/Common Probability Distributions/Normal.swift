@@ -83,8 +83,8 @@ extension NormalDistribution: Samplable where Statistic: BinaryFloatingPoint, St
     ///
     /// [Box-Muller transform]:https://en.wikipedia.org/wiki/Box–Muller_transform#Basic_form
     public func sample() -> Value {
-        let uniform1 = Value.random(in: 0...1)
-        let uniform2 = Value.random(in: 0...1)
+        let uniform1 = Value.random(in: 0..<1)
+        let uniform2 = Value.random(in: 0..<1)
         return .sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
     }
 }
