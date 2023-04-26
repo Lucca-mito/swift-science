@@ -8,7 +8,7 @@
 import RealModule
 
 public protocol ProbabilityDistribution {
-    associatedtype Value
+    associatedtype Value: Comparable
     
     /// The type used for probabilities and statistics of this distribution.
     ///
@@ -43,9 +43,7 @@ extension ProbabilityDistribution {
     public func probability(ofIn collection: some Collection<Value>) -> Statistic {
         collection.reduce(0) { total, value in total + probability(ofExactly: value) }
     }
-}
 
-extension ProbabilityDistribution where Value: Comparable {
     public func probability(ofIn range: Range<Value>) -> Statistic {
         probability(ofLessThan: range.upperBound) - probability(ofLessThan: range.lowerBound)
     }
@@ -55,7 +53,7 @@ extension ProbabilityDistribution where Value: Comparable {
     }
 }
 
-extension ProbabilityDistribution where Value: Comparable & AdditiveArithmetic {
+extension ProbabilityDistribution where Value: AdditiveArithmetic {
     public func probability(ofWithin tolerance: Value, from center: Value) -> Statistic {
         probability(ofIn: center - tolerance ... center + tolerance)
     }
