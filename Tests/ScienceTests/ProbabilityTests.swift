@@ -53,7 +53,7 @@ final class ProbabilityTests: XCTestCase {
         XCTAssert(BernoulliDistribution(p: 0.5).median == 0)
     }
     
-    func testSample() {
+    func testSampleBernoulli() {
         let trials = 1_000_000
         let p = Double.random(in: 0...1)
         
