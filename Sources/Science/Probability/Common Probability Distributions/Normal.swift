@@ -62,7 +62,7 @@ extension NormalDistribution: ContinuousDistribution {
     }
 }
 
-extension NormalDistribution: MomentGeneratable {
+extension NormalDistribution: Moments {
     public func momentGeneratingFunction(_ t: Int) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
@@ -76,7 +76,11 @@ extension NormalDistribution: ClosedFormMedian {
     public var median: Statistic { mean }
 }
 
-extension NormalDistribution: Samplable where Statistic: BinaryFloatingPoint, Statistic.RawSignificand: FixedWidthInteger {
+extension NormalDistribution: Samplable
+where
+    Statistic: BinaryFloatingPoint,
+    Statistic.RawSignificand: FixedWidthInteger
+{
     /// Generates a random sample from this normal distribution.
     ///
     /// The sample is generated using the [Box-Muller transform].

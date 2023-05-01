@@ -37,7 +37,7 @@ final class ProbabilityTests: XCTestCase {
     }
     
     func testBernoulliDistribution() {
-        let bern = BernoulliDistribution(p: Double.random(in: 0...1))
+        let bern = BernoulliDistribution<Int, Double>(p: Double.random(in: 0...1))
         
         XCTAssert(bern.mean == bern.p)
         XCTAssert(bern.probability(ofExactly: 0) == 1 - bern.p)
@@ -57,7 +57,7 @@ final class ProbabilityTests: XCTestCase {
         let trials = 1_000_000
         let p = Double.random(in: 0...1)
         
-        let samples = BernoulliDistribution(p: p).sample(count: trials)
+        let samples = BernoulliDistribution<Int, Double>(p: p).sample(count: trials)
         let ones = samples.reduce(0, +)
         let empirical = Double(ones) / Double(trials)
         

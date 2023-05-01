@@ -7,5 +7,8 @@
 
 /// A probability distribution with a mean.
 public protocol DistributionWithMean: ProbabilityDistribution {
+    /// The mean of this distribution.
+    ///
+    /// Also known as the first raw moment.
     var mean: Statistic { get }
 }
