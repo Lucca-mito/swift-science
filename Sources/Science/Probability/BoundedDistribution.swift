@@ -13,3 +13,9 @@ public protocol BoundedDistribution: ProbabilityDistribution {
     /// The highest ``ProbabilityDistribution/Value`` with a positive probability.
     var max: Value { get }
 }
+
+extension BoundedDistribution where Value: AdditiveArithmetic {
+    // While technically a statistic, the range has the same type as the distribution's domain.
+    /// The difference between the distribution's maximum and its minimum.
+    public var range: Value { max - min }
+}
