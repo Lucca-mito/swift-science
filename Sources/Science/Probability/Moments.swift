@@ -18,7 +18,9 @@ public protocol Moments: DistributionWithVariance {
     
     /// This distribution's [moment-generating function][wiki].
     ///
+    /// For any integer `t` ≥ 0, `momentGeneratingFunction(t)` returns the `t`th raw moment of the distribution.
+    /// In particular, `momentGeneratingFunction(1)` is the distribution's ``DistributionWithMean/mean``.
+    ///
     /// [wiki]:https://en.wikipedia.org/wiki/Moment-generating_function
     func momentGeneratingFunction(_ t: Int) -> Statistic
-    
 }
