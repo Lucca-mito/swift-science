@@ -64,14 +64,14 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
     public var mean: Statistic { p }
     
     public var variance: Statistic { p * q }
+    
+    public var skewness: Statistic {
+        (q - p) / .sqrt(p * q)
+    }
 
     public func momentGeneratingFunction(_ t: Int) -> Statistic {
         precondition(0 <= t)
         return q + p * .exp(Statistic(t))
-    }
-
-    public var skewness: Statistic {
-        (q - p) / .sqrt(p * q)
     }
     
     // MARK: - ClosedFormQuantile conformance
