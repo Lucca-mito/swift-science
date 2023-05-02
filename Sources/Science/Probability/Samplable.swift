@@ -22,7 +22,7 @@ public protocol Samplable: ProbabilityDistribution {
 
 extension Samplable {
     /// Generates `count` random samples from this probability distribution.
-    public func sample(count: Int) -> [Value] {
+    public func sample(count: some FixedWidthInteger) -> [Value] {
         (1...count).map { _ in sample() }
     }
 }

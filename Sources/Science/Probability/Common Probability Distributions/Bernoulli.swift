@@ -69,7 +69,7 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
         (q - p) / .sqrt(p * q)
     }
 
-    public func momentGeneratingFunction(_ t: Int) -> Statistic {
+    public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
         return q + p * .exp(Statistic(t))
     }

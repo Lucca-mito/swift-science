@@ -22,5 +22,5 @@ public protocol Moments: DistributionWithVariance {
     /// In particular, `momentGeneratingFunction(1)` is the distribution's ``DistributionWithMean/mean``.
     ///
     /// [wiki]:https://en.wikipedia.org/wiki/Moment-generating_function
-    func momentGeneratingFunction(_ t: Int) -> Statistic
+    func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic
 }

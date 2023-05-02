@@ -65,7 +65,7 @@ extension NormalDistribution: ContinuousDistribution {
 extension NormalDistribution: Moments {
     public var skewness: Statistic { 0 }
     
-    public func momentGeneratingFunction(_ t: Int) -> Statistic {
+    public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
         return .exp(mean * t) + variance * .pow(t, 2) / 2
