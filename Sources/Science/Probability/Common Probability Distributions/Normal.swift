@@ -14,7 +14,7 @@ public struct NormalDistribution<Statistic: Real> {
     public let mean: Statistic
     public let variance: Statistic
     
-    // NormalDistribution conforms to DistributionWithVariance via MomenGeneratable; see below.
+    // NormalDistribution conforms to DistributionWithVariance via Moments; see below.
     // As a result, NormalDistribution inherits the default implementation of standardDeviation (as
     // the computed property `.sqrt(variance)`) defined in DistributionWithVariance.
     //
