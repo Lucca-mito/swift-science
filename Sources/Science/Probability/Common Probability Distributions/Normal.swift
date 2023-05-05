@@ -37,8 +37,6 @@ public struct NormalDistribution<Statistic: Real> {
         self.variance = .pow(standardDeviation, 2)
         self.standardDeviation = standardDeviation
     }
-    
-    public let isSymmetric = true
 }
 
 extension NormalDistribution {
@@ -60,6 +58,8 @@ extension NormalDistribution: ContinuousDistribution {
             (.sqrt(2) * standardDeviation)
         ) / 2
     }
+    
+    public var isSymmetric: Bool { true }
 }
 
 extension NormalDistribution: Moments {

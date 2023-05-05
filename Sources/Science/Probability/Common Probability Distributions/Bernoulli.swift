@@ -15,8 +15,6 @@ where
     public let p: Statistic
     public var q: Statistic { 1 - p }
     
-    public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
-    
     public init(p: Statistic) {
         self.p = p
     }
@@ -53,6 +51,8 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
             return 1
         }
     }
+    
+    public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
     
     // MARK: - BoundedDistribution conformance
     
