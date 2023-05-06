@@ -8,4 +8,4 @@ swift package \
     --output-path docs \
     --source-service github \
     --source-service-base-url https://github.com/lucca-mito/swift-science/blob/main \
-    --checkout-path /Users/lucca/Developer/swift-science
+    --checkout-path "$PWD"
