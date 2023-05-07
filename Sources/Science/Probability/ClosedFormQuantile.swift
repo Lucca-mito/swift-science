@@ -24,8 +24,12 @@ extension ClosedFormQuantile where Statistic: ExpressibleByFloatLiteral {
     public var topOnePercent: Value { quantile(0.99) }
 }
 
-// ClosedFormQuantile conforms to Samplable via inverse transform sampling.
 extension ClosedFormQuantile where Statistic: BinaryFloatingPoint, Statistic.RawSignificand: FixedWidthInteger {
+    /// A default sampling function using inverse transform sampling.
+    ///
+    /// > Tip: This default implementation makes it easy for distributions conforming to ``ClosedFormQuantile`` to also conform to
+    /// ``Samplable``. Distributions can choose to override this default implementation with a faster sampling function; for
+    /// example, ``BernoulliDistribution`` does this.
     public func sample() -> Value {
         quantile(.random(in: 0...1))
     }

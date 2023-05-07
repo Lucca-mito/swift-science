@@ -5,6 +5,9 @@
 //  Created by Lucca de Mello on 4/23/23.
 //
 
-/// A discrete distribution that is bounded.
+/// A distribution over a finite set of values.
+///
+/// Such a distribution always has a mean, a variance, and all other ``Moments``.
+/// Additionally, a ``BoundedDiscreteDistribution`` always has a ``ClosedFormQuantile``.
 public protocol BoundedDiscreteDistribution:
     DiscreteDistribution, BoundedDistribution, Moments, ClosedFormQuantile {}

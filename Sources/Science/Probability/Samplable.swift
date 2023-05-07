@@ -7,12 +7,16 @@
 
 /// A probability distribution that can be randomly sampled.
 ///
-/// Conforming types only have to implement the ``sample()`` method.
+/// Sample one random ``ProbabilityDistribution/Value`` from the distribution with the ``sample()`` method, or sample
+/// `count` random values with ``sample(count:)``.
 ///
-/// All probability distributions conforming to ``ClosedFormQuantile`` automatically get a ``sample()`` implementation using [inverse transform sampling] when ``ProbabilityDistribution/Statistic`` can be randomly generated.
+/// ## Conforming to the Samplable protocol
+/// Creating a custom probability distribution conforming to ``Samplable`` only requires implementing the ``sample()`` method.
 ///
-/// Distributions that do not have a closed-form quantile can instead conform to ``Samplable`` directly with a custom sampling function.
-/// For an example, ``NormalDistribution`` conforms to ``Samplable`` using the Box–Muller transform.
+/// > Tip: All probability distributions conforming to ``ClosedFormQuantile`` automatically get a ``sample()`` implementation using
+/// [inverse transform sampling]: see ``ClosedFormQuantile/sample()``. Distributions that do not have a closed-form quantile
+/// can instead conform to ``Samplable`` with a custom sampling function. For example, ``NormalDistribution`` conforms to
+/// ``Samplable`` using the Box–Muller transform.
 ///
 /// [inverse transform sampling]:https://en.wikipedia.org/wiki/Inverse_transform_sampling
 public protocol Samplable: ProbabilityDistribution {
@@ -21,7 +25,7 @@ public protocol Samplable: ProbabilityDistribution {
 }
 
 extension Samplable {
-    /// Generates `count` random samples from this probability distribution.
+    /// Generates `count` indepenent random samples from this probability distribution.
     public func sample(count: some FixedWidthInteger) -> [Value] {
         (1...count).map { _ in sample() }
     }

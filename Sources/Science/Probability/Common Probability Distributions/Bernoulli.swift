@@ -85,4 +85,9 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
 extension BernoulliDistribution: Samplable
 where
     Statistic: BinaryFloatingPoint,
-    Statistic.RawSignificand: FixedWidthInteger {}
+    Statistic.RawSignificand: FixedWidthInteger
+{
+    public func sample() -> Value {
+        Statistic.random(in: 0..<1) < p ? 1 : 0
+    }
+}
