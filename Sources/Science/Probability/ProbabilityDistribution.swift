@@ -7,10 +7,12 @@
 
 import RealModule
 
+/// A distribution of all possible values of a random variable together with their probabilities.
 public protocol ProbabilityDistribution {
+    /// The type of values from this distribution.
     associatedtype Value: Comparable
     
-    /// The type used for probabilities and statistics of this distribution.
+    /// The type of probabilities and statistics of this distribution.
     ///
     /// For ``ContinuousDistribution``s, this type is the same as ``Value``.
     associatedtype Statistic: Real
