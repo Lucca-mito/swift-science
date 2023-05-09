@@ -7,23 +7,27 @@
 
 import RealModule
 
+/// The probability distribution of a random variable that's either 0 or 1.
 public struct BernoulliDistribution<Value, Statistic>
 where
     Value: Comparable & ExpressibleByIntegerLiteral,
     Statistic: Real & ExpressibleByFloatLiteral
 {
-    public let p: Statistic
-    public var q: Statistic { 1 - p }
+    /// The probability of sampling 1 from this distribution.
+    public let probabilityOfOne: Statistic
     
-    public init(p: Statistic) {
-        self.p = p
+    /// The probability of sampling 0 from this distribution.
+    public var probabilityOfZero: Statistic { 1 - probabilityOfOne }
+    
+    public init(probabilityOfOne: Statistic) {
+        self.probabilityOfOne = probabilityOfOne
     }
 }
 
 extension BernoulliDistribution {
     /// Models a fair coin.
     public static var fair: BernoulliDistribution {
-        BernoulliDistribution(p: 0.5)
+        BernoulliDistribution(probabilityOfOne: 0.5)
     }
 }
 
@@ -33,9 +37,9 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
     public func probability(ofExactly value: Value) -> Statistic {
         switch value {
         case 0:
-            return q
+            return probabilityOfZero
         case 1:
-            return p
+            return probabilityOfOne
         default:
             return 0
         }
@@ -46,39 +50,39 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
         case _ where value < 0:
             return 0
         case 0:
-            return q
+            return probabilityOfZero
         default:
             return 1
         }
     }
     
-    public var isSymmetric: Bool { [0, 0.5, 1].contains(p) }
+    public var isSymmetric: Bool { [0, 0.5, 1].contains(probabilityOfOne) }
     
     // MARK: - BoundedDistribution conformance
     
-    public var min: Value { p == 0 ? 1 : 0 }
-    public var max: Value { p == 0 ? 0 : 1 }
+    public var min: Value { probabilityOfOne == 0 ? 1 : 0 }
+    public var max: Value { probabilityOfOne == 0 ? 0 : 1 }
     
     // MARK: - Moments conformance
     
-    public var mean: Statistic { p }
+    public var mean: Statistic { probabilityOfOne }
     
-    public var variance: Statistic { p * q }
+    public var variance: Statistic { probabilityOfOne * probabilityOfZero }
     
     public var skewness: Statistic {
-        (q - p) / .sqrt(p * q)
+        (probabilityOfZero - probabilityOfOne) / .sqrt(probabilityOfOne * probabilityOfZero)
     }
 
     public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
-        return q + p * .exp(Statistic(t))
+        return probabilityOfZero + probabilityOfOne * .exp(Statistic(t))
     }
     
     // MARK: - ClosedFormQuantile conformance
     
     public func quantile(_ quantileFraction: Statistic) -> Value {
         precondition(0 <= quantileFraction && quantileFraction <= 1)
-        return quantileFraction > q ? 1 : 0
+        return quantileFraction > probabilityOfZero ? 1 : 0
     }
 }
 
@@ -88,6 +92,6 @@ where
     Statistic.RawSignificand: FixedWidthInteger
 {
     public func sample() -> Value {
-        Statistic.random(in: 0..<1) < p ? 1 : 0
+        Statistic.random(in: 0..<1) < probabilityOfOne ? 1 : 0
     }
 }

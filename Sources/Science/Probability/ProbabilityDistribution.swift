@@ -19,7 +19,10 @@ public protocol ProbabilityDistribution {
     
     var isSymmetric: Bool { get }
     
+    /// The probability mass function of this distribution.
     func probability(ofExactly value: Value) -> Statistic
+    
+    /// The cumulative density function of this distribution.
     func probability(ofAtMost value: Value) -> Statistic
 }
 
