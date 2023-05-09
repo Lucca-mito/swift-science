@@ -20,9 +20,13 @@ public protocol ProbabilityDistribution {
     var isSymmetric: Bool { get }
     
     /// The probability mass function of this distribution.
+    /// - Returns: The probability that a random variable following this distribution is exactly equal to `value`.
+    ///
+    /// For ``ContinuousDistribution``s, this is zero for every `value`.
     func probability(ofExactly value: Value) -> Statistic
     
     /// The cumulative density function of this distribution.
+    /// - Returns: The probability that a random variable following this distribution is less than or equal to `value`.
     func probability(ofAtMost value: Value) -> Statistic
 }
 

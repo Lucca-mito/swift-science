@@ -21,10 +21,10 @@ public protocol Moments: DistributionWithVariance {
     /// [moment-generating function]:https://en.wikipedia.org/wiki/Moment-generating_function
     ///
     /// - Parameter t: Which raw moment to compute.
+    /// - Returns: The `t`th raw moment of this distribution.
     ///
-    /// If `dist` is an instance of a probability distribution conforming to ``Moments``, then
-    /// `dist.momentGeneratingFunction(t)` returns the `t`th raw moment of `dist`.
-    /// Mathematically, this is 𝔼[𝑋ᵗ] where 𝑋 ~ `dist`.
+    /// Mathematically, if `dist` is an instance of a probability distribution conforming to ``Moments`` then
+    /// `dist.momentGeneratingFunction(t)` is 𝔼[𝑋ᵗ] where 𝑋 ~ `dist`.
     ///
     /// - Precondition: `t` ≥ 0
     /// - Note: `dist.momentGeneratingFunction(0)` is always 1.
