@@ -7,7 +7,7 @@
 
 /// A distribution over a finite set of values.
 ///
-/// Such a distribution always has a mean, a variance, and all other ``Moments``.
-/// Additionally, a ``BoundedDiscreteDistribution`` always has a ``ClosedFormQuantile``.
+/// Such a distribution always has a ``DistributionWithMean/mean``, a ``DistributionWithVariance/variance``,
+/// and all other ``Moments``. Additionally, a ``BoundedDiscreteDistribution`` always has a ``ClosedFormQuantile``.
 public protocol BoundedDiscreteDistribution:
     DiscreteDistribution, BoundedDistribution, Moments, ClosedFormQuantile {}

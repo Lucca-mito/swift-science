@@ -7,9 +7,9 @@
 
 import RealModule
 
-/// A [discrete probability distribution][wiki].
+/// A [discrete probability distribution].
 ///
-/// [wiki]:https://en.wikipedia.org/wiki/Probability_distribution#Discrete_probability_distribution
+/// [discrete probability distribution]:https://en.wikipedia.org/wiki/Probability_distribution#Discrete_probability_distribution
 public protocol DiscreteDistribution: ProbabilityDistribution {}
 
 // Note that DiscreteDistribution does not inherit from DistributionWithMean. Not every discrete

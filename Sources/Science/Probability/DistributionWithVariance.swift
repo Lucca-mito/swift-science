@@ -23,9 +23,9 @@ public protocol DistributionWithVariance: DistributionWithMean {
     var standardDeviation: Statistic { get }
 }
 
-// A default implementation of the standard deviation.
-// Some distributions, such as the NormalDistribution, may instead opt to implement
-// standardDeviation as a stored property.
 extension DistributionWithVariance {
+    // A default implementation of the standard deviation.
+    // Some distributions, such as the NormalDistribution, may instead opt to implement
+    // standardDeviation as a stored property.
     public var standardDeviation: Statistic { .sqrt(variance) }
 }

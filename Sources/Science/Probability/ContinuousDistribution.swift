@@ -5,9 +5,9 @@
 //  Created by Lucca de Mello on 4/15/23.
 //
 
-/// A [continuous probability distribution][wiki].
+/// A [continuous probability distribution].
 ///
-/// [wiki]:https://en.wikipedia.org/wiki/Probability_distribution#Absolutely_continuous_probability_distribution
+/// [continuous probability distribution]:https://en.wikipedia.org/wiki/Probability_distribution#Absolutely_continuous_probability_distribution
 public protocol ContinuousDistribution: ProbabilityDistribution where Value == Statistic {
     func probabilityDensity(at value: Value) -> Statistic
 }
