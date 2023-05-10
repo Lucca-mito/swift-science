@@ -1,7 +1,7 @@
 import XCTest
 import Science
 
-final class ProbabilityTests: XCTestCase {
+final class StatisticsTests: XCTestCase {
     func testNormalDistribution() {
         let stdev = Double.random(in: 1...10)
         let normal = NormalDistribution(mean: 0, standardDeviation: stdev)
