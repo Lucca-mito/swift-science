@@ -68,7 +68,7 @@ extension NormalDistribution: Moments {
     public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
-        return .exp(mean * t) + variance * .pow(t, 2) / 2
+        return .exp(mean * t + variance * .pow(t, 2) / 2)
     }
 }
 
