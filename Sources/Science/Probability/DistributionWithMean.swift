@@ -9,6 +9,6 @@
 public protocol DistributionWithMean: ProbabilityDistribution {
     /// The mean of this distribution.
     ///
-    /// Also known as the first raw moment.
+    /// Also known as the *expectation* or the *first raw moment*.
     var mean: Statistic { get }
 }

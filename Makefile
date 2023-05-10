@@ -1,6 +1,6 @@
 MAKEFLAGS += --silent
 
-# This builds the project twice. Invoke this rule by just typing make.
+# Builds the project twice. Invoke by just typing make.
 generate-and-preview-docs: generate-docs preview-docs
 
 # Build the documentation website and write it to the docs directory. For this build, SwiftPM is sandboxed.
