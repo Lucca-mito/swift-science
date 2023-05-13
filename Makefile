@@ -9,6 +9,7 @@ generate-docs:
     --allow-writing-to-directory docs \
     generate-documentation \
     --target Science \
+	--include-extended-types \
     --disable-indexing \
     --transform-for-static-hosting \
     --hosting-base-path swift-science \
@@ -23,6 +24,7 @@ preview-docs:
     --disable-sandbox \
     preview-documentation \
     --target Science \
+	--include-extended-types \
     --source-service github \
     --source-service-base-url https://github.com/lucca-mito/swift-science/blob/main \
     --checkout-path $(PWD)

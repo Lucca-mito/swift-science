@@ -3,7 +3,7 @@ import Science
 
 final class StatisticsTests: XCTestCase {
     func testNormalDistribution() {
-        let stdev = Double.random(in: 1...10)
+        let stdev: Double = .random(in: 1...10)
         let normal = NormalDistribution(mean: 0, standardDeviation: stdev)
         
         XCTAssert(normal.probability(ofAtMost: 0) == 1/2)
@@ -13,7 +13,7 @@ final class StatisticsTests: XCTestCase {
     
     func testDartBoardParadox() {
         let distribution = NormalDistribution<Double>.standard
-        let anyNumber = Double.random(in: -1E6...1E6)
+        let anyNumber: Double = .random(in: -1E6...1E6)
         XCTAssert(distribution.probability(ofExactly: anyNumber) == 0)
     }
     
@@ -26,8 +26,8 @@ final class StatisticsTests: XCTestCase {
     }
     
     func test68_95_99Rule() {
-        let mean = Double.random(in: -1E6...1E6)
-        let stdev = Double.random(in: 1...10)
+        let mean: Double = .random(in: -1E6...1E6)
+        let stdev: Double = .random(in: 1...10)
         
         let normal = NormalDistribution(mean: mean, standardDeviation: stdev)
         
@@ -55,12 +55,10 @@ final class StatisticsTests: XCTestCase {
     
     func testSampleBernoulli() {
         let trials = 1_000_000
-        let p = Double.random(in: 0...1)
+        let p: Double = .random(in: 0...1)
         
-        let samples = BernoulliDistribution<Int, Double>(probabilityOfOne: p).sample(count: trials)
-        
-        // TODO: Compute mean using sample statistics instead.
-        let empirical = Double(samples.reduce(0, +)) / Double(trials)
+        let samples: [Int] = BernoulliDistribution(probabilityOfOne: p).sample(count: trials)
+        let empirical: Double = samples.mean()
         
         XCTAssert(empirical.isApproximatelyEqual(to: p, relativeTolerance: 0.01))
     }
