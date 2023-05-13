@@ -1,11 +1,11 @@
 //
-//  mean.swift
+//  Mean.swift
 //  
 //
 //  Created by Lucca de Mello on 5/10/23.
 //
 
-import Numerics
+import RealModule
 
 extension Collection where Element: AlgebraicField {
     /// The mean of this collection, if it can be approximated.

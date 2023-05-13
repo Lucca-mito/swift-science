@@ -1,5 +1,5 @@
 //
-//  sum.swift
+//  Sum.swift
 //  
 //
 //  Created by Lucca de Mello on 5/10/23.
