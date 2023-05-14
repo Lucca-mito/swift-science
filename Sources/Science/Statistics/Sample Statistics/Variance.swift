@@ -7,7 +7,7 @@
 
 import RealModule
 
-extension Collection where Element: DistanceMeasurable & AlgebraicField {
+extension Collection where Element: MetricSpace & AlgebraicField {
     /// The squared distances from each element in this collection to their mean.
     ///
     /// https://en.wikipedia.org/wiki/Squared_deviations_from_the_mean
@@ -20,10 +20,10 @@ extension Collection where Element: DistanceMeasurable & AlgebraicField {
     }
 }
 
-extension Collection where Element: DistanceMeasurable & AlgebraicField, Element.Stride: AlgebraicField {
+extension Collection where Element: MetricSpace & AlgebraicField, Element.Stride: AlgebraicField {
     private func _variance(denominator: Int) -> Element.Stride? {
         guard let numerator = _squaredDeviations()?.sum(),
-              let denominator = Element.Stride(exactly: count),
+              let denominator = Element.Stride(exactly: denominator),
               denominator > 0
         else {
             return nil

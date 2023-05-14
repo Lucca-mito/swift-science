@@ -1,5 +1,6 @@
 import XCTest
 import Science
+import ComplexModule
 
 final class StatisticsTests: XCTestCase {
     func testNormalDistribution() {
