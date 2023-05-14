@@ -13,7 +13,7 @@ import ComplexModule
 /// of `Strideable` that allows values to have any number of dimensions. So ``MetricSpace`` includes not only every type
 /// conforming to `Strideable`, but also multidimensional types such as `Complex`.
 ///
-/// > See: For a theoretical introduction to metric spaces, see [metric space].
+/// > See: [Metric space] for a theoretical introduction to metric spaces.
 ///
 /// ## Example
 /// ```swift
@@ -22,16 +22,38 @@ import ComplexModule
 /// print( z.squaredDistance(to: .i) ) // 2.0
 /// ```
 ///
-/// [metric space]:https://en.wikipedia.org/wiki/Metric_space
+/// [Metric space]:https://en.wikipedia.org/wiki/Metric_space
 public protocol MetricSpace: Equatable {
     // TODO: Pitch adding this protocol to the standard library as a superprotocol of Strideable, possibly under a less technical name (e.g. DistanceMeasurable).
     
     /// A type that represents the distance between two values.
     associatedtype Stride: Comparable, SignedNumeric
     
-    /// Returns the distance from this value to the given value.
+    /// Returns the distance from this value to the given value, expressed as a ``Stride``.
     /// - Parameter other: The value to calculate the distance to.
     /// - Returns: The distance from this value to `other`.
+    ///
+    /// This function must satisfy the four [metric space] laws:
+    /// 1. The distance from a point to itself is zero.
+    /// ```swift
+    /// x.distance(to: x) == .zero
+    /// ```
+    /// 2. The distance between two distinct points is always positive.
+    /// ```swift
+    /// // x != y
+    /// x.distance(to: y) > .zero
+    /// ```
+    /// 3. The distance from *x* to *y* is always the same as the distance from *y* to *x*.
+    /// ```swift
+    /// x.distance(to: y) == y.distance(to: x)
+    /// ```
+    /// 4. The [triangle inequality] holds:
+    /// ```swift
+    /// x.distance(to: z) <= x.distance(to: y) + y.distance(to: z)
+    /// ```
+    ///
+    /// [metric space]:https://en.wikipedia.org/wiki/Metric_space
+    /// [triangle inequality]:https://en.wikipedia.org/wiki/Triangle_inequality
     func distance(to other: Self) -> Stride
 }
 
@@ -59,7 +81,7 @@ extension UInt64: MetricSpace {}
 extension Float: MetricSpace {}
 extension Double: MetricSpace {}
 
-// TODO: Add Float16 and Float80
+// TODO: Add Float16 and Float80 conformances with the appropriate availability checks.
 
 extension Complex: MetricSpace {
     public typealias Stride = RealType
@@ -74,3 +96,5 @@ extension Complex: MetricSpace {
 }
 
 // When the Quaternion type of Swift Numerics is stabilized, conform it to MetricSpace as well.
+
+// TODO: Pointer types should also conform to MetricSpace since they conform to Stridable.
