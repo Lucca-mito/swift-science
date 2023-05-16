@@ -14,6 +14,13 @@ extension Collection where Element: AdditiveArithmetic {
     // - If Element is BinaryInteger: cast to a higher-capacity type, sum, then cast back.
     //   This avoids integer overflows when the total sum does not overflow but the partial sums do overflow.
     // - If Element is BinaryFloatingPoint: cast to a higher-precision type, sum, then cast back.
+    /// The sum of all the elements in this collection.
+    ///
+    /// ## Example
+    /// ```swift
+    /// let sample: [Complex<Double>] = [42 + .i, Complex(.pi), -.i / 2]
+    /// print(sample.sum()) // (45.1415926535898, 1.0)
+    /// ```
     public func sum() -> Element {
         reduce(into: .zero, +=) // More efficient version of reduce(.zero, +)
     }

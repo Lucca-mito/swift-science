@@ -7,21 +7,12 @@
 
 import RealModule
 
-extension Collection where Element: AlgebraicField {
-    /// The mean of this collection, if it can be approximated.
-    public func mean() -> Element? {
-        if let count = Element(exactly: count) {
-            return sum() / count
-        } else {
-            return nil
-        }
-    }
-}
-
-extension Collection where Element: FloatingPoint {
+extension Collection where Element: AlgebraicField & IntegerApproximable {
     /// The mean of this collection.
+    /// - Precondition: The collection cannot be empty.
     public func mean() -> Element {
-        sum() / Element(count)
+        precondition(!isEmpty)
+        return sum() / Element(count)
     }
 }
 
@@ -31,8 +22,9 @@ extension Collection where Element: BinaryInteger {
     ///
     /// Swift can usually infer the floating-point type to be returned from context. If it can't, there are two things you can do:
     /// ```swift
-    /// let sample = [1, 2, 3]
-    /// // Suppose you want to calculate the mean to Double precision.
+    /// let sample: [Int]
+    ///
+    /// // Suppose you want to calculate the mean of `sample` to Double precision.
     ///
     /// // First solution:
     /// let mean: Double = sample.mean()
@@ -51,15 +43,3 @@ extension Collection where Element: BinaryInteger {
     //     Double(sum()) / Double(count)
     // }
 }
-
-// Swift does not currently support parameterized extensions, but it (probably) eventually will
-// since this feature is proposed in the Generics Manifesto:
-// https://github.com/apple/swift/blob/main/docs/GenericsManifesto.md#parameterized-extensions
-//
-// Once Swift support parametrized extensions, uncomment the following extension:
-//
-// extension<RealType: Real> Collection where Element == Complex<RealType> {
-//     public func mean() -> Element {
-//         sum() / Element(count)
-//     }
-// }
