@@ -23,7 +23,7 @@ extension Collection where Element: AlgebraicField & IntegerApproximable & Eucli
 
 extension Collection
 where
-    Element: AlgebraicField & Euclidean & IntegerApproximable,
+    Element: AlgebraicField & IntegerApproximable & Euclidean,
     Element.Stride: AlgebraicField & IntegerApproximable
 {
     private func _variance(denominator: Int) -> Element.Stride {
@@ -31,6 +31,7 @@ where
     }
     
     /// The population variance of this collection.
+    /// - Returns: The population variance, ¹⁄ₙ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
     /// - Precondition: The collection cannot be empty.
     public func populationVariance() -> Element.Stride {
         precondition(!isEmpty)
@@ -47,6 +48,7 @@ where
 
 extension Collection where Element: BinaryInteger {
     /// The population variance of this integer collection.
+    /// - Returns: The population variance as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
     public func populationVariance<FloatingPointType>() -> FloatingPointType
     where
@@ -70,6 +72,7 @@ extension Collection where Element: BinaryInteger {
     }
     
     /// The sample variance of this integer collection.
+    /// - Returns: The sample variance as a `FloatingPoint` number.
     /// - Precondition: There must be at least 2 elements in the collection.
     public func sampleVariance<FloatingPointType>() -> FloatingPointType
     where

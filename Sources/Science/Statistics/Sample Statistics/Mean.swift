@@ -20,7 +20,9 @@ extension Collection where Element: BinaryInteger {
     /// The mean of this integer collection.
     /// - Returns: The mean as a `FloatingPoint` number.
     ///
-    /// Swift can usually infer the floating-point type to be returned from context. If it can't, there are two things you can do:
+    /// Swift can usually infer from the surrounding context which `FloatingPoint` type, like `Double` or `Float`, should be
+    /// returned. But when Swift is unable to infer the return type — that is, if you get a compiler error trying to use this function —
+    /// there are two things you can do to fix this:
     /// ```swift
     /// let sample: [Int]
     ///
@@ -32,6 +34,7 @@ extension Collection where Element: BinaryInteger {
     /// // Second solution:
     /// let mean = sample.mean<Double>()
     /// ```
+    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func mean<FloatingPointType: FloatingPoint>() -> FloatingPointType {
         FloatingPointType(sum()) / FloatingPointType(count)
     }
