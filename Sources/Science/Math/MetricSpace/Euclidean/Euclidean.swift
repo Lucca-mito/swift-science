@@ -21,7 +21,7 @@ import ComplexModule
 ///
 /// `Euclidean` also defines a ``squaredDistance(between:and:)-4px6m`` function with a default implementation that
 /// simply squares the result of  ``MetricSpace/distance(between:and:)-3rp36``. Conforming types are encouraged to
-/// override this implementation if they have a better one, such as a implementation that is more numerically stable.
+/// override this implementation if they have a better one, such as an implementation that is more numerically stable.
 ///
 /// [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
 public protocol Euclidean: MetricSpace {

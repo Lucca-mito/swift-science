@@ -28,9 +28,8 @@ public protocol MetricSpace: Equatable {
     /// A type that represents the distance between two values.
     associatedtype Stride: Comparable, SignedNumeric
     
-    /// Returns the distance from this value to the given value, expressed as a ``Stride``.
-    /// - Parameter other: The value to calculate the distance to.
-    /// - Returns: The distance from this value to `other`.
+    /// Returns the distance between two values, expressed as a ``Stride``.
+    /// - Returns: The distance between `lhs` and `rhs`.
     ///
     /// This function must satisfy the four [metric space] laws:
     /// 1. The distance from a point to itself is zero.
