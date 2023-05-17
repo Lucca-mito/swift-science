@@ -7,31 +7,17 @@
 
 import RealModule
 
-extension Collection where Element: AlgebraicField & IntegerApproximable & Euclidean {
-    /// The squared distances from each element in this collection to their mean.
-    /// - Precondition: The mean must exist, so the collection cannot be empty.
-    ///
-    /// > See: https://en.wikipedia.org/wiki/Squared_deviations_from_the_mean
-    ///
-    /// The precondition is not checked in this method because this method is not part of the public API, at least for now.
-    /// Instead, the precondition is checked in the public methods that call this method.
-    private func _squaredDeviations() -> [Element.Stride] {
-        let mean = mean()
-        return map { element in Element.squaredDistance(between: element, and: mean) }
-    }
-}
-
 extension Collection
 where
     Element: AlgebraicField & IntegerApproximable & Euclidean,
     Element.Stride: AlgebraicField & IntegerApproximable
 {
     private func _variance(denominator: Int) -> Element.Stride {
-        _squaredDeviations().sum() / Element.Stride(denominator)
+        squaredDeviations().sum() / Element.Stride(denominator)
     }
     
     /// The population variance of this collection.
-    /// - Returns: The population variance, ¹⁄ₙ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
+    /// - Returns: The population variance: ¹⁄ₙ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
     /// - Precondition: The collection cannot be empty.
     public func populationVariance() -> Element.Stride {
         precondition(!isEmpty)
@@ -39,7 +25,18 @@ where
     }
     
     /// The sample variance of this collection.
+    /// - Returns: The sample variance: ¹⁄₍ₙ₋₁₎ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
     /// - Precondition: There must be at least 2 elements in the collection.
+    ///
+    /// The sample variance is similar to the population variance, but with *n* - 1 in the denominator instead of *n* (where *n* is the
+    /// size of the collection). As a result,
+    /// 1. The sample variance is always slightly greater than the population variance.
+    /// 2. The sample variance better estimates the variance of the population (or the ``ProbabilityDistribution``) from
+    /// which the values were sampled.
+    ///
+    /// > See: [Population variance and sample variance].
+    ///
+    /// [Population variance and sample variance]: https://en.wikipedia.org/wiki/Variance#Population_variance_and_sample_variance
     public func sampleVariance() -> Element.Stride {
         precondition(count > 1)
         return _variance(denominator: count - 1)

@@ -7,7 +7,7 @@
 
 import ComplexModule
 
-/// A type that can be approximated from an integer.
+/// A numeric type that can be approximated from an integer.
 public protocol IntegerApproximable: Numeric {
     /// Creates a new value, rounded to the closest possible representation.
     /// - Parameter value: The integer to be approximated.

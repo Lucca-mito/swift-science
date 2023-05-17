@@ -20,7 +20,7 @@ import ComplexModule
 /// <#TODO#>
 /// ```
 ///
-/// [Metric space]:https://en.wikipedia.org/wiki/Metric_space
+/// [Metric space]: https://en.wikipedia.org/wiki/Metric_space
 public protocol MetricSpace: Equatable {
     // TODO: Pitch adding this protocol to the standard library as a superprotocol of Strideable, possibly under a less technical name (e.g. DistanceMeasurable).
     
@@ -50,8 +50,8 @@ public protocol MetricSpace: Equatable {
     /// .distance(between: x, and: z) <= .distance(between: x, and: y) + .distance(between: y, and: z)
     /// ```
     ///
-    /// [metric space]:https://en.wikipedia.org/wiki/Metric_space
-    /// [triangle inequality]:https://en.wikipedia.org/wiki/Triangle_inequality
+    /// [metric space]: https://en.wikipedia.org/wiki/Metric_space
+    /// [triangle inequality]: https://en.wikipedia.org/wiki/Triangle_inequality
     static func distance(between lhs: Self, and rhs: Self) -> Stride
 }
 

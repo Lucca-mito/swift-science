@@ -9,7 +9,7 @@ import RealModule
 
 /// A [normal distribution], also known as a Gaussian distribution.
 ///
-/// [normal distribution]:https://en.wikipedia.org/wiki/Normal_distribution
+/// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
 public struct NormalDistribution<Statistic: Real> {
     public let mean: Statistic
     public let variance: Statistic
