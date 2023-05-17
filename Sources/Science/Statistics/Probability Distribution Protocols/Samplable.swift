@@ -11,11 +11,11 @@
 /// `count` random values with ``sample(count:)``.
 ///
 /// ## Conforming to the Samplable protocol
-/// Creating a custom probability distribution conforming to ``Samplable`` only requires implementing the ``sample()`` function.
+/// Creating a custom probability distribution conforming to `Samplable` only requires implementing the ``sample()`` function.
 ///
 /// > Tip: All probability distributions conforming to ``ClosedFormQuantile`` automatically get a ``sample()`` implementation
 /// that uses [inverse transform sampling]. Distributions that don't have a closed-form quantile can instead conform to
-/// ``Samplable``with a custom sampling function. For example, ``NormalDistribution`` conforms to ``Samplable`` using
+/// ``Samplable``with a custom sampling function. For example, ``NormalDistribution`` conforms to `Samplable` using
 /// the Box–Muller transform.
 ///
 /// > See: The ``ClosedFormQuantile/sample()`` function in ``ClosedFormQuantile``.

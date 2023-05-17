@@ -49,12 +49,12 @@ extension Collection where Element: BinaryInteger {
     /// - Precondition: The collection cannot be empty.
     public func populationVariance<FloatingPointType>() -> FloatingPointType
     where
-        // This long list of requirements on FloatingPointType is only necessary because
+        // Note that this long list of requirements on FloatingPointType is only necessary because
         // AlgebraicField, IntegerApproximable, and Euclidean are third-party protocols:
         // - AlgebraicField is from Swift Numerics.
         // - IntegerApproximable and Euclidean are from this package, Swift Science.
         // If these protocols were instead in the standard library, FloatingPoint would inherit
-        // from them and we would be able to write this as just FloatingPointType: FloatingPoint.
+        // from all three and we would be able to write this as just FloatingPointType: FloatingPoint.
         FloatingPointType: FloatingPoint & AlgebraicField & IntegerApproximable & Euclidean,
     
         // But the additional requirement that FloatingPointType.Stride == FloatingPointType is

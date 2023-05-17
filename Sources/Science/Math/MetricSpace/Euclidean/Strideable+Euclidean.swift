@@ -5,6 +5,12 @@
 //  Created by Lucca de Mello on 5/15/23.
 //
 
+extension MetricSpace where Self: Strideable {
+    public static func distance(between lhs: Self, and rhs: Self) -> Stride {
+        abs(lhs.distance(to: rhs))
+    }
+}
+
 extension Int: Euclidean {}
 extension Int8: Euclidean {}
 extension Int16: Euclidean {}

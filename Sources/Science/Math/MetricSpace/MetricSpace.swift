@@ -10,7 +10,7 @@ import ComplexModule
 /// A type with a notion of distance between values.
 ///
 /// Swift's `Strideable` protocol represents one-dimensional values with a distance function. This protocol is a more general version
-/// of `Strideable` that allows values to have any number of dimensions. So ``MetricSpace`` includes not only every type
+/// of `Strideable` that allows values to have any number of dimensions. So `MetricSpace` includes not only every type
 /// conforming to `Strideable`, but also multidimensional types such as `Complex`.
 ///
 /// > See: [Metric space] for a theoretical introduction to metric spaces.
@@ -53,10 +53,4 @@ public protocol MetricSpace: Equatable {
     /// [metric space]: https://en.wikipedia.org/wiki/Metric_space
     /// [triangle inequality]: https://en.wikipedia.org/wiki/Triangle_inequality
     static func distance(between lhs: Self, and rhs: Self) -> Stride
-}
-
-extension MetricSpace where Self: Strideable {
-    public static func distance(between lhs: Self, and rhs: Self) -> Stride {
-        abs(lhs.distance(to: rhs))
-    }
 }

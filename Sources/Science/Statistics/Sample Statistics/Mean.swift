@@ -41,7 +41,7 @@ extension Collection where Element: BinaryInteger {
     // TODO: Once Swift support default generic arguments, make FloatingPointType be Double if it can't be inferred from context.
     // See https://github.com/apple/swift/blob/main/docs/GenericsManifesto.md#default-generic-arguments
     //
-    // One temporary solution (until default generic arguments are added) could be to add the following additional override:
+    // One temporary solution (until default generic arguments are added) could be to add the following overload:
     // public func mean() -> Double {
     //     Double(sum()) / Double(count)
     // }
