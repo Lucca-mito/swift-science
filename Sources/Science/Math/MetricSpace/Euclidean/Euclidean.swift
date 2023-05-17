@@ -9,6 +9,12 @@ import ComplexModule
 
 /// A type whose distance between values is the length of a line segment between them.
 ///
+/// ## Example
+/// ```swift
+/// let sqDist: Double = Complex.squaredDistance(between: .i, and: 1)
+/// print(sqDist.isApproximatelyEqual(to: 2)) // true
+/// ```
+///
 /// ## Conforming to the Euclidean protocol
 /// Types conforming to `Euclidean` must implement a ``MetricSpace/distance(between:and:)-3rp36`` function that
 /// is equivalent to the [Euclidean distance] function.
@@ -20,7 +26,7 @@ import ComplexModule
 /// [Euclidean distance]: https://en.wikipedia.org/wiki/Euclidean_distance
 public protocol Euclidean: MetricSpace {
     /// The square of the distance between two values.
-    /// - Returns: The [squared Euclidean distance] between `'lhs` and `rhs`.
+    /// - Returns: The [squared Euclidean distance] between `lhs` and `rhs`.
     ///
     /// This function is used to define the population variance and the sample variance, but it's also useful by itself. For example, the
     /// squared Euclidean distance is used in the method of [least squares].

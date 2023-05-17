@@ -17,7 +17,8 @@ import ComplexModule
 ///
 /// ## Example
 /// ```swift
-/// <#TODO#>
+/// let distance: Double = Complex.distance(between: .i, and: 1)
+/// print(distance == .sqrt(2)) // true
 /// ```
 ///
 /// [Metric space]: https://en.wikipedia.org/wiki/Metric_space

@@ -19,7 +19,7 @@ extension Collection where Element: AdditiveArithmetic {
     /// ## Example
     /// ```swift
     /// let sample: [Complex<Double>] = [42 + .i, Complex(.pi), -.i / 2]
-    /// print(sample.sum()) // (45.1415926535898, 1.0)
+    /// print(sample.sum()) // (45.1415926535898, 0.5)
     /// ```
     public func sum() -> Element {
         reduce(into: .zero, +=) // More efficient version of reduce(.zero, +)
