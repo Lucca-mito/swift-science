@@ -5,8 +5,19 @@
 //  Created by Lucca de Mello on 4/16/23.
 //
 
-/// A probability distribution whose quantile function is closed-form.
+/// A probability distribution with a closed-form quantile function.
 public protocol ClosedFormQuantile: ClosedFormMedian {
+    /// The distribution's [quantile function].
+    /// - Parameter quantileFraction: A probability.
+    /// - Returns: The smallest ``ProbabilityDistribution/Value`` `x` such that
+    /// `probability(ofAtMost: x) ≥ quantileFraction`.
+    ///
+    /// If the distribution's cumulative density function is strictly increasing, then `quantile(p)` is the unique
+    /// ``ProbabilityDistribution/Value`` `x` such that `probability(ofAtMost: x) == quantileFraction`.
+    ///
+    /// > See: ``ProbabilityDistribution/probability(ofAtMost:)``
+    ///
+    /// [quantile function]: https://en.wikipedia.org/wiki/Quantile_function
     func quantile(_ quantileFraction: Statistic) -> Value
 }
 

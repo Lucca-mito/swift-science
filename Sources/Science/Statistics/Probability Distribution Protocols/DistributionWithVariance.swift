@@ -7,7 +7,7 @@
 
 import RealModule
 
-/// A ``ProbabilityDistribution`` with a variance and a standard deviation.
+/// A probability distribution with a variance and a standard deviation.
 ///
 /// Every probability distribution with a *p*th [moment] has a *(p+1)* th moment. As a consequence, every
 /// `DistributionWithVariance` is also a ``DistributionWithMean``.
