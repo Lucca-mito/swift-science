@@ -15,7 +15,7 @@ import RealModule
 ///
 /// [moment]:https://en.wikipedia.org/wiki/Moment_(mathematics)#Notable_moments
 public protocol DistributionWithVariance: DistributionWithMean {
-    /// The variance of this distribution.
+    /// The variance of the distribution.
     ///
     /// Also known as the second central moment.
     var variance: Statistic { get }

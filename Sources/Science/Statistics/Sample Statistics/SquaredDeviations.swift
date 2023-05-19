@@ -8,9 +8,9 @@
 import RealModule
 
 extension Collection where Element: AlgebraicField & IntegerApproximable & Euclidean {
-    /// The squared distances from each element in this collection to their mean.
+    /// The squared distances from each element in the collection to their mean.
     ///
-    /// - Returns: The squared ``Euclidean`` distance between each element and the mean of this collection.
+    /// - Returns: The squared ``Euclidean`` distance between each element and the mean of the collection.
     ///
     /// > See: [Squared deviations from the mean].
     ///

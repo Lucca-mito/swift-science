@@ -13,10 +13,10 @@ where
     Value: Comparable & ExpressibleByIntegerLiteral,
     Statistic: Real & ExpressibleByFloatLiteral
 {
-    /// The probability of sampling 1 from this distribution.
+    /// The probability of sampling 1 from the distribution.
     public let probabilityOfOne: Statistic
     
-    /// The probability of sampling 0 from this distribution.
+    /// The probability of sampling 0 from the distribution.
     public var probabilityOfZero: Statistic { 1 - probabilityOfOne }
     
     public init(probabilityOfOne: Statistic) {

@@ -81,7 +81,7 @@ where
     Statistic: BinaryFloatingPoint,
     Statistic.RawSignificand: FixedWidthInteger
 {
-    /// Generates a random sample from this normal distribution.
+    /// Generates a random sample from the normal distribution.
     ///
     /// The sample is generated using the [Box-Muller transform].
     ///

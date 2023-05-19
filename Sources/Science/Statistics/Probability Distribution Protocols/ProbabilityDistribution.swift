@@ -9,15 +9,15 @@ import RealModule
 
 /// A distribution of all possible values of a random variable together with their probabilities.
 public protocol ProbabilityDistribution {
-    /// The type of values from this distribution.
+    /// The type of values from the distribution.
     associatedtype Value: Comparable
     
-    /// The type of probabilities and statistics of this distribution.
+    /// The type of probabilities and statistics of the distribution.
     ///
     /// For ``ContinuousDistribution``s, this type is the same as ``Value``.
     associatedtype Statistic: Real
     
-    /// Whether this distribution is symmetric.
+    /// Whether the distribution is symmetric.
     ///
     /// For example, every ``NormalDistribution`` is symmetric about its ``DistributionWithMean/mean`` value.
     ///
@@ -26,14 +26,14 @@ public protocol ProbabilityDistribution {
     /// 0.5 even though 0.5 is not a valid `Value` for that distribution.
     var isSymmetric: Bool { get }
     
-    /// The probability mass function of this distribution.
-    /// - Returns: The probability that a random variable following this distribution is exactly equal to `value`.
+    /// The probability mass function of the distribution.
+    /// - Returns: The probability that a random variable following the distribution is exactly equal to `value`.
     ///
     /// For ``ContinuousDistribution``s, this is zero for every `value`.
     func probability(ofExactly value: Value) -> Statistic
     
-    /// The cumulative density function of this distribution.
-    /// - Returns: The probability that a random variable following this distribution is less than or equal to `value`.
+    /// The cumulative density function of the distribution.
+    /// - Returns: The probability that a random variable following the distribution is less than or equal to `value`.
     func probability(ofAtMost value: Value) -> Statistic
 }
 

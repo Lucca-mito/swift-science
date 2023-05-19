@@ -9,18 +9,18 @@
 ///
 /// [moments]:https://en.wikipedia.org/wiki/Moment_(mathematics)
 public protocol Moments: DistributionWithVariance {
-    /// The skewness of this distribution.
+    /// The skewness of the distribution.
     ///
     /// Also known as the third standardized moment.
     var skewness: Statistic { get }
     
     // TODO: Add kurtosis.
     
-    /// This distribution's [moment-generating function].
+    /// The distribution's [moment-generating function].
     ///
     /// [moment-generating function]:https://en.wikipedia.org/wiki/Moment-generating_function
     ///
-    /// - Returns: The expected value of exp(`t` 𝑋) where 𝑋 is a random variable following this distribution.
+    /// - Returns: The expected value of exp(`t` 𝑋) where 𝑋 is a random variable following the distribution.
     ///
     /// ## Usage notes
     /// - Precondition: `t` ≥ 0
