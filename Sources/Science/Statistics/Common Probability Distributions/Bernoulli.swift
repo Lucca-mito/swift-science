@@ -19,13 +19,14 @@ where
     /// The probability of sampling 0 from the distribution.
     public var probabilityOfZero: Statistic { 1 - probabilityOfOne }
     
+    /// Creates a Bernoulli distribution with the given probability of sampling 1.
     public init(probabilityOfOne: Statistic) {
         self.probabilityOfOne = probabilityOfOne
     }
 }
 
 extension BernoulliDistribution {
-    /// Models a fair coin.
+    /// A probability distribution modeling a fair coin.
     public static var fair: BernoulliDistribution {
         BernoulliDistribution(probabilityOfOne: 0.5)
     }

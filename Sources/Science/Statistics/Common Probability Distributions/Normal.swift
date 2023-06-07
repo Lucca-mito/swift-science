@@ -24,14 +24,18 @@ public struct NormalDistribution<Statistic: Real> {
     // the default (computed) implementation of standardDeviation with this stored property:
     public let standardDeviation: Statistic
     
-    // The variance-based initializer.
+    /// Creates a normal distribution with the given mean and variance.
+    ///
+    /// > See also: ``init(mean:standardDeviation:)``
     public init(mean: Statistic, variance: Statistic) {
         self.mean = mean
         self.variance = variance
         self.standardDeviation = .sqrt(variance)
     }
     
-    // The standardDeviation-based initializer.
+    /// Creates a normal distribution with the given mean and standard deviation.
+    ///
+    /// > See also: ``init(mean:variance:)``
     public init(mean: Statistic, standardDeviation: Statistic) {
         self.mean = mean
         self.variance = .pow(standardDeviation, 2)
@@ -40,6 +44,12 @@ public struct NormalDistribution<Statistic: Real> {
 }
 
 extension NormalDistribution {
+    /// The standard normal distribution.
+    ///
+    /// This is the normal distribution with a ``mean`` of 0 and a ``variance`` of 1.
+    /// > See: [Standard normal distribution].
+    ///
+    /// [Standard normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution#Standard_normal_distribution
     public static var standard: NormalDistribution {
         NormalDistribution(mean: 0, standardDeviation: 1)
     }

@@ -7,7 +7,7 @@
 
 import ComplexModule
 
-/// A type whose distance between values is the length of a line segment between them.
+/// A type whose distance between values is the length of the line segment between them.
 ///
 /// ## Example
 /// ```swift

@@ -18,7 +18,16 @@ where
 
     Statistic: Real
 {
+    /// The (positive) rate parameter, also known as λ.
     let rate: Statistic
+    
+    /// Creates a Poisson distribution with the given rate.
+    ///
+    /// - Precondition: `rate` > 0
+    init(rate: Statistic) {
+        precondition(rate > 0)
+        self.rate = rate
+    }
 }
 
 extension PoissonDistribution: DiscreteDistribution {
