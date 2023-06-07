@@ -8,6 +8,7 @@ Swift Science is a scientific computing package for Swift.
 ### Common probability distributions
 - ``NormalDistribution``
 - ``BernoulliDistribution``
+- ``PoissonDistribution``
 
 <!--
 
@@ -40,6 +41,7 @@ TODO: Find out how to link to a nested symbol from the landing page without the 
 - ``Moments``
 - ``ClosedFormMedian``
 - ``ClosedFormQuantile``
+- ``LowerBoundedDistribution``
 - ``BoundedDistribution``
 - ``BoundedDiscreteDistribution``
 

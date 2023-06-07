@@ -6,10 +6,7 @@
 //
 
 /// A probability distribution with a lower bound and an upper bound.
-public protocol BoundedDistribution: ProbabilityDistribution {
-    /// The lowest ``ProbabilityDistribution/Value`` with a positive probability.
-    var min: Value { get }
-    
+public protocol BoundedDistribution: LowerBoundedDistribution {
     /// The highest ``ProbabilityDistribution/Value`` with a positive probability.
     var max: Value { get }
 }
