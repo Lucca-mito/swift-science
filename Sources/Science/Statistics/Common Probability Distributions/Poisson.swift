@@ -14,18 +14,18 @@ public struct PoissonDistribution<Value, Statistic>
 where
     Value: BinaryInteger,
 
-    // This additional requirement allows us to compute the CDF by summation:
+    // This additional requirement allows us to compute the CDF by summation.
     Value.Stride: SignedInteger,
 
     Statistic: Real
 {
     /// The (positive) rate parameter, also known as λ.
-    let rate: Statistic
+    public let rate: Statistic
     
     /// Creates a Poisson distribution with the given rate.
     ///
     /// - Precondition: `rate` > 0
-    init(rate: Statistic) {
+    public init(rate: Statistic) {
         precondition(rate > 0)
         self.rate = rate
     }
