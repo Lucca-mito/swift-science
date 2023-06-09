@@ -11,7 +11,12 @@ public protocol LowerBoundedDistribution: ProbabilityDistribution {
     var min: Value { get }
 }
 
-extension LowerBoundedDistribution where Self: DiscreteDistribution, Value: FixedWidthInteger {
+extension LowerBoundedDistribution
+where
+    Self: DiscreteDistribution,
+    Value: BinaryInteger,
+    Value.Stride: SignedInteger
+{
     /// The cumulative density function of the distribution.
     ///
     /// - Complexity: O(`value`)
@@ -21,6 +26,6 @@ extension LowerBoundedDistribution where Self: DiscreteDistribution, Value: Fixe
     /// For this reason, probability distributions are encouraged to override this default implementation with a closed-form solution if one
     /// exists.
     public func probability(ofAtMost value: Value) -> Statistic {
-        (min...value).map { probability(ofExactly: $0) }.sum()
+        (min...value).map(probability(ofExactly:)).sum()
     }
 }

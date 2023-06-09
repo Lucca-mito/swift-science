@@ -57,7 +57,7 @@ extension ProbabilityDistribution {
     }
     
     public func probability(ofIn collection: some Collection<Value>) -> Statistic {
-        collection.reduce(0) { total, value in total + probability(ofExactly: value) }
+        collection.map(probability(ofExactly:)).sum()
     }
 
     public func probability(ofIn range: Range<Value>) -> Statistic {

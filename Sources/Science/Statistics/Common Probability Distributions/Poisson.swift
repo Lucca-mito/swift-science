@@ -12,9 +12,10 @@ import RealModule
 /// [Poisson distribution]: https://en.wikipedia.org/wiki/Poisson_distribution
 public struct PoissonDistribution<Value, Statistic>
 where
-    // Value is constrained to be FixedWidthInteger (as opposed to BinaryInteger) so we can compute
-    // the CDF by summation.
-    Value: FixedWidthInteger,
+    Value: BinaryInteger,
+
+    // This additional requirement allows us to compute the CDF by summation:
+    Value.Stride: SignedInteger,
 
     Statistic: Real
 {
