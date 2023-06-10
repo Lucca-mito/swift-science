@@ -23,8 +23,6 @@ import ComplexModule
 ///
 /// [Metric space]: https://en.wikipedia.org/wiki/Metric_space
 public protocol MetricSpace: Equatable {
-    // TODO: Pitch adding this protocol to the standard library as a superprotocol of Strideable, possibly under a less technical name (e.g. DistanceMeasurable).
-    
     /// A type that represents the distance between two values.
     associatedtype Stride: Comparable, SignedNumeric
     
