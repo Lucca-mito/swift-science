@@ -10,7 +10,7 @@ import RealModule
 /// A [discrete probability distribution].
 ///
 /// [discrete probability distribution]:https://en.wikipedia.org/wiki/Probability_distribution#Discrete_probability_distribution
-public protocol DiscreteDistribution: ProbabilityDistribution {}
+public protocol DiscreteDistribution: FiniteModal {}
 
 // Note that DiscreteDistribution does not inherit from DistributionWithMean. Not every discrete
 // distribution has a mean! For example,

@@ -5,7 +5,7 @@
 //  Created by Lucca de Mello on 4/22/23.
 //
 
-/// A probability distribution for which all [moments] are defined.
+/// A probability distribution for which all [moments] are always defined.
 ///
 /// [moments]:https://en.wikipedia.org/wiki/Moment_(mathematics)
 public protocol Moments: DistributionWithVariance {

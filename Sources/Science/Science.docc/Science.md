@@ -20,6 +20,8 @@ Swift Science is a scientific computing package for Swift.
 - ``Moments``
 - ``ClosedFormMedian``
 - ``ClosedFormQuantile``
+- ``FiniteModal``
+- ``Unimodal``
 - ``LowerBoundedDistribution``
 - ``BoundedDistribution``
 - ``BoundedDiscreteDistribution``

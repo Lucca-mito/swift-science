@@ -11,7 +11,15 @@ import RealModule
 ///
 /// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
 public struct NormalDistribution<Statistic: Real> {
+    /// The ``DistributionWithMean/mean`` of the normal distribution.
+    /// ## Example
+    /// ```swift
+    /// let normal = NormalDistribution.standard
+    /// print(normal.mean) // 0
+    /// ```
     public let mean: Statistic
+    
+    /// The variance of the normal distribution.
     public let variance: Statistic
     
     // NormalDistribution conforms to DistributionWithVariance via Moments; see below.
@@ -22,6 +30,7 @@ public struct NormalDistribution<Statistic: Real> {
     // instead of a variance. So keeping standardDeviation as the computed property `.sqrt(variance)`
     // would often involve an unecessary computation step. This is why NormalDistribution overrides
     // the default (computed) implementation of standardDeviation with this stored property:
+    /// The standard deviation of the normal distribution.
     public let standardDeviation: Statistic
     
     /// Creates a normal distribution with the given mean and variance.
@@ -84,6 +93,10 @@ extension NormalDistribution: Moments {
 
 extension NormalDistribution: ClosedFormMedian {
     public var median: Statistic { mean }
+}
+
+extension NormalDistribution: Unimodal {
+    public var mode: Statistic { mean }
 }
 
 extension NormalDistribution: Samplable

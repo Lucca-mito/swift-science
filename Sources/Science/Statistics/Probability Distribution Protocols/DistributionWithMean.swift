@@ -5,7 +5,7 @@
 //  Created by Lucca de Mello on 4/22/23.
 //
 
-/// A probability distribution with a mean.
+/// A probability distribution that always has a mean.
 public protocol DistributionWithMean: ProbabilityDistribution {
     /// The mean of the distribution.
     ///

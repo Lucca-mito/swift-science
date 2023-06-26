@@ -10,7 +10,7 @@ import RealModule
 /// The probability distribution of a random variable that's either 0 or 1.
 public struct BernoulliDistribution<Value, Statistic>
 where
-    Value: Comparable & ExpressibleByIntegerLiteral,
+    Value: Comparable & Hashable & ExpressibleByIntegerLiteral,
     Statistic: Real & ExpressibleByFloatLiteral
 {
     /// The probability of sampling 1 from the distribution.
@@ -32,9 +32,7 @@ extension BernoulliDistribution {
     }
 }
 
-extension BernoulliDistribution: BoundedDiscreteDistribution {
-    // MARK: - DiscreteDistribution conformance
-    
+extension BernoulliDistribution: ProbabilityDistribution {
     public func probability(ofExactly value: Value) -> Statistic {
         switch value {
         case 0:
@@ -57,15 +55,30 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
         }
     }
     
-    public var isSymmetric: Bool { [0, 0.5, 1].contains(probabilityOfOne) }
-    
-    // MARK: - BoundedDistribution conformance
-    
+    public var isSymmetric: Bool {
+        [0, 0.5, 1].contains(probabilityOfOne)
+    }
+}
+
+extension BernoulliDistribution: FiniteModal {
+    public var modes: Set<Value> {
+        switch probabilityOfOne {
+        case 0 ..< 0.5:
+            return [0]
+        case 0.5:
+            return [0, 1]
+        default:
+            return [1]
+        }
+    }
+}
+
+extension BernoulliDistribution: BoundedDistribution {
     public var min: Value { probabilityOfOne == 0 ? 1 : 0 }
     public var max: Value { probabilityOfOne == 0 ? 0 : 1 }
-    
-    // MARK: - Moments conformance
-    
+}
+
+extension BernoulliDistribution: Moments {
     public var mean: Statistic { probabilityOfOne }
     
     public var variance: Statistic { probabilityOfOne * probabilityOfZero }
@@ -78,12 +91,24 @@ extension BernoulliDistribution: BoundedDiscreteDistribution {
         precondition(0 <= t)
         return probabilityOfZero + probabilityOfOne * .exp(Statistic(t))
     }
-    
-    // MARK: - ClosedFormQuantile conformance
-    
+}
+
+extension BernoulliDistribution: ClosedFormQuantile {
     public func quantile(_ quantileFraction: Statistic) -> Value {
         precondition(0 <= quantileFraction && quantileFraction <= 1)
         return quantileFraction > probabilityOfZero ? 1 : 0
+    }
+}
+
+extension BernoulliDistribution: BoundedDiscreteDistribution {
+    public static var domain: Set<Value> { [0, 1] }
+    
+    public var support: Set<Value> {
+        switch probabilityOfOne {
+        case 0: return [0]     // The value 1 can never be sampled, so the domain is [0].
+        case 1: return [1]     // The value 1 is always sampled, so the domain is [1].
+        default: return [0, 1] // Both 0 and 1 can be sampled.
+        }
     }
 }
 
@@ -92,6 +117,7 @@ where
     Statistic: BinaryFloatingPoint,
     Statistic.RawSignificand: FixedWidthInteger
 {
+    /// Generates a random sample from the Bernoulli distribution.
     public func sample() -> Value {
         Statistic.random(in: 0..<1) < probabilityOfOne ? 1 : 0
     }
