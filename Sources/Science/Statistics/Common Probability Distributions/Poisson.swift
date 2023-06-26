@@ -72,7 +72,22 @@ where
     Statistic: BinaryFloatingPoint,
     Statistic.RawSignificand: FixedWidthInteger
 {
+    // Naive algorithm adapted from https://en.wikipedia.org/wiki/Poisson_distribution#Random_variate_generation
+    // TODO: Improve. See the implementations in R and in the GNU Scientific Library.
+    /// - Complexity: O(``rate``) on average.
     public func sample() -> Value {
-        fatalError("TODO")
+        // The eventual return value.
+        var result: Value = 0
+        
+        // The algorithm terminates when `p` exceeds `threshold`.
+        var p: Statistic = 1
+        let threshold: Statistic = .exp(-rate)
+        
+        while p > threshold {
+            result += 1
+            p *= .random(in: 0...1)
+        }
+        
+        return result
     }
 }
