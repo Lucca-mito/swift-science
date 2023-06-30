@@ -22,6 +22,6 @@ public protocol BoundedDiscreteDistribution:
     /// > See also: ``support``
     static var domain: Set<Value> { get }
     
-    /// The finite set of values that have a positive probability of being sampled from this specific distribution.
+    /// The finite set of values that have a positive probability of being sampled from this specific probability distribution.
     var support: Set<Value> { get }
 }
