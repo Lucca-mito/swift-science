@@ -8,7 +8,7 @@
 import RealModule
 
 extension Collection where Element: AlgebraicField & IntegerApproximable {
-    /// The mean of the collection.
+    /// The arithmetic mean of the collection.
     /// - Precondition: The collection cannot be empty.
     public func mean() -> Element {
         precondition(!isEmpty)
@@ -17,7 +17,7 @@ extension Collection where Element: AlgebraicField & IntegerApproximable {
 }
 
 extension Collection where Element: BinaryInteger {
-    /// The mean of the integer collection.
+    /// The arithmetic mean of the integer collection.
     /// - Returns: The mean as a `FloatingPoint` number.
     ///
     /// Swift can usually infer from the surrounding context which `FloatingPoint` type, like `Double` or `Float`, should be
