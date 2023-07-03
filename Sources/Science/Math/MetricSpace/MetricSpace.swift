@@ -1,5 +1,5 @@
 //
-//  DistanceMeasurable.swift
+//  MetricSpace.swift
 //  
 //
 //  Created by Lucca de Mello on 5/13/23.
