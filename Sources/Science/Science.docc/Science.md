@@ -5,6 +5,11 @@ A scientific computing package for Swift.
 @Metadata {
     @DisplayName("Swift Science")
     @CallToAction(url: "https://github.com/Lucca-mito/swift-science", purpose: link, label: "View Source")
+    @PageImage(
+        purpose: icon,
+        source: "swift-science-icon",
+        alt: "A technology icon representing the Swift Science framework."
+    )
 }
 
 <!-- ## Overview -->
