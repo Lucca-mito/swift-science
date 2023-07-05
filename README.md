@@ -1,4 +1,4 @@
-# Swift Science
+# Swift Science <img src="Resources/swift-science-icon.svg" width="40" style="float: right">
 Swift Science is a scientific computing package for Swift.
 
 ## Documentation
