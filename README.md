@@ -2,7 +2,7 @@
 Swift Science is a scientific computing package for Swift.
 
 ## Documentation
-Please see [the documentation website](https://lucca-mito.github.io/swift-science/documentation/science).
+Please see the [documentation website](https://lucca-mito.github.io/swift-science/documentation/science).
 
 ## Why Swift Science?
 ### The Swift programming language
@@ -27,3 +27,6 @@ And anywhere in between.
 
 ## Contributing
 This project is very new. All suggestions and contributions are welcome.
+
+## Future directions
+Please see the [_project plans_](https://github.com/Lucca-mito/swift-science/wiki/Project-plans) page of the wiki.
