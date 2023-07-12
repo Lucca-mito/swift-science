@@ -2,7 +2,7 @@
 //  ClosedFormMedian.swift
 //  
 //
-//  Created by Lucca de Mello on 4/16/23.
+//  Created by Lucca de Mello on 2023-04-16.
 //
 
 /// A probability distribution with a closed-form median.

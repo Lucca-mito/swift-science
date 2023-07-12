@@ -2,7 +2,7 @@
 //  Samplable.swift
 //  
 //
-//  Created by Lucca de Mello on 4/16/23.
+//  Created by Lucca de Mello on 2023-04-16.
 //
 
 /// A probability distribution that can be randomly sampled.

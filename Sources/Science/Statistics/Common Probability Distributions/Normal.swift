@@ -1,8 +1,8 @@
 //
-//  NormalDistribution.swift
+//  Normal.swift
 //  
 //
-//  Created by Lucca de Mello on 4/15/23.
+//  Created by Lucca de Mello on 2023-04-15.
 //
 
 import RealModule

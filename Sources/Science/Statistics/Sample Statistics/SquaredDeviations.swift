@@ -2,7 +2,7 @@
 //  SquaredDeviations.swift
 //  
 //
-//  Created by Lucca de Mello on 5/16/23.
+//  Created by Lucca de Mello on 2023-05-16.
 //
 
 import RealModule

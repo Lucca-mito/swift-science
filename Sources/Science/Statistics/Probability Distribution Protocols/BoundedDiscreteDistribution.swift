@@ -2,7 +2,7 @@
 //  BoundedDiscreteDistribution.swift
 //
 //
-//  Created by Lucca de Mello on 4/23/23.
+//  Created by Lucca de Mello on 2023-04-23.
 //
 
 /// A probability distribution over a finite set of values.

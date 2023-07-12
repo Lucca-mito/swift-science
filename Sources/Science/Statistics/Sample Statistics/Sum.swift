@@ -2,7 +2,7 @@
 //  Sum.swift
 //  
 //
-//  Created by Lucca de Mello on 5/10/23.
+//  Created by Lucca de Mello on 2023-05-10.
 //
 
 import Numerics

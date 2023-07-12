@@ -2,7 +2,7 @@
 //  FloatingPoint+IntegerApproximable.swift
 //  
 //
-//  Created by Lucca de Mello on 5/15/23.
+//  Created by Lucca de Mello on 2023-05-15.
 //
 
 extension Float: IntegerApproximable {}
