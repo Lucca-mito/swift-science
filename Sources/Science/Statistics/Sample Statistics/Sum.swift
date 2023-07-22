@@ -22,6 +22,6 @@ extension Collection where Element: AdditiveArithmetic {
     /// print(sample.sum()) // (45.1415926535898, 0.5)
     /// ```
     public func sum() -> Element {
-        reduce(into: .zero, +=) // More efficient version of reduce(.zero, +)
+        reduce(.zero, +)
     }
 }

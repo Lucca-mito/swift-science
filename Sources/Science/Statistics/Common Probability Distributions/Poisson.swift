@@ -63,7 +63,7 @@ extension PoissonDistribution: ProbabilityDistribution {
         if value >= 2 {
             // To avoid integer overflow, cast the terms (2...value) to Statistic before multiplying
             // them together.
-            probability /= (2...value).map(Statistic.init).reduce(into: 1, *=)
+            probability /= (2...value).map(Statistic.init).reduce(1, *)
         }
         
         return probability
