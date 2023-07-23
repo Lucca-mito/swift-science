@@ -17,7 +17,11 @@ where
     }
     
     /// The population variance of the collection.
-    /// - Returns: The population variance: ¹⁄ₙ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
+    ///
+    /// - Returns: The population variance:
+    /// ![Squared norm of x_i minus mu. Summed from i = 1 to n. Everything divided by n.](population-variance)
+    /// where ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the population mean 𝜇.
+    ///
     /// - Precondition: The collection cannot be empty.
     public func populationVariance() -> Element.Stride {
         precondition(!isEmpty)
@@ -25,7 +29,11 @@ where
     }
     
     /// The sample variance of the collection.
-    /// - Returns: The sample variance: ¹⁄₍ₙ₋₁₎ ∑ₓ ‖x - 𝜇‖² where ‖x - 𝜇‖ is the ``Euclidean`` distance from each element x to the sample mean 𝜇.
+    ///
+    /// - Returns: The sample variance:
+    /// ![Squared norm of x_i minus mu. Summed from i = 1 to n. Everything divided by n minus 1.](sample-variance)
+    /// where ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the sample mean 𝜇.
+    ///
     /// - Precondition: There must be at least 2 elements in the collection.
     ///
     /// The sample variance is similar to the population variance, but with *n* - 1 in the denominator instead of *n* (where *n* is the

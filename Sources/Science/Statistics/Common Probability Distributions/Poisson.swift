@@ -38,7 +38,9 @@ extension PoissonDistribution: ProbabilityDistribution {
     
     /// The probability mass function of the Poisson distribution.
     ///
-    /// If the Poisson distribution has ``rate`` λ, then `probability(ofExactly: x)` is λˣ exp(-λ) / x!.
+    /// If the Poisson distribution has ``rate`` λ, then `probability(ofExactly: k)` is:
+    ///
+    /// ![Lambda to the power of k, times e to the power of minus lambda. Everything divided by k factorial.](poisson-pmf)
     public func probability(ofExactly value: Value) -> Statistic {
         guard value >= 0 else { return 0 }
         

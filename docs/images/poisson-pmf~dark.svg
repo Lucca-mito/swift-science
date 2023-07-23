@@ -1,0 +1,27 @@
+<svg:svg xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 50 50" version="1.1">
+    <svg:foreignObject width="50" height="50">
+        <math xmlns="http://www.w3.org/1998/Math/MathML" style="color: white">
+            <mfrac>
+                <mrow>
+                    <msup>
+                        <mi>λ</mi>
+                        <mi>k</mi>
+                    </msup>
+                    <msup>
+                        <mi>e</mi>
+                        <mrow>
+                            <mo>-</mo>
+                            <mi>λ</mi>
+                        </mrow>
+                    </msup>
+                </mrow>
+                <mrow>
+                    <mi>k</mi>
+                    <mo>!</mo>
+                </mrow>
+            </mfrac>
+        </math>
+    </svg:foreignObject>
+</svg:svg>
+
+
