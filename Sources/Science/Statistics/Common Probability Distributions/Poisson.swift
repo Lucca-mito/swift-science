@@ -109,7 +109,7 @@ extension PoissonDistribution: FiniteModal {
     }
 }
 
-extension PoissonDistribution: Moments {
+extension PoissonDistribution: DistributionWithMoments {
     public var mean: Statistic { rate }
     
     public var variance: Statistic { rate }

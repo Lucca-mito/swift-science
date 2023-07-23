@@ -28,7 +28,7 @@ A scientific computing package for Swift.
 - ``Samplable``
 - ``DistributionWithMean``
 - ``DistributionWithVariance``
-- ``Moments``
+- ``DistributionWithMoments``
 - ``ClosedFormMedian``
 - ``ClosedFormQuantile``
 - ``FiniteModal``

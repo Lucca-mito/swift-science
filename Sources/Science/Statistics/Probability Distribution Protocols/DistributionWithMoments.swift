@@ -1,5 +1,5 @@
 //
-//  Moments.swift
+//  DistributionWithMoments.swift
 //  
 //
 //  Created by Lucca de Mello on 2023-04-22.
@@ -8,7 +8,7 @@
 /// A probability distribution for which all [moments] are always defined.
 ///
 /// [moments]:https://en.wikipedia.org/wiki/Moment_(mathematics)
-public protocol Moments: DistributionWithVariance {
+public protocol DistributionWithMoments: DistributionWithVariance {
     /// The skewness of the distribution.
     ///
     /// Also known as the third standardized moment.

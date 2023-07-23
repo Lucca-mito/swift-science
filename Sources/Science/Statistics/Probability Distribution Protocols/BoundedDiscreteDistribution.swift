@@ -8,9 +8,9 @@
 /// A probability distribution over a finite set of values.
 ///
 /// Such a distribution always has a ``DistributionWithMean/mean``, a ``DistributionWithVariance/variance``,
-/// and all other ``Moments``. Additionally, a `BoundedDiscreteDistribution` always has a ``ClosedFormQuantile``.
+/// and all other moments. Additionally, a `BoundedDiscreteDistribution` always has a ``ClosedFormQuantile``.
 public protocol BoundedDiscreteDistribution:
-    DiscreteDistribution, BoundedDistribution, Moments, ClosedFormQuantile
+    DiscreteDistribution, BoundedDistribution, DistributionWithMoments, ClosedFormQuantile
 {
     /// The finite set of values that may have a positive probability of being sampled in this family of probability distributions.
     ///

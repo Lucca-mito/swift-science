@@ -22,14 +22,16 @@ public struct NormalDistribution<Statistic: Real> {
     /// The variance of the normal distribution.
     public let variance: Statistic
     
-    // NormalDistribution conforms to DistributionWithVariance via Moments; see below.
-    // As a result, NormalDistribution inherits the default implementation of standardDeviation (as
-    // the computed property `.sqrt(variance)`) defined in DistributionWithVariance.
+    // NormalDistribution conforms to DistributionWithVariance via DistributionWithMoments (see
+    // below). As a result, NormalDistribution inherits the default implementation of
+    // standardDeviation (as the computed property `.sqrt(variance)`) defined in
+    // DistributionWithVariance.
     //
     // However, it's common for normal distributions to be initialized with a standard deviation
-    // instead of a variance. So keeping standardDeviation as the computed property `.sqrt(variance)`
-    // would often involve an unecessary computation step. This is why NormalDistribution overrides
-    // the default (computed) implementation of standardDeviation with this stored property:
+    // instead of a variance. So keeping standardDeviation as the computed property
+    // `.sqrt(variance)` would often involve an unecessary computation step. This is why
+    // NormalDistribution overrides the default (computed) implementation of standardDeviation with
+    // this stored property:
     /// The standard deviation of the normal distribution.
     public let standardDeviation: Statistic
     
@@ -81,7 +83,7 @@ extension NormalDistribution: ContinuousDistribution {
     public var isSymmetric: Bool { true }
 }
 
-extension NormalDistribution: Moments {
+extension NormalDistribution: DistributionWithMoments {
     public var skewness: Statistic { 0 }
     
     public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {

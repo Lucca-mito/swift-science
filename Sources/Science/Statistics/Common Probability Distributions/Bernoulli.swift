@@ -78,7 +78,7 @@ extension BernoulliDistribution: BoundedDistribution {
     public var max: Value { probabilityOfOne == 0 ? 0 : 1 }
 }
 
-extension BernoulliDistribution: Moments {
+extension BernoulliDistribution: DistributionWithMoments {
     public var mean: Statistic { probabilityOfOne }
     
     public var variance: Statistic { probabilityOfOne * probabilityOfZero }
