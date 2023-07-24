@@ -1,0 +1,13 @@
+<svg:svg xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 20 20" version="1.1">
+    <svg:foreignObject width="20" height="20">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msup>
+                <mi>e</mi>
+                <mrow>
+                    <mi>X</mi>
+                    <mi>t</mi>
+                </mrow>
+            </msup>
+        </math>
+    </svg:foreignObject>
+</svg:svg>

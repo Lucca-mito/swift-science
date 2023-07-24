@@ -20,7 +20,9 @@ public protocol DistributionWithMoments: DistributionWithVariance {
     ///
     /// [moment-generating function]:https://en.wikipedia.org/wiki/Moment-generating_function
     ///
-    /// - Returns: The expected value of exp(`t` 𝑋) where 𝑋 is a random variable following the distribution.
+    /// - Returns: The expected value of
+    /// ![e to the power of X t](exp(Xt))
+    /// where 𝑋 is a random variable following the distribution.
     ///
     /// ## Usage notes
     /// - Precondition: `t` ≥ 0
