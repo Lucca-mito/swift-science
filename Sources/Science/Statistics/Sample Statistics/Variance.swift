@@ -9,9 +9,15 @@ import RealModule
 
 extension Collection
 where
+    // The `Element`s themselves must be `AlgebraicField` because their mean must exist.
     Element: AlgebraicField & IntegerApproximable & Euclidean,
+
+    // And their `Stride` must be `AlgebraicField` so we can average the squared deviations to the mean.
     Element.Stride: AlgebraicField & IntegerApproximable
 {
+    /// Helper function for the population and sample variances.
+    /// - Parameter denominator: Either `count` (for population variance) or `count - 1` (for sample variance).
+    /// - Returns: The total squared deviation divided by `denominator`.
     private func _variance(denominator: Int) -> Element.Stride {
         squaredDeviations().sum() / Element.Stride(denominator)
     }
@@ -20,7 +26,7 @@ where
     ///
     /// - Returns: The population variance:
     /// ![Squared norm of x_i minus mu. Summed from i = 1 to n. Everything divided by n.](population-variance)
-    /// where ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the population mean 𝜇.
+    /// where 𝑛 is the collection's `count` and ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the population mean 𝜇.
     ///
     /// - Precondition: The collection cannot be empty.
     public func populationVariance() -> Element.Stride {
@@ -31,8 +37,8 @@ where
     /// The sample variance of the collection.
     ///
     /// - Returns: The sample variance:
-    /// ![Squared norm of x_i minus mu. Summed from i = 1 to n. Everything divided by n minus 1.](sample-variance)
-    /// where ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the sample mean 𝜇.
+    /// ![Sum, from i = 1 to n, of the squared norm of x_i minus mu. Everything divided by n minus 1.](sample-variance)
+    /// where 𝑛 is the collection's `count` and ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the sample mean 𝜇.
     ///
     /// - Precondition: There must be at least 2 elements in the collection.
     ///
