@@ -58,24 +58,33 @@ where
 }
 
 extension Collection where Element: BinaryInteger {
-    /// The population variance of the integer collection.
+    /// The population variance of the integer collection, computed to the specified `FloatingPoint` precision.
     /// - Returns: The population variance as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
+    ///
+    /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
+    /// There are two ways you can specify the desired precision:
+    /// ```swift
+    /// let data: [Int]
+    ///
+    /// // Suppose you want to calculate the variance of `data` to Double precision.
+    ///
+    /// // First solution: specify the desired return type.
+    /// let variance: Double = data.populationVariance()
+    ///
+    /// // Second solution: specify the type argument.
+    /// let variance = data.populationVariance<Double>()
+    /// ```
+    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func populationVariance<FloatingPointType>() -> FloatingPointType
     where
-        // Note that this long list of requirements on FloatingPointType is only necessary because
-        // AlgebraicField, IntegerApproximable, and Euclidean are third-party protocols:
-        // - AlgebraicField is from Swift Numerics.
-        // - IntegerApproximable and Euclidean are from this package, Swift Science.
-        // If these protocols were instead in the standard library, FloatingPoint would inherit
-        // from all three and we would be able to write this as just FloatingPointType: FloatingPoint.
         FloatingPointType: FloatingPoint & AlgebraicField & IntegerApproximable & Euclidean,
     
-        // But the additional requirement that FloatingPointType.Stride == FloatingPointType is
-        // necessary regardless. If a user calls this method passing (say) Double as the type
-        // argument, they expect the method to return a Double. That said, all FloatingPoint types
-        // in the standard library have a Stride of Self, so this additional requirement shouldn't
-        // be an issue.
+        // The expression in the return statement has type FloatingPointType.Stride. So the
+        // additional constraint `FloatingPointType.Stride == FloatingPointType` allows us to write
+        // the return type of populationVariance as FloatingPointType. This makes populationVariance
+        // easier to understand: if I call it passing Double as the FloatingPointType, the
+        // population variance of the integer collection will be returned in Double precision.
         FloatingPointType.Stride == FloatingPointType
     {
         precondition(!isEmpty)
@@ -85,9 +94,26 @@ extension Collection where Element: BinaryInteger {
     /// The sample variance of the integer collection.
     /// - Returns: The sample variance as a `FloatingPoint` number.
     /// - Precondition: There must be at least 2 elements in the collection.
+    ///
+    /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
+    /// There are two ways you can specify the desired precision:
+    /// ```swift
+    /// let data: [Int]
+    ///
+    /// // Suppose you want to calculate the variance of `data` to Double precision.
+    ///
+    /// // First solution: specify the desired return type.
+    /// let variance: Double = data.sampleVariance()
+    ///
+    /// // Second solution: specify the type argument.
+    /// let variance = data.sampleVariance<Double>()
+    /// ```
+    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func sampleVariance<FloatingPointType>() -> FloatingPointType
     where
         FloatingPointType: FloatingPoint & AlgebraicField & IntegerApproximable & Euclidean,
+    
+        // See the comment in populationVariance.
         FloatingPointType.Stride == FloatingPointType
     {
         precondition(count > 1)

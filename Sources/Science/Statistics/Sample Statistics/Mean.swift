@@ -17,22 +17,21 @@ extension Collection where Element: AlgebraicField & IntegerApproximable {
 }
 
 extension Collection where Element: BinaryInteger {
-    /// The arithmetic mean of the integer collection.
+    /// The arithmetic mean of the integer collection, computed to the specified `FloatingPoint` precision.
     /// - Returns: The mean as a `FloatingPoint` number.
     ///
-    /// Swift can usually infer from the surrounding context which `FloatingPoint` type, like `Double` or `Float`, should be
-    /// returned. But when Swift is unable to infer the return type — that is, if you get a compiler error trying to use this function —
-    /// there are two things you can do to fix this:
+    /// The mean of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
+    /// There are two ways you can specify the desired precision:
     /// ```swift
-    /// let sample: [Int]
+    /// let data: [Int]
     ///
-    /// // Suppose you want to calculate the mean of `sample` to Double precision.
+    /// // Suppose you want to calculate the mean of `data` to Double precision.
     ///
-    /// // First solution:
-    /// let mean: Double = sample.mean()
+    /// // First solution: specify the desired return type.
+    /// let mean: Double = data.mean()
     ///
-    /// // Second solution:
-    /// let mean = sample.mean<Double>()
+    /// // Second solution: specify the type argument.
+    /// let mean = data.mean<Double>()
     /// ```
     /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func mean<FloatingPointType: FloatingPoint>() -> FloatingPointType {
