@@ -65,15 +65,15 @@ extension Collection where Element: BinaryInteger {
     /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
     /// There are two ways you can specify the desired precision:
     /// ```swift
-    /// let data: [Int]
+    /// let population: [Int]
     ///
-    /// // Suppose you want to calculate the variance of `data` to Double precision.
+    /// // Suppose you want to calculate the variance of `population` to Double precision.
     ///
     /// // First solution: specify the desired return type.
-    /// let variance: Double = data.populationVariance()
+    /// let variance: Double = population.populationVariance()
     ///
     /// // Second solution: specify the type argument.
-    /// let variance = data.populationVariance<Double>()
+    /// let variance = population.populationVariance<Double>()
     /// ```
     /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func populationVariance<FloatingPointType>() -> FloatingPointType
@@ -98,15 +98,15 @@ extension Collection where Element: BinaryInteger {
     /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
     /// There are two ways you can specify the desired precision:
     /// ```swift
-    /// let data: [Int]
+    /// let sample: [Int]
     ///
-    /// // Suppose you want to calculate the variance of `data` to Double precision.
+    /// // Suppose you want to calculate the variance of `sample` to Double precision.
     ///
     /// // First solution: specify the desired return type.
-    /// let variance: Double = data.sampleVariance()
+    /// let variance: Double = sample.sampleVariance()
     ///
     /// // Second solution: specify the type argument.
-    /// let variance = data.sampleVariance<Double>()
+    /// let variance = sample.sampleVariance<Double>()
     /// ```
     /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func sampleVariance<FloatingPointType>() -> FloatingPointType
