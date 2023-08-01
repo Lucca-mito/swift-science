@@ -22,6 +22,10 @@ where
     Statistic: Real & BinaryFloatingPoint
 {
     /// The (positive) rate parameter, also known as λ.
+    ///
+    /// If this Poisson distribution is modeling a counting process, `rate` represents the rate at which events occur in the process.
+    /// For example, suppose that a call center receives an average of 3 calls per minute and that the calls are independent from each
+    /// other. Then the number of calls per minute follows a Poisson distribution with `rate` 3.
     public let rate: Statistic
     
     /// Creates a Poisson distribution with the given rate.
@@ -78,6 +82,7 @@ extension PoissonDistribution: ProbabilityDistribution {
 extension PoissonDistribution: DiscreteDistribution {}
 
 extension PoissonDistribution: LowerBoundedDistribution {
+    /// The lowest ``ProbabilityDistribution/Value`` with a positive probability. Always 0.
     public var min: Value { 0 }
 }
 
