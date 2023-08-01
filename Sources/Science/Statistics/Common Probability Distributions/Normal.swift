@@ -37,8 +37,12 @@ public struct NormalDistribution<Statistic: Real> {
     
     /// Creates a normal distribution with the given mean and variance.
     ///
+    /// - Precondition: `variance` > 0
+    ///
     /// > See also: ``init(mean:standardDeviation:)``
     public init(mean: Statistic, variance: Statistic) {
+        precondition(variance > 0)
+        
         self.mean = mean
         self.variance = variance
         self.standardDeviation = .sqrt(variance)
@@ -46,8 +50,12 @@ public struct NormalDistribution<Statistic: Real> {
     
     /// Creates a normal distribution with the given mean and standard deviation.
     ///
+    /// - Precondition: `standardDeviation` > 0
+    ///
     /// > See also: ``init(mean:variance:)``
     public init(mean: Statistic, standardDeviation: Statistic) {
+        precondition(standardDeviation > 0)
+        
         self.mean = mean
         self.variance = .pow(standardDeviation, 2)
         self.standardDeviation = standardDeviation
@@ -66,13 +74,10 @@ extension NormalDistribution {
     }
 }
 
-extension NormalDistribution: ContinuousDistribution {
-    public func probabilityDensity(at value: Statistic) -> Statistic {
-        let numerator: Statistic = .exp(-.pow(value - mean, 2) / variance / 2)
-        let denominator: Statistic = .sqrt(2 * variance * .pi)
-        return numerator / denominator
-    }
-    
+extension NormalDistribution: ProbabilityDistribution {
+    /// The probability density function of the normal distribution.
+    ///
+    /// Sometimes denoted by φ(𝑥).
     public func probability(ofAtMost value: Statistic) -> Statistic {
         .erfc(
             (mean - value) /
@@ -80,12 +85,26 @@ extension NormalDistribution: ContinuousDistribution {
         ) / 2
     }
     
+    /// Whether the normal distribution is symmetric. Always true.
     public var isSymmetric: Bool { true }
 }
 
+extension NormalDistribution: ContinuousDistribution {
+    /// The cumulative density function of the normal distribution.
+    ///
+    /// Commonly denoted by Φ(𝑥).
+    public func probabilityDensity(at value: Statistic) -> Statistic {
+        let numerator: Statistic = .exp(-.pow(value - mean, 2) / variance / 2)
+        let denominator: Statistic = .sqrt(2 * variance * .pi)
+        return numerator / denominator
+    }
+}
+
 extension NormalDistribution: DistributionWithMoments {
+    /// The ``DistributionWithMoments/skewness`` of the normal distribution. Always 0.
     public var skewness: Statistic { 0 }
     
+    /// The moment-generating function of the normal distribution.
     public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
@@ -94,10 +113,12 @@ extension NormalDistribution: DistributionWithMoments {
 }
 
 extension NormalDistribution: ClosedFormMedian {
+    /// The median of the normal distribution. Always equal to its ``NormalDistribution/mean``.
     public var median: Statistic { mean }
 }
 
 extension NormalDistribution: Unimodal {
+    /// The mode of the normal distribution. Always equal to its ``NormalDistribution/mean``.
     public var mode: Statistic { mean }
 }
 
@@ -114,6 +135,9 @@ where
     public func sample() -> Value {
         let uniform1 = Value.random(in: 0..<1)
         let uniform2 = Value.random(in: 0..<1)
-        return .sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
+        
+        let standardNormalVariate = Value.sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
+        
+        return standardNormalVariate * standardDeviation + mean
     }
 }

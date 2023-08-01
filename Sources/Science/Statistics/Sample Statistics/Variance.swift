@@ -57,6 +57,9 @@ where
     }
 }
 
+// MARK: Variance of an integer collection.
+// Just convert the integers to a FloatingPoint type and use the variance functions above.
+
 extension Collection where Element: BinaryInteger {
     /// The population variance of the integer collection, computed to the specified `FloatingPoint` precision.
     /// - Returns: The population variance as a `FloatingPoint` number.
