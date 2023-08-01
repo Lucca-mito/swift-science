@@ -20,13 +20,17 @@ where
     public var probabilityOfZero: Statistic { 1 - probabilityOfOne }
     
     /// Creates a Bernoulli distribution with the given probability of sampling 1.
+    /// - Precondition: 0 ≤ `probabilityOfOne` ≤ 1
     public init(probabilityOfOne: Statistic) {
+        precondition(0 <= probabilityOfOne && probabilityOfOne <= 1)
         self.probabilityOfOne = probabilityOfOne
     }
 }
 
 extension BernoulliDistribution {
     /// A probability distribution modeling a fair coin.
+    ///
+    /// This is just `BernoulliDistribution(probabilityOfOne: 0.5)`.
     public static var fair: BernoulliDistribution {
         BernoulliDistribution(probabilityOfOne: 0.5)
     }
