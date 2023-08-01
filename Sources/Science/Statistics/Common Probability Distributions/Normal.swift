@@ -77,7 +77,7 @@ extension NormalDistribution {
 extension NormalDistribution: ProbabilityDistribution {
     /// The probability density function of the normal distribution.
     ///
-    /// Sometimes denoted by φ(𝑥).
+    /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
     public func probability(ofAtMost value: Statistic) -> Statistic {
         .erfc(
             (mean - value) /
@@ -92,7 +92,7 @@ extension NormalDistribution: ProbabilityDistribution {
 extension NormalDistribution: ContinuousDistribution {
     /// The cumulative density function of the normal distribution.
     ///
-    /// Commonly denoted by Φ(𝑥).
+    /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
     public func probabilityDensity(at value: Statistic) -> Statistic {
         let numerator: Statistic = .exp(-.pow(value - mean, 2) / variance / 2)
         let denominator: Statistic = .sqrt(2 * variance * .pi)
