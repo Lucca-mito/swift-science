@@ -21,21 +21,40 @@ A scientific computing package for Swift.
 - ``BernoulliDistribution``
 - ``PoissonDistribution``
 
-### Probability distribution protocols
+### Probability distribution protocols: top-level
 - ``ProbabilityDistribution``
+- ``Samplable``
+
+### Probability distribution protocols: by continuity
 - ``DiscreteDistribution``
 - ``ContinuousDistribution``
-- ``Samplable``
+
+### Probability distribution protocols: by moments
 - ``DistributionWithMean``
 - ``DistributionWithVariance``
 - ``DistributionWithMoments``
+
+### Probability distribution protocols: by quantiles
 - ``ClosedFormMedian``
 - ``ClosedFormQuantile``
+
+### Probability distribution protocols: by modality
 - ``FiniteModal``
 - ``Unimodal``
+
+### Probability distribution protocols: by boundedness
 - ``LowerBoundedDistribution``
 - ``BoundedDistribution``
 - ``BoundedDiscreteDistribution``
+
+### Hypothesis tests
+- ``HypothesisTest``
+- ``WaldTest``
+
+### Probabilities used in hypothesis testing
+- ``ProbabilityOfTypeIError``
+- ``Science/Swift/Double/lowProbability``
+- ``Science/Swift/Double/veryLowProbability``
 
 ### Metric spaces
 - ``MetricSpace``
