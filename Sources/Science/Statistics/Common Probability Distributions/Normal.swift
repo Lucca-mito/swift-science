@@ -22,7 +22,7 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     /// ```
     public let mean: Statistic
     
-    /// The variance of the normal distribution.
+    /// The ``DistributionWithVariance/variance`` of the normal distribution.
     public let variance: Statistic
     
     // NormalDistribution conforms to DistributionWithVariance via DistributionWithMoments (see
@@ -107,7 +107,6 @@ extension NormalDistribution: DistributionWithMoments {
     /// The skewness of the normal distribution. Always 0.
     public var skewness: Statistic { 0 }
     
-    /// The moment-generating function of the normal distribution.
     public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
         precondition(0 <= t)
         let t = Statistic(t)
@@ -116,7 +115,7 @@ extension NormalDistribution: DistributionWithMoments {
 }
 
 extension NormalDistribution: ClosedFormMedian {
-    /// The median of the normal distribution. Always equal to its ``NormalDistribution/mean``.
+    /// The ``ClosedFormMedian/median`` of the normal distribution. Always equal to its ``NormalDistribution/mean``.
     public var median: Statistic { mean }
 }
 

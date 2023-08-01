@@ -16,8 +16,11 @@ A scientific computing package for Swift.
 
 ## Topics
 
-### Common probability distributions
+### Continuous probability distributions
 - ``NormalDistribution``
+- ``ExponentialDistribution``
+
+### Discrete probability distributions
 - ``BernoulliDistribution``
 - ``PoissonDistribution``
 
@@ -26,8 +29,8 @@ A scientific computing package for Swift.
 - ``Samplable``
 
 ### Probability distribution protocols: by continuity
-- ``DiscreteDistribution``
 - ``ContinuousDistribution``
+- ``DiscreteDistribution``
 
 ### Probability distribution protocols: by moments
 - ``DistributionWithMean``

@@ -27,15 +27,6 @@ where
     }
 }
 
-extension BernoulliDistribution {
-    /// A probability distribution modeling a fair coin.
-    ///
-    /// This is just `BernoulliDistribution(probabilityOfOne: 0.5)`.
-    public static var fair: BernoulliDistribution {
-        BernoulliDistribution(probabilityOfOne: 0.5)
-    }
-}
-
 extension BernoulliDistribution: ProbabilityDistribution {
     public func probability(ofExactly value: Value) -> Statistic {
         switch value {

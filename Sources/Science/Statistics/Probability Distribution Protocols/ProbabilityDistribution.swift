@@ -22,7 +22,7 @@ public protocol ProbabilityDistribution {
     /// For example, every ``NormalDistribution`` is symmetric about its ``DistributionWithMean/mean`` value.
     ///
     /// The distribution does not necessarily have to be symmetric about a *valid* `Value` for `isSymmetric` to be true.
-    /// For example, a ``BernoulliDistribution/fair`` ``BernoulliDistribution`` is symmetric about the `Value`
+    /// For example, `BernoulliDistribution(probabilityOfOne: 0.5)` is symmetric about the `Value`
     /// 0.5 even though 0.5 is not a valid `Value` for that distribution.
     var isSymmetric: Bool { get }
     

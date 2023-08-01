@@ -10,7 +10,8 @@ import RealModule
 /// A tool to decide whether there is sufficient evidence to reject a statistical hypothesis.
 ///
 /// ## Definitions
-/// A *statistical hypothesis* is a constraint on a population parameter.
+/// A *statistical hypothesis* is a constraint on a population parameter. For example, the parameter could be the population mean and
+/// the constraint could be that it's less than 10.
 ///
 /// The statistical hypothesis being tested is always the *null hypothesis*. Informally, it represents the "status quo" hypothesis: nothing
 /// interesting is going on, the current theory is correct, there are no new effects, etc.
