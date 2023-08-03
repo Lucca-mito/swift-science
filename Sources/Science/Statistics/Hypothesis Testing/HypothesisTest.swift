@@ -7,10 +7,17 @@
 
 import RealModule
 
-/// A statistical tool to decide whether a dataset rejects a hypothesis about a population parameter.
+/// A tool to decide whether there is sufficient evidence to reject a statistical hypothesis.
+///
+/// ## Definitions
+/// A statistical hypothesis is a constraint on a population parameter. The statistical hypothesis being tested is always the
+/// *null hypothesis*, which states that nothing interesting is going on, the current theory is correct, there are no new effects, etc. It is
+/// tested against an *alternative hypothesis*, which states that something interesting or unexpected is happening: the old theory needs
+/// to be updated, new previously-unseen effects are present, etc.
 ///
 /// ## Example
-/// If the parameter of interest is the mean (or is any other parameter with a normally-distributed estimator), a Wald test is appropriate:
+/// You can run a Wald test if the population parameter of interest to the hypothesis is the population mean (or any other parameter
+/// satisfying certain constraints; see ``WaldTest``). To test whether the population mean equals 0:
 /// ```swift
 /// WaldTest.doesMeanEqual(0).test(on: data)
 /// ```
@@ -49,13 +56,13 @@ public struct HypothesisTest<DataType> {
 extension HypothesisTest {
     /// Either `reject` or `failToReject` the null hypothesis.
     public enum Outcome {
-        /// The test has rejected the null hypothesis.
+        /// Indicates sufficient evidence to reject the null hypothesis.
         ///
         /// This does not necessarily mean that we should *accept* the alternative hypothesis. For example, it could be that an
         /// improbable event has occurred during data sampling (meaning that the sampled data is an outlier, not the norm).
         case reject
         
-        /// The test has failed to reject the null hypothesis.
+        /// Indicates insufficient evidence to reject the null hypothesis.
         ///
         /// This does not necessarily mean that the null hypothesis is true. For example, it could be that the sample size is simply not
         /// large enough to conclusively reject the null hypothesis.
