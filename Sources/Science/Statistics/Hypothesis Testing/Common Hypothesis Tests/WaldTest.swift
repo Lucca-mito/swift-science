@@ -9,8 +9,6 @@ import RealModule
 
 /// A two-sided hypothesis test using a normally-distributed estimator for the parameter of interest.
 ///
-/// The test statistic is also normally-distributed, which means that the Wald test is a kind of Z-test.
-///
 /// ## Examples
 /// Computing the p-value for whether a population mean equals 𝜋:
 /// ```swift
@@ -21,6 +19,9 @@ import RealModule
 /// ```swift
 /// WaldTest.doMeansDiffer().test(on: samples)
 /// ```
+///
+/// ## Discussion
+/// The test statistic is also normally-distributed, which means that the Wald test is a kind of Z-test.
 public enum WaldTest {}
 
 extension WaldTest {

@@ -91,7 +91,7 @@ extension HypothesisTest {
     /// In other words, it's the smallest ``ProbabilityOfTypeIError`` for this test given the `data`.
     ///
     /// The closer the p-value is to 0, the more confident we can be that the data is incompatible with the null hypothesis.
-    public func pValue(for data: [DataType]) -> Double {
+    public func pValue(for data: [DataType]) -> ProbabilityOfTypeIError {
         pValue(data)
     }
 }
