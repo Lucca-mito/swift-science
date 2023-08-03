@@ -16,7 +16,7 @@ If you're new to Swift, learn more about it [here](https://www.swift.org/about).
 The Swift Science package has a strong focus on *generic programming*. In most 
 packages for scientific computing (for Swift or otherwise), some or all of the functionality is 
 locked to a specific point in the precision–performance tradeoff, usually at machine precision. In 
-contrast, all functions, structures, and protocols in Swift Science are *generic* over the types 
+contrast, all[^1] functions, structures, and protocols in Swift Science are *generic* over the types 
 used for values and statistics. This means that everything in Swift Science has easy-to-use support 
 for:
 - Extended- and arbitrary-precision floats and integers when you want to prioritize computational accuracy.
@@ -24,6 +24,11 @@ for:
 - `Float16` and `Int8` when you want to prioritize lower memory usage.
 
 And anywhere in between.
+
+[^1]: The only exception are the structures and functions used for uncertain measurements (in 
+uncertainty propagation) and hypothesis testing. These features are fundamentally approximate, so it 
+makes little sense to use anything other than machine precision — anything more would be false 
+precision — so that is the only supported precision.
 
 ## Contributing
 This project is very new. All suggestions and contributions are welcome.

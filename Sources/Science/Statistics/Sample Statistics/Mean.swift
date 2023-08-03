@@ -10,6 +10,7 @@ import RealModule
 extension Collection where Element: AlgebraicField & IntegerApproximable {
     /// The arithmetic mean of the collection.
     /// - Precondition: The collection cannot be empty.
+    /// - Returns: The mean.
     public func mean() -> Element {
         precondition(!isEmpty)
         return sum() / Element(count)

@@ -10,7 +10,7 @@ import RealModule
 /// A [normal distribution], also known as a Gaussian distribution.
 ///
 /// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
-public struct NormalDistribution<Statistic: Real> {
+public struct NormalDistribution<Statistic> where Statistic: Real & ExpressibleByFloatLiteral {
     /// The ``DistributionWithMean/mean`` of the normal distribution.
     /// ## Example
     /// ```swift
@@ -115,6 +115,20 @@ extension NormalDistribution: DistributionWithMoments {
 extension NormalDistribution: ClosedFormMedian {
     /// The median of the normal distribution. Always equal to its ``NormalDistribution/mean``.
     public var median: Statistic { mean }
+}
+
+extension NormalDistribution: ClosedFormQuantile {
+    /// The inverse normal CDF.
+    ///
+    /// The case for the standard normal distribution is known as the [probit] function.
+    ///
+    /// The function is computed using [Acklam's algorithm].
+    ///
+    /// [probit]: https://en.wikipedia.org/wiki/Probit
+    /// [Acklam's algorithm]: https://web.archive.org/web/20151030215612/http://home.online.no/~pjacklam/notes/invnorm
+    public func quantile(_ quantileFraction: Statistic) -> Statistic {
+        acklam(p: quantileFraction, standardDeviation: standardDeviation, mean: mean)
+    }
 }
 
 extension NormalDistribution: Unimodal {

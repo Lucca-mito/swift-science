@@ -15,6 +15,7 @@ extension Collection where Element: AdditiveArithmetic {
     //   This avoids integer overflows when the total sum does not overflow but the partial sums do overflow.
     // - If Element is BinaryFloatingPoint: cast to a higher-precision type, sum, then cast back.
     /// The sum of all the elements in the collection.
+    /// - Returns: The sum. Unlike other sample statistics, this always has the same as the `Element`s.
     ///
     /// ## Example
     /// ```swift

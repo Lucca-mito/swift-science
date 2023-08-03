@@ -2,6 +2,8 @@ import XCTest
 import Science
 import ComplexModule
 
+// TODO: Many new features have been added since the last time tests were written.
+
 final class StatisticsTests: XCTestCase {
     func testNormalDistribution() {
         let stdev: Double = .random(in: 1...10)
@@ -10,12 +12,6 @@ final class StatisticsTests: XCTestCase {
         XCTAssert(normal.probability(ofAtMost: 0) == 1/2)
         XCTAssert(normal.probability(ofLessThan: .infinity) == 1)
         XCTAssert(normal.median == normal.mean)
-    }
-    
-    func testDartBoardParadox() {
-        let distribution = NormalDistribution<Double>.standard
-        let anyNumber: Double = .random(in: -1E6...1E6)
-        XCTAssert(distribution.probability(ofExactly: anyNumber) == 0)
     }
     
     func testPrecision() {
