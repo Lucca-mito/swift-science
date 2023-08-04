@@ -10,7 +10,7 @@
                     <msup>
                         <mi>e</mi>
                         <mrow>
-                            <mo>-</mo>
+                            <mo form="prefix">-</mo>
                             <mi>λ</mi>
                         </mrow>
                     </msup>

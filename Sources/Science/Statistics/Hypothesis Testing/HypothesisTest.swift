@@ -10,10 +10,13 @@ import RealModule
 /// A tool to decide whether there is sufficient evidence to reject a statistical hypothesis.
 ///
 /// ## Definitions
-/// A statistical hypothesis is a constraint on a population parameter. The statistical hypothesis being tested is always the
-/// *null hypothesis*, which states that nothing interesting is going on, the current theory is correct, there are no new effects, etc. It is
-/// tested against an *alternative hypothesis*, which states that something interesting or unexpected is happening: the old theory needs
-/// to be updated, new previously-unseen effects are present, etc.
+/// A *statistical hypothesis* is a constraint on a population parameter.
+///
+/// The statistical hypothesis being tested is always the *null hypothesis*. Informally, it represents the "status quo" hypothesis: nothing
+/// interesting is going on, the current theory is correct, there are no new effects, etc.
+///
+/// The null hypothesis is tested against an *alternative hypothesis*, which states that something interesting or unexpected is
+/// happening: the old theory needs to be updated, new previously-unseen effects are present, etc.
 ///
 /// ## Example
 /// You can run a Wald test if the population parameter of interest to the hypothesis is the population mean (or any other parameter
@@ -26,10 +29,10 @@ public struct HypothesisTest<DataType> {
     private let testStatistic: ([DataType]) -> Double
     
     /// A function mapping the level and the sample size to the test's critical value.
-    private let criticalValue: (Double, Int) -> Double
+    private let criticalValue: (ProbabilityOfTypeIError, Int) -> Double
     
     /// ``pValue(for:)`` wraps this closure, adding an external label to the data parameter in the public interface.
-    private let pValue: ([DataType]) -> Double
+    private let pValue: ([DataType]) -> ProbabilityOfTypeIError
     
     /// Initializes the hypothesis test so it can be run on a data sample.
     ///

@@ -44,7 +44,7 @@ extension PoissonDistribution: ProbabilityDistribution {
     ///
     /// If the Poisson distribution has ``rate`` λ, then `probability(ofExactly: k)` is:
     ///
-    /// ![Lambda to the power of k, times e to the power of minus lambda. Everything divided by k factorial.](poisson-pmf)
+    /// ![Lambda to the power of k, times e to the power of negative lambda. Everything divided by k factorial.](poisson-pmf)
     public func probability(ofExactly value: Value) -> Statistic {
         guard value >= 0 else { return 0 }
         

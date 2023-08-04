@@ -9,7 +9,14 @@ import RealModule
 
 /// A two-sided hypothesis test using a normally-distributed parameter estimator.
 ///
-/// Use the Wald test only if the estimator of the parameter of interest is approximately normally-distributed.
+/// Use the Wald test only if the estimator `parameterEstimator` of the parameter of interest 𝜃 is approximately normally-distributed.
+/// The Wald test rejects the null hypothesis 𝜃 = 𝜃₀ (for some real number 𝜃₀) on dataset 𝑋 at level 𝛼 if:
+///
+/// ![Numerator: parameter estimator minus theta_zero. Denominator: standard error estimator. Take the absolute value of that fraction. Greater than negative capital phi, to the power of negative 1, of alpha over 2.](wald-test-rejection-condition.svg)
+///
+/// where 𝚽⁻¹ is the standard normal ``NormalDistribution/quantile(_:)`` function. See
+/// ``generalCase(parameterEstimator:parameterValueUnderNullHypothesis:standardErrorEstimator:)``
+/// for more information.
 ///
 /// ## Wald test of the sample mean
 /// For large sample sizes, the population mean is a parameter for which the Wald test is appropriate. Its estimator, the sample mean,
@@ -47,7 +54,7 @@ extension WaldTest {
     ///
     /// - Returns: A Wald test for the null hypothesis 𝜃 = `parameterValueUnderNullHypothesis` where 𝜃 is the parameter of interest.
     ///
-    public static func general<DataType>(
+    public static func generalCase<DataType>(
         parameterEstimator: @escaping ([DataType]) -> Double,
         parameterValueUnderNullHypothesis: Double,
         standardErrorEstimator:  @escaping ([DataType]) -> Double
@@ -84,7 +91,7 @@ extension WaldTest {
     /// - Parameter meanUnderNullHypothesis: The population mean if the null hypothesis is true.
     /// - Returns: A Wald test for the null hypothesis µ = `meanUnderNullHypothesis` where µ is the population mean.
     public static func doesMeanEqual(_ meanUnderNullHypothesis: Double) -> HypothesisTest<Double> {
-        general(
+        generalCase(
             parameterEstimator: { $0.mean() },
             parameterValueUnderNullHypothesis: meanUnderNullHypothesis,
             standardErrorEstimator: { data in
@@ -99,7 +106,7 @@ extension WaldTest {
     public static func doMeansDiffer(
         by differenceUnderNullHypothesis: Double = 0
     ) -> HypothesisTest<(Double, Double)> {
-        general(
+        generalCase(
             parameterEstimator: { $0.differenceOfMeans() },
             parameterValueUnderNullHypothesis: differenceUnderNullHypothesis,
             standardErrorEstimator: { data in

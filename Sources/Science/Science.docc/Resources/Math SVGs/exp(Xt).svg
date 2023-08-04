@@ -2,7 +2,12 @@
     <svg:foreignObject width="20" height="20">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
             <msup>
+                <!-- MathML entity ExponentialE is not supported. Use LATIN SMALL LETTER E instead.
+                <mi>&ExponentialE;</mi> -->
+                
+                <!-- Like so: -->
                 <mi>e</mi>
+                
                 <mrow>
                     <mi>X</mi>
                     <mi>t</mi>

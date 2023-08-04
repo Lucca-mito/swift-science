@@ -1,0 +1,46 @@
+<svg:svg xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 320 50" version="1.1">
+    <svg:foreignObject width="320" height="50">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <mrow> <!-- For why this <mrow> is necessary, see the comment below. -->
+                <mo>|</mo>
+                <mfrac>
+                    <mrow>
+                        <mo lspace="0" rspace="0">𝚙𝚊𝚛𝚊𝚖𝚎𝚝𝚎𝚛𝙴𝚜𝚝𝚒𝚖𝚊𝚝𝚘𝚛</mo>
+                        <mo>(</mo>
+                        <mi>X</mi>
+                        <mo>)</mo>
+                        <mo>-</mo>
+                        <msub>
+                            <mi>θ</mi>
+                            <mn>0</mn>
+                        </msub>
+                    </mrow>
+                    <mrow>
+                        <mo lspace="0" rspace="0">𝚜𝚝𝚊𝚗𝚍𝚊𝚛𝚍𝙴𝚛𝚛𝚘𝚛𝙴𝚜𝚝𝚒𝚖𝚊𝚝𝚘𝚛</mo>
+                        <mo>(</mo>
+                        <mi>X</mi>
+                        <mo>)</mo>
+                    </mrow>
+                </mfrac>
+                <mo>|</mo> <!-- On Chromium & Gecko, this closing vertical line scales to the <mfrac>
+                           on its left only if the whole absolute-value expression is wrapped in an <mrow>.
+                           (Issue does not occur on WebKit, where the <mrow> is not necessary for proper scaling.) -->
+            </mrow>
+            <mo>></mo>
+            <mo form="prefix">-</mo>
+            <msup>
+                <mo lspace="0" rspace="0">Φ</mo>
+                <mrow>
+                    <mo form="prefix">-</mo>
+                    <mn>1</mn>
+                </mrow>
+            </msup>
+            <mo>(</mo>
+            <mfrac>
+                <mi>α</mi>
+                <mn>2</mn>
+            </mfrac>
+            <mo>)</mo>
+        </math>
+    </svg:foreignObject>
+</svg:svg>
