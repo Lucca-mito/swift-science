@@ -38,7 +38,7 @@ import RealModule
 ///
 /// Testing whether two populations have the same mean:
 /// ```swift
-/// WaldTest.doMeansDiffer(by: 0).test(on: samples)
+/// WaldTest.doMeansDiffer(by: 0).test(on: [xSample, ySample])
 /// ```
 public enum WaldTest {}
 
