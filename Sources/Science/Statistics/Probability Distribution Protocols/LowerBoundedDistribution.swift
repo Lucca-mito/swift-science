@@ -17,11 +17,11 @@ where
     Value: BinaryInteger,
     Value.Stride: SignedInteger
 {
-    /// The cumulative density function of the distribution.
+    /// The cumulative distribution function of the distribution.
     ///
     /// - Complexity: O(`value`)
     ///
-    /// This is a default implementation of the cumulative density function for discrete distributions with a lower bound. It simply sums
+    /// This is a default implementation of the CDF for discrete distributions with a lower bound. It simply sums
     /// ``ProbabilityDistribution/probability(ofExactly:)`` from ``min`` to `value`, so it takes linear time.
     /// For this reason, probability distributions are encouraged to override this default implementation with a closed-form solution if one
     /// exists.
