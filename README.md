@@ -30,6 +30,89 @@ uncertainty propagation) and hypothesis testing. These features are fundamentall
 makes little sense to use anything other than machine precision — anything more would be false 
 precision — so that is the only supported precision.
 
+## Feature overview
+### Hypothesis testing
+#### Built-in tests
+Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swift-science/documentation/science/hypothesistest) that comes built into Swift Science is the [`WaldTest`](https://lucca-mito.github.io/swift-science/documentation/science/waldtest).
+
+```swift
+let data: [Double]
+
+let wald = WaldTest.doesMeanEqual(.pi)
+
+print(wald.test(on: data))
+print(wald.pValue(for: data))
+```
+
+```swift
+let x: [Double]
+let y: [Double]
+
+if WaldTest.doMeansDiffer(by: 0).test(on: [x, y]) == .reject {
+    print("The means (probably) differ!")
+}
+```
+
+But you can design your own, custom hypothesis tests.
+```swift
+let customTest = HypothesisTest(…)
+print(customTest.test(on: data))
+print(customTest.pValue(for: data))
+```
+
+Built-in support for (at 
+least) the *t*-test and for the permutation test are part of the future plans for the project.
+
+### Sample statistics
+For continuous types, such as floats and complex numbers, statistics are computed to the same precision as the type.
+```swift
+let data: [Complex<Double>] = [-.i / 2, .exp(1) + .i]
+
+// Type: Complex<Double>
+print(data.mean()) // (1.3591409142295225, 0.25)
+
+// Type: Double
+print(data.sampleVariance()) // 4.819528049465324
+print(data.populationVariance()) // 2.409764024732662
+```
+
+For integer types, specify the desired precision.
+```swift
+let data = 0...100
+let halfPrecision: Float16 = data.mean()
+let doublePrecision: Double = data.mean()
+print(halfPrecision, doublePrecision) // 49.97 50.0
+```
+
+### Distribution statistics
+```swift
+let poisson = PoissonDistribution(rate: 3)
+
+print(poisson.modes) // [2, 3]
+print(poisson.skewness == 1 / .sqrt(3)) // true
+print(poisson.momentGeneratingFunction(2).rounded()) // 210957721.0
+```
+```swift
+print(BernoulliDistribution.domain) // [0, 1]
+
+let bernoulli = BernoulliDistribution(probabilityOfOne: 0)
+
+print(bernoulli.support) // [0]
+print(bernoulli.median) // 0
+print(bernoulli.standardDeviation) // 0.0
+```
+
+### Sampling
+If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) (which all built-in distributions do), you can `sample` random values from them. You can combine this with other Swift Science features, such as sample statistics, to run estimation experiments.
+```swift
+let distribution: some DistributionWithMean & Samplable
+
+let samples = distribution.sample(count: 1_000_000)
+let meanEstimate: Double = samples.mean()
+
+print(meanEstimate.isApproximatelyEqual(to: distribution.mean))
+```
+
 ## Contributing
 This project is very new. All suggestions and contributions are welcome.
 
