@@ -32,8 +32,7 @@ precision — so that is the only supported precision.
 
 ## Feature overview
 ### Hypothesis testing
-#### Built-in tests
-Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swift-science/documentation/science/hypothesistest) that comes built into Swift Science is the [`WaldTest`](https://lucca-mito.github.io/swift-science/documentation/science/waldtest).
+Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swift-science/documentation/science/hypothesistest) that comes built into Swift Science is the [`WaldTest`](https://lucca-mito.github.io/swift-science/documentation/science/waldtest):
 
 ```swift
 let data: [Double]
@@ -53,7 +52,7 @@ if WaldTest.doMeansDiffer(by: 0).test(on: [x, y]) == .reject {
 }
 ```
 
-But you can design your own, custom hypothesis tests.
+But you can design your own, custom hypothesis tests:
 ```swift
 let customTest = HypothesisTest(…)
 print(customTest.test(on: data))
@@ -64,7 +63,7 @@ Built-in support for (at
 least) the *t*-test and for the permutation test are part of the future plans for the project.
 
 ### Sample statistics
-For continuous types, such as floats and complex numbers, statistics are computed to the same precision as the type.
+For continuous types, such as floats and complex numbers, statistics are computed to the same precision as the type:
 ```swift
 let data: [Complex<Double>] = [-.i / 2, .exp(1) + .i]
 
@@ -76,7 +75,7 @@ print(data.sampleVariance()) // 4.819528049465324
 print(data.populationVariance()) // 2.409764024732662
 ```
 
-For integer types, specify the desired precision.
+For integer types, specify the desired precision:
 ```swift
 let data = 0...100
 let halfPrecision: Float16 = data.mean()
@@ -103,7 +102,7 @@ print(bernoulli.standardDeviation) // 0.0
 ```
 
 ### Sampling
-If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) (which all built-in distributions do), you can `sample` random values from them. You can combine this with other Swift Science features, such as sample statistics, to run estimation experiments.
+If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) (which all built-in distributions do), you can [`sample`](https://lucca-mito.github.io/swift-science/documentation/science/samplable/sample(count:)) random values from them. You can combine this with other Swift Science features, such as sample statistics, to run estimation experiments:
 ```swift
 let distribution: some DistributionWithMean & Samplable
 
