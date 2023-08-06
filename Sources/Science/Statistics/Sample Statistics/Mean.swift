@@ -20,6 +20,7 @@ extension Collection where Element: AlgebraicField & IntegerApproximable {
 extension Collection where Element: BinaryInteger {
     /// The arithmetic mean of the integer collection, computed to the specified `FloatingPoint` precision.
     /// - Returns: The mean as a `FloatingPoint` number.
+    /// - Precondition: The collection cannot be empty.
     ///
     /// The mean of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
     /// There are two ways you can specify the desired precision:
@@ -36,7 +37,8 @@ extension Collection where Element: BinaryInteger {
     /// ```
     /// Both solutions are equivalent; which one you should choose is a matter of style preference.
     public func mean<FloatingPointType: FloatingPoint>() -> FloatingPointType {
-        FloatingPointType(sum()) / FloatingPointType(count)
+        precondition(!isEmpty)
+        return FloatingPointType(sum()) / FloatingPointType(count)
     }
     // TODO: Once Swift support default generic arguments, make FloatingPointType be Double if it can't be inferred from context.
     // See https://github.com/apple/swift/blob/main/docs/GenericsManifesto.md#default-generic-arguments
