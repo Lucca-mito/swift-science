@@ -47,6 +47,9 @@ A scientific computing package for Swift.
 - ``BoundedDistribution``
 - ``BoundedDiscreteDistribution``
 
+### Sample statistics
+- ``Science/Swift/Collection``
+
 ### Hypothesis tests
 - ``HypothesisTest``
 - ``WaldTest``
