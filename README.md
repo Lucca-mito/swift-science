@@ -99,8 +99,19 @@ print(BernoulliDistribution.domain) // [0, 1]
 let bernoulli = BernoulliDistribution(probabilityOfOne: 0)
 
 print(bernoulli.support) // [0]
-print(bernoulli.median) // 0
-print(bernoulli.standardDeviation) // 0.0
+print(bernoulli.median, bernoulli.max, bernoulli.standardDeviation) // 0 0 0.0
+```
+
+### Distribution probabilities
+```swift
+let normal = NormalDistribution.standard
+
+print(normal.probability(ofWithin: 1, from: 0)) // 0.6826894921370859
+print(normal.probability(ofIn: -2...2)) // 0.9544997361036416
+print(normal.probability(ofExactly: normal.mode)) // 0
+
+let normalCDF = normal.probability(ofAtLeast:)
+print(normalCDF(0)) // 0.5
 ```
 
 ### Sampling from a distribution
