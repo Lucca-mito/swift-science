@@ -1,39 +1,37 @@
 <svg:svg xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 130 50" version="1.1">
     <svg:foreignObject width="130" height="50">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <mstyle displaystyle="true">
-                <mfrac>
-                    <mn>1</mn>
-                    <mrow>
-                        <mi>n</mi>
-                        <mo>-</mo>
-                        <mn>1</mn>
-                    </mrow>
-                </mfrac>
-                <mspace width="5px"/>
-                <munderover>
-                    <mo>∑</mo>
-                    <mrow>
-                        <mi>i</mi>
-                        <mo>=</mo>
-                        <mn>1</mn>
-                    </mrow>
+            <mfrac>
+                <mn>1</mn>
+                <mrow>
                     <mi>n</mi>
-                </munderover>
-                <msup>
-                    <mrow>
-                        <mo>‖</mo>
-                        <msub>
-                            <mi>x</mi>
-                            <mi>i</mi>
-                        </msub>
-                        <mo>-</mo>
-                        <mi>μ</mi>
-                        <mo>‖</mo>
-                    </mrow>
-                    <mn>2</mn>
-                </msup>
-            </mstyle>
+                    <mo>-</mo>
+                    <mn>1</mn>
+                </mrow>
+            </mfrac>
+            <mspace width="5px"/>
+            <munderover displaystyle="true">
+                <mo>∑</mo>
+                <mrow>
+                    <mi>i</mi>
+                    <mo>=</mo>
+                    <mn>1</mn>
+                </mrow>
+                <mi>n</mi>
+            </munderover>
+            <msup>
+                <mrow>
+                    <mo>‖</mo>
+                    <msub>
+                        <mi>x</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mo>-</mo>
+                    <mi>μ</mi>
+                    <mo>‖</mo>
+                </mrow>
+                <mn>2</mn>
+            </msup>
         </math>
     </svg:foreignObject>
 </svg:svg>

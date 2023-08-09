@@ -37,7 +37,7 @@ Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swif
 ```swift
 let data: [Double]
 
-let wald = WaldTest.doesMeanEqual(.pi)
+let wald = WaldTest(doesMeanEqual: .pi)
 
 print(wald.test(on: data))
 print(wald.pValue(for: data))
@@ -47,20 +47,20 @@ print(wald.pValue(for: data))
 let x: [Double]
 let y: [Double]
 
-if WaldTest.doMeansDiffer(by: 0).test(on: [x, y]) == .reject {
+if WaldTest.sameMean.test(on: [x, y]) == .reject {
     print("The means (probably) differ!")
 }
 ```
 
 But you can design your own, custom hypothesis tests:
 ```swift
-let customTest = HypothesisTest(…)
+let customTest = createHypothesisTest(…)
+
 print(customTest.test(on: data))
 print(customTest.pValue(for: data))
 ```
 
-Built-in support for (at 
-least) the *t*-test and for the permutation test are part of the future plans for the project.
+Built-in support for (at least) the *t*-test is part of the near-future plans for the project.
 
 ### Sample statistics
 For continuous types, such as floats and complex numbers, statistics are computed to the same precision as the type:
@@ -101,7 +101,7 @@ print(bernoulli.median) // 0
 print(bernoulli.standardDeviation) // 0.0
 ```
 
-### Sampling
+### Sampling from a distribution
 If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) (which all built-in distributions do), you can [`sample`](https://lucca-mito.github.io/swift-science/documentation/science/samplable/sample(count:)) random values from them. You can combine this with other Swift Science features, such as sample statistics, to run estimation experiments:
 ```swift
 let distribution: some DistributionWithMean & Samplable

@@ -50,14 +50,18 @@ A scientific computing package for Swift.
 ### Sample statistics
 - ``Science/Swift/Collection``
 
-### Hypothesis tests
+### Hypothesis testing fundamentals
 - ``HypothesisTest``
-- ``WaldTest``
+- ``HypothesisTestOutcome``
 
 ### Probabilities used in hypothesis testing
 - ``ProbabilityOfTypeIError``
 - ``Science/Swift/Double/lowProbability``
 - ``Science/Swift/Double/veryLowProbability``
+
+### Hypothesis tests
+- ``WaldTest``
+- ``createHypothesisTest(testStatistic:criticalValue:pValue:)``
 
 ### Metric spaces
 - ``MetricSpace``

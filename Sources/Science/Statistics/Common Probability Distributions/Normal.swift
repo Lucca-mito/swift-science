@@ -10,7 +10,10 @@ import RealModule
 /// A [normal distribution], also known as a Gaussian distribution.
 ///
 /// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
-public struct NormalDistribution<Statistic> where Statistic: Real & ExpressibleByFloatLiteral {
+public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByFloatLiteral {
+    public typealias Value = RealType
+    public typealias Statistic = RealType
+    
     /// The ``DistributionWithMean/mean`` of the normal distribution.
     /// ## Example
     /// ```swift
@@ -78,7 +81,7 @@ extension NormalDistribution: ProbabilityDistribution {
     /// The probability density function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
-    public func probability(ofAtMost value: Statistic) -> Statistic {
+    public func probability(ofAtMost value: Value) -> Statistic {
         .erfc(
             (mean - value) /
             (.sqrt(2) * standardDeviation)
@@ -93,15 +96,15 @@ extension NormalDistribution: ContinuousDistribution {
     /// The cumulative distribution function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
-    public func probabilityDensity(at value: Statistic) -> Statistic {
-        let numerator: Statistic = .exp(-.pow(value - mean, 2) / variance / 2)
-        let denominator: Statistic = .sqrt(2 * variance * .pi)
+    public func probabilityDensity(at value: Value) -> Statistic {
+        let numerator: RealType = .exp(-.pow(value - mean, 2) / variance / 2)
+        let denominator: RealType = .sqrt(2 * variance * .pi)
         return numerator / denominator
     }
 }
 
 extension NormalDistribution: DistributionWithMoments {
-    /// The ``DistributionWithMoments/skewness`` of the normal distribution. Always 0.
+    /// The skewness of the normal distribution. Always 0.
     public var skewness: Statistic { 0 }
     
     /// The moment-generating function of the normal distribution.
@@ -126,7 +129,7 @@ extension NormalDistribution: ClosedFormQuantile {
     ///
     /// [probit]: https://en.wikipedia.org/wiki/Probit
     /// [Acklam's algorithm]: https://web.archive.org/web/20151030215612/http://home.online.no/~pjacklam/notes/invnorm
-    public func quantile(_ quantileFraction: Statistic) -> Statistic {
+    public func quantile(_ quantileFraction: Statistic) -> Value {
         acklam(p: quantileFraction, standardDeviation: standardDeviation, mean: mean)
     }
 }
@@ -138,8 +141,8 @@ extension NormalDistribution: Unimodal {
 
 extension NormalDistribution: Samplable
 where
-    Statistic: BinaryFloatingPoint,
-    Statistic.RawSignificand: FixedWidthInteger
+    Value: BinaryFloatingPoint,
+    Value.RawSignificand: FixedWidthInteger
 {
     /// Generates a random sample from the normal distribution.
     ///
