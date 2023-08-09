@@ -110,7 +110,7 @@ print(normal.probability(ofWithin: 1, from: 0)) // 0.6826894921370859
 print(normal.probability(ofIn: -2...2)) // 0.9544997361036416
 print(normal.probability(ofExactly: normal.mode)) // 0
 
-let normalCDF = normal.probability(ofAtLeast:)
+let normalCDF = normal.probability(ofAtMost:)
 print(normalCDF(0)) // 0.5
 ```
 
