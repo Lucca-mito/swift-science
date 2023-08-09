@@ -37,6 +37,7 @@ Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swif
 ```swift
 let data: [Double]
 
+// Test whether a population mean equals 𝜋.
 let wald = WaldTest(doesMeanEqual: .pi)
 
 print(wald.test(on: data))
@@ -47,6 +48,7 @@ print(wald.pValue(for: data))
 let x: [Double]
 let y: [Double]
 
+// Test whether two populations have the same mean.
 if WaldTest.sameMean.test(on: [x, y]) == .reject {
     print("The means (probably) differ!")
 }
