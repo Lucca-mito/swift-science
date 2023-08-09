@@ -78,7 +78,7 @@ extension NormalDistribution {
 }
 
 extension NormalDistribution: ProbabilityDistribution {
-    /// The probability density function of the normal distribution.
+    /// The cumulative distribution function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
     public func probability(ofAtMost value: Value) -> Statistic {
@@ -93,7 +93,7 @@ extension NormalDistribution: ProbabilityDistribution {
 }
 
 extension NormalDistribution: ContinuousDistribution {
-    /// The cumulative distribution function of the normal distribution.
+    /// The probability density function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
     public func probabilityDensity(at value: Value) -> Statistic {
