@@ -62,7 +62,7 @@ where
 
 extension Collection where Element: BinaryInteger {
     /// The population variance of the integer collection, computed to the specified `FloatingPoint` precision.
-    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double.self`.
+    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double` precision.
     /// - Returns: The population variance as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
     public func populationVariance<FloatingPointType>(
@@ -81,7 +81,7 @@ extension Collection where Element: BinaryInteger {
     
     /// The sample variance of the integer collection.
     /// - Returns: The sample variance as a `FloatingPoint` number.
-    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double.self`.
+    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double` precision.
     /// - Precondition: There must be at least 2 elements in the collection.
     public func sampleVariance<FloatingPointType>(
         toPrecision precision: FloatingPointType.Type = Double.self

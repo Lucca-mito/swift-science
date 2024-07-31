@@ -19,7 +19,7 @@ extension Collection where Element: AlgebraicField & IntegerApproximable {
 
 extension Collection where Element: BinaryInteger {
     /// The arithmetic mean of the integer collection, computed to the specified `FloatingPoint` precision.
-    /// - Parameter precision: The precision to which the mean should be computed. If omitted, defaults to `Double.self`.
+    /// - Parameter precision: The precision to which the mean should be computed. If omitted, defaults to `Double` precision.
     /// - Returns: The mean as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
     public func mean<FloatingPointType: FloatingPoint>(

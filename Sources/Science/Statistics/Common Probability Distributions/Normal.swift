@@ -74,6 +74,13 @@ extension NormalDistribution where RealType == Double {
     /// The standard normal distribution.
     ///
     /// This is the normal distribution with a ``mean`` of 0 and a ``variance`` of 1.
+    ///
+    /// The precision is set to the default, `Double`. To create a standard normal distribution with a different precision (such as
+    /// `Float`), use the constructor:
+    /// ```swift
+    /// let normal = NormalDistribution(over: Float.self, mean: 0, variance: 1)
+    /// ```
+    ///
     /// > See: [Standard normal distribution].
     ///
     /// [Standard normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution#Standard_normal_distribution
