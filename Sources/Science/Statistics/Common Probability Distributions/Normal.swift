@@ -11,19 +11,16 @@ import RealModule
 ///
 /// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
 public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByFloatLiteral {
-    public typealias Value = RealType
-    public typealias Statistic = RealType
-    
     /// The ``DistributionWithMean/mean`` of the normal distribution.
     /// ## Example
     /// ```swift
     /// let normal = NormalDistribution.standard
     /// print(normal.mean) // 0
     /// ```
-    public let mean: Statistic
+    public let mean: RealType
     
     /// The ``DistributionWithVariance/variance`` of the normal distribution.
-    public let variance: Statistic
+    public let variance: RealType
     
     // NormalDistribution conforms to DistributionWithVariance via DistributionWithMoments (see
     // below). As a result, NormalDistribution inherits the default implementation of
@@ -36,14 +33,18 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     // NormalDistribution overrides the default (computed) implementation of standardDeviation with
     // this stored property:
     /// The standard deviation of the normal distribution.
-    public let standardDeviation: Statistic
+    public let standardDeviation: RealType
     
     /// Creates a normal distribution with the given mean and variance.
     ///
     /// - Precondition: `variance` > 0
     ///
-    /// > See also: ``init(mean:standardDeviation:)``
-    public init(mean: Statistic, variance: Statistic) {
+    /// > See also: ``init(over:mean:standardDeviation:)``
+    public init(
+        over domain: RealType.Type = Double.self,
+        mean: RealType, 
+        variance: RealType
+    ) {
         precondition(variance > 0)
         
         self.mean = mean
@@ -55,8 +56,12 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     ///
     /// - Precondition: `standardDeviation` > 0
     ///
-    /// > See also: ``init(mean:variance:)``
-    public init(mean: Statistic, standardDeviation: Statistic) {
+    /// > See also: ``init(over:mean:variance:)``
+    public init(
+        over domain: RealType.Type = Double.self,
+        mean: RealType,
+        standardDeviation: RealType
+    ) {
         precondition(standardDeviation > 0)
         
         self.mean = mean
@@ -65,7 +70,7 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     }
 }
 
-extension NormalDistribution {
+extension NormalDistribution where RealType == Double {
     /// The standard normal distribution.
     ///
     /// This is the normal distribution with a ``mean`` of 0 and a ``variance`` of 1.
@@ -73,7 +78,7 @@ extension NormalDistribution {
     ///
     /// [Standard normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution#Standard_normal_distribution
     public static var standard: NormalDistribution {
-        NormalDistribution(mean: 0, standardDeviation: 1)
+        .init(mean: 0, standardDeviation: 1)
     }
 }
 
@@ -81,9 +86,9 @@ extension NormalDistribution: ProbabilityDistribution {
     /// The cumulative distribution function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
-    public func probability(ofAtMost value: Value) -> Statistic {
+    public func probability(ofAtMost RealType: RealType) -> RealType {
         .erfc(
-            (mean - value) /
+            (mean - RealType) /
             (.sqrt(2) * standardDeviation)
         ) / 2
     }
@@ -96,8 +101,8 @@ extension NormalDistribution: ContinuousDistribution {
     /// The probability density function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
-    public func probabilityDensity(at value: Value) -> Statistic {
-        let numerator: RealType = .exp(-.pow(value - mean, 2) / variance / 2)
+    public func probabilityDensity(at RealType: RealType) -> RealType {
+        let numerator: RealType = .exp(-.pow(RealType - mean, 2) / variance / 2)
         let denominator: RealType = .sqrt(2 * variance * .pi)
         return numerator / denominator
     }
@@ -105,18 +110,18 @@ extension NormalDistribution: ContinuousDistribution {
 
 extension NormalDistribution: DistributionWithMoments {
     /// The skewness of the normal distribution. Always 0.
-    public var skewness: Statistic { 0 }
+    public var skewness: RealType { 0 }
     
-    public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
+    public func momentGeneratingFunction(_ t: some BinaryInteger) -> RealType {
         precondition(0 <= t)
-        let t = Statistic(t)
+        let t = RealType(t)
         return .exp(mean * t + variance * .pow(t, 2) / 2)
     }
 }
 
 extension NormalDistribution: ClosedFormMedian {
     /// The ``ClosedFormMedian/median`` of the normal distribution. Always equal to its ``NormalDistribution/mean``.
-    public var median: Statistic { mean }
+    public var median: RealType { mean }
 }
 
 extension NormalDistribution: ClosedFormQuantile {
@@ -128,31 +133,31 @@ extension NormalDistribution: ClosedFormQuantile {
     ///
     /// [probit]: https://en.wikipedia.org/wiki/Probit
     /// [Acklam's algorithm]: https://web.archive.org/web/20151030215612/http://home.online.no/~pjacklam/notes/invnorm
-    public func quantile(_ quantileFraction: Statistic) -> Value {
+    public func quantile(_ quantileFraction: RealType) -> RealType {
         acklam(p: quantileFraction, standardDeviation: standardDeviation, mean: mean)
     }
 }
 
 extension NormalDistribution: Unimodal {
     /// The mode of the normal distribution. Always equal to its ``NormalDistribution/mean``.
-    public var mode: Statistic { mean }
+    public var mode: RealType { mean }
 }
 
 extension NormalDistribution: Samplable
 where
-    Value: BinaryFloatingPoint,
-    Value.RawSignificand: FixedWidthInteger
+    RealType: BinaryFloatingPoint,
+    RealType.RawSignificand: FixedWidthInteger
 {
     /// Generates a random sample from the normal distribution.
     ///
     /// The sample is generated using the [Box-Muller transform].
     ///
     /// [Box-Muller transform]:https://en.wikipedia.org/wiki/Box–Muller_transform#Basic_form
-    public func sample() -> Value {
-        let uniform1 = Value.random(in: 0..<1)
-        let uniform2 = Value.random(in: 0..<1)
+    public func sample() -> RealType {
+        let uniform1 = RealType.random(in: 0..<1)
+        let uniform2 = RealType.random(in: 0..<1)
         
-        let standardNormalVariate = Value.sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
+        let standardNormalVariate = RealType.sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
         
         return standardNormalVariate * standardDeviation + mean
     }

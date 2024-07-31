@@ -19,7 +19,7 @@ where
     /// - Parameter denominator: Either `count` (for population variance) or `count - 1` (for sample variance).
     /// - Returns: The total squared deviation divided by `denominator`.
     private func _variance(denominator: Int) -> Element.Stride {
-        squaredDeviations().sum() / Element.Stride(denominator)
+        squaredDeviationsFromMean().sum() / Element.Stride(denominator)
     }
     
     /// The population variance of the collection.
@@ -62,32 +62,17 @@ where
 
 extension Collection where Element: BinaryInteger {
     /// The population variance of the integer collection, computed to the specified `FloatingPoint` precision.
+    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double.self`.
     /// - Returns: The population variance as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
-    ///
-    /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
-    /// There are two ways you can specify the desired precision:
-    /// ```swift
-    /// let data: [Int]
-    ///
-    /// // Suppose you want to calculate the population variance of `data` to Double precision.
-    ///
-    /// // First solution: specify the desired return type.
-    /// let variance: Double = data.populationVariance()
-    ///
-    /// // Second solution: specify the type argument.
-    /// let variance = data.populationVariance<Double>()
-    /// ```
-    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
-    public func populationVariance<FloatingPointType>() -> FloatingPointType
+    public func populationVariance<FloatingPointType>(
+        toPrecision precision: FloatingPointType.Type = Double.self
+    ) -> FloatingPointType
     where
         FloatingPointType: FloatingPoint & AlgebraicField & IntegerApproximable & Euclidean,
     
-        // The expression in the return statement has type FloatingPointType.Stride. So the
-        // additional constraint `FloatingPointType.Stride == FloatingPointType` allows us to write
-        // the return type of populationVariance as FloatingPointType. This makes populationVariance
-        // easier to understand: if I call it passing Double as the FloatingPointType, the
-        // population variance of the integer collection will be returned in Double precision.
+        // The requested precision is FloatingPointType, but the expression in the return statement 
+        // has type FloatingPointType.Stride. This constraint eliminates the mismatch.
         FloatingPointType.Stride == FloatingPointType
     {
         precondition(!isEmpty)
@@ -96,27 +81,13 @@ extension Collection where Element: BinaryInteger {
     
     /// The sample variance of the integer collection.
     /// - Returns: The sample variance as a `FloatingPoint` number.
+    /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double.self`.
     /// - Precondition: There must be at least 2 elements in the collection.
-    ///
-    /// The variance of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
-    /// There are two ways you can specify the desired precision:
-    /// ```swift
-    /// let data: [Int]
-    ///
-    /// // Suppose you want to calculate the sample variance of `data` to Double precision.
-    ///
-    /// // First solution: specify the desired return type.
-    /// let variance: Double = data.sampleVariance()
-    ///
-    /// // Second solution: specify the type argument.
-    /// let variance = data.sampleVariance<Double>()
-    /// ```
-    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
-    public func sampleVariance<FloatingPointType>() -> FloatingPointType
+    public func sampleVariance<FloatingPointType>(
+        toPrecision precision: FloatingPointType.Type = Double.self
+    ) -> FloatingPointType
     where
         FloatingPointType: FloatingPoint & AlgebraicField & IntegerApproximable & Euclidean,
-    
-        // See the comment in populationVariance.
         FloatingPointType.Stride == FloatingPointType
     {
         precondition(count > 1)

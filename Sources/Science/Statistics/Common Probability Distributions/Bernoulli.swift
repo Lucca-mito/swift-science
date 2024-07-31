@@ -21,9 +21,19 @@ where
     
     /// Creates a Bernoulli distribution with the given probability of sampling 1.
     /// - Precondition: 0 ≤ `probabilityOfOne` ≤ 1
-    public init(probabilityOfOne: Statistic) {
+    public init(
+        over domain: Value.Type = Int.self,
+        withPrecision statisticType: Statistic.Type = Double.self,
+        probabilityOfOne: Statistic
+    ) {
         precondition(0 <= probabilityOfOne && probabilityOfOne <= 1)
         self.probabilityOfOne = probabilityOfOne
+    }
+}
+
+extension BernoulliDistribution where Value == Int, Statistic == Double {
+    public static var fiftyFifty: BernoulliDistribution {
+        .init(probabilityOfOne: 0.5)
     }
 }
 

@@ -9,9 +9,9 @@ import ComplexModule
 
 /// A type with a notion of distance between values.
 ///
-/// Swift's `Strideable` protocol represents one-dimensional values with a distance function. This protocol is a more general version
-/// of `Strideable` that allows values to have any number of dimensions. So `MetricSpace` includes not only every type
-/// conforming to `Strideable`, but also multidimensional types such as `Complex`.
+/// This is similar to Swift's `Strideable` protocol, which represents one-dimensional values with a distance function. This protocol
+/// is a more general version of `Strideable`, allowing values to have any number of dimensions. So `MetricSpace` includes not 
+/// only every type conforming to `Strideable`, such as built-in numeric types, but also multidimensional types such as `Complex`.
 ///
 /// > See: [Metric space] for a theoretical introduction to metric spaces.
 ///

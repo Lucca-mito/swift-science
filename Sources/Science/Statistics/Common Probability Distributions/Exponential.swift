@@ -12,15 +12,12 @@ import RealModule
 ///
 /// [exponential distribution]: https://en.wikipedia.org/wiki/Exponential_distribution
 public struct ExponentialDistribution<RealType: Real> {
-    public typealias Value = RealType
-    public typealias Statistic = RealType
-    
     /// The (positive) rate parameter of the exponential distribution, also known as λ.
-    public let rate: Statistic
+    public let rate: RealType
     
     /// Creates an exponential distribution with the given rate.
     /// - Precondition: `rate` > 0
-    public init(rate: Statistic) {
+    public init(over domain: RealType.Type = Double.self, rate: RealType) {
         precondition(rate > 0)
         self.rate = rate
     }
@@ -31,16 +28,16 @@ extension ExponentialDistribution: ProbabilityDistribution {
     public var isSymmetric: Bool { false }
     
     /// The cumulative distribution function of the exponential distribution.
-    public func probability(ofAtMost value: Value) -> Statistic {
-        1 - .exp(-rate * value)
+    public func probability(ofAtMost RealType: RealType) -> RealType {
+        1 - .exp(-rate * RealType)
     }
 }
 
 extension ExponentialDistribution: ContinuousDistribution {
     /// The probability density function of the exponential distribution.
-    public func probabilityDensity(at value: Value) -> Statistic {
-        if value >= 0  {
-            return rate * .exp(-rate * value)
+    public func probabilityDensity(at RealType: RealType) -> RealType {
+        if RealType >= 0  {
+            return rate * .exp(-rate * RealType)
         } else {
             return 0
         }
@@ -48,34 +45,34 @@ extension ExponentialDistribution: ContinuousDistribution {
 }
 
 extension ExponentialDistribution: DistributionWithMoments {
-    public var mean: Statistic {
+    public var mean: RealType {
         1 / rate
     }
     
-    public var variance: Statistic {
+    public var variance: RealType {
         1 / (rate * rate)
     }
     
     /// The ``DistributionWithMoments/skewness`` of the exponential distribution. Always equal to 2.
-    public var skewness: Statistic { 2 }
+    public var skewness: RealType { 2 }
     
     /// The moment-generating function of the exponential distribution.
     /// - Precondition: `t` < `rate`
-    public func momentGeneratingFunction(_ t: some BinaryInteger) -> Statistic {
-        let t = Statistic(t)
+    public func momentGeneratingFunction(_ t: some BinaryInteger) -> RealType {
+        let t = RealType(t)
         precondition(t < rate)
         return rate / (rate - t)
     }
 }
 
 extension ExponentialDistribution: ClosedFormMedian {
-    public var median: Statistic {
+    public var median: RealType {
         .log(2) / rate
     }
 }
 
 extension ExponentialDistribution: ClosedFormQuantile {
-    public func quantile(_ quantileFraction: Statistic) -> Value {
+    public func quantile(_ quantileFraction: RealType) -> RealType {
         -.log(1 - quantileFraction) / rate
     }
 }
@@ -86,4 +83,4 @@ extension ExponentialDistribution: Unimodal {
 }
 
 extension ExponentialDistribution: Samplable
-where Value: BinaryFloatingPoint, Value.RawSignificand: FixedWidthInteger {}
+where RealType: BinaryFloatingPoint, RealType.RawSignificand: FixedWidthInteger {}

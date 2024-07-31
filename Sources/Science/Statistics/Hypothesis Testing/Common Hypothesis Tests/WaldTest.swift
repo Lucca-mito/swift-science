@@ -71,7 +71,7 @@ public struct WaldTest<DataType>: HypothesisTest {
     /// The second parameter is ignored, and is present solely because ``HypothesisTest`` requires it. Regardless, you rarely
     /// need to use this function directly; use ``test(on:atLevel:)`` or ``pValue(for:)`` instead.
     public func criticalValue(at level: ProbabilityOfTypeIError, for _: [DataType]) -> Double {
-        -NormalDistribution<Double>.standard.quantile(level / 2)
+        -NormalDistribution.standard.quantile(level / 2)
     }
     
     /// Runs the Wald test on the given `data` and reports the p-value.
@@ -81,7 +81,7 @@ public struct WaldTest<DataType>: HypothesisTest {
     /// where 𝚽 is the ``NormalDistribution/standard`` normal CDF (see
     /// ``NormalDistribution/probability(ofAtMost:)``) and 𝑊 is the Wald ``testStatistic(_:)``.
     public func pValue(for data: [DataType]) -> ProbabilityOfTypeIError {
-        let normalCDF = NormalDistribution<Double>.standard.probability(ofAtMost:)
+        let normalCDF = NormalDistribution.standard.probability(ofAtMost:)
         return 2 * normalCDF(testStatistic(data))
     }
     

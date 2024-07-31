@@ -19,32 +19,14 @@ extension Collection where Element: AlgebraicField & IntegerApproximable {
 
 extension Collection where Element: BinaryInteger {
     /// The arithmetic mean of the integer collection, computed to the specified `FloatingPoint` precision.
+    /// - Parameter precision: The precision to which the mean should be computed. If omitted, defaults to `Double.self`.
     /// - Returns: The mean as a `FloatingPoint` number.
     /// - Precondition: The collection cannot be empty.
-    ///
-    /// The mean of an integer collection is not necessarily an integer, so it must be computed to some floating-point precision.
-    /// There are two ways you can specify the desired precision:
-    /// ```swift
-    /// let data: [Int]
-    ///
-    /// // Suppose you want to calculate the mean of `data` to Double precision.
-    ///
-    /// // First solution: specify the desired return type.
-    /// let mean: Double = data.mean()
-    ///
-    /// // Second solution: specify the type argument.
-    /// let mean = data.mean<Double>()
-    /// ```
-    /// Both solutions are equivalent; which one you should choose is a matter of style preference.
-    public func mean<FloatingPointType: FloatingPoint>() -> FloatingPointType {
+    public func mean<FloatingPointType: FloatingPoint>(
+        toPrecision precision: FloatingPointType.Type = Double.self
+    ) -> FloatingPointType
+    {
         precondition(!isEmpty)
         return FloatingPointType(sum()) / FloatingPointType(count)
     }
-    // TODO: Once Swift support default generic arguments, make FloatingPointType be Double if it can't be inferred from context.
-    // See https://github.com/apple/swift/blob/main/docs/GenericsManifesto.md#default-generic-arguments
-    //
-    // One temporary solution (until default generic arguments are added) could be to add the following overload:
-    // public func mean() -> Double {
-    //     Double(sum()) / Double(count)
-    // }
 }

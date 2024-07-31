@@ -15,7 +15,7 @@ public struct PoissonDistribution<Value, Statistic>
 where
     Value: BinaryInteger,
 
-    // This requirement allows us to compute the CDF by summation.
+    // The SignedInteger requirement allows us to compute the CDF by summation.
     Value.Stride: SignedInteger,
 
     // The BinaryFloatingPoint requirement allows us to convert a Statistic to a Value. This is
@@ -31,7 +31,11 @@ where
     
     /// Creates a Poisson distribution with the given rate.
     /// - Precondition: `rate` > 0
-    public init(rate: Statistic) {
+    public init(
+        over domain: Value.Type = Int.self,
+        withPrecision precision: Statistic.Type = Double.self,
+        rate: Statistic
+    ) {
         precondition(rate > 0)
         self.rate = rate
     }
