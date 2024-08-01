@@ -36,25 +36,25 @@ import RealModule
 /// WaldTest(doesMeanEqual: .pi).pValue(for: sample)
 /// ```
 ///
-/// Testing whether two populations have the same mean:
+/// Testing whether two populations `x` and `y` have the same mean:
 /// ```swift
-/// WaldTest.sameMean.test(on: [xSample, ySample])
+/// WaldTest.sameMean.test(on: (x, y))
 /// ```
-public struct WaldTest<DataType>: HypothesisTest {
+public struct WaldTest<Sample>: HypothesisTest {
     /// A function that estimates the parameter of interest from a data sample.
-    private let parameterEstimator: ([DataType]) -> Double
+    private let parameterEstimator: (Sample) -> Double
     
     /// The value of the parameter of interest under the null hypothesis.
     private let parameterValueUnderNullHypothesis: Double
     
     /// A function that estimates the standard error of `parameterEstimator`  from a data sample.
-    private let standardErrorEstimator: ([DataType]) -> Double
+    private let standardErrorEstimator: (Sample) -> Double
     
     /// The Wald test statistic.
-    public func testStatistic(_ data: [DataType]) -> Double {
-        let thetaHat = parameterEstimator(data)
+    public func testStatistic(_ sample: Sample) -> Double {
+        let thetaHat = parameterEstimator(sample)
         let theta0 = parameterValueUnderNullHypothesis
-        let seHat = standardErrorEstimator(data)
+        let seHat = standardErrorEstimator(sample)
         
         return abs((thetaHat - theta0) / seHat)
     }
@@ -70,19 +70,19 @@ public struct WaldTest<DataType>: HypothesisTest {
     ///
     /// The second parameter is ignored, and is present solely because ``HypothesisTest`` requires it. Regardless, you rarely
     /// need to use this function directly; use ``test(on:atLevel:)`` or ``pValue(for:)`` instead.
-    public func criticalValue(at level: ProbabilityOfTypeIError, for _: [DataType]) -> Double {
+    public func criticalValue(at level: ProbabilityOfTypeIError, for _: Sample) -> Double {
         -NormalDistribution.standard.quantile(level / 2)
     }
     
     /// Runs the Wald test on the given `data` and reports the p-value.
-    /// - Parameter data: The data to compute the p-value for.
+    /// - Parameter sample: The data to compute the p-value for.
     /// - Returns: The p-value:
     /// ![2 phi of W of data](wald-test-p-value)
     /// where 𝚽 is the ``NormalDistribution/standard`` normal CDF (see
     /// ``NormalDistribution/probability(ofAtMost:)``) and 𝑊 is the Wald ``testStatistic(_:)``.
-    public func pValue(for data: [DataType]) -> ProbabilityOfTypeIError {
+    public func pValue(for sample: Sample) -> ProbabilityOfTypeIError {
         let normalCDF = NormalDistribution.standard.probability(ofAtMost:)
-        return 2 * normalCDF(testStatistic(data))
+        return 2 * normalCDF(testStatistic(sample))
     }
     
     /// Creates any Wald test. There are convenience wrappers around this initializer for specific types of Wald test, such as ``init(doesMeanEqual:)``.
@@ -97,9 +97,9 @@ public struct WaldTest<DataType>: HypothesisTest {
     ///
     /// This creates a Wald test for the null hypothesis 𝜃 = `parameterValueUnderNullHypothesis` where 𝜃 is the parameter of interest.
     public init(
-        parameterEstimator: @escaping ([DataType]) -> Double,
+        parameterEstimator: @escaping (Sample) -> Double,
         parameterValueUnderNullHypothesis: Double,
-        standardErrorEstimator: @escaping ([DataType]) -> Double
+        standardErrorEstimator: @escaping (Sample) -> Double
     ) {
         self.parameterEstimator = parameterEstimator
         self.parameterValueUnderNullHypothesis = parameterValueUnderNullHypothesis
@@ -107,7 +107,7 @@ public struct WaldTest<DataType>: HypothesisTest {
     }
 }
 
-extension WaldTest where DataType == Double {
+extension WaldTest where Sample == [Double] {
     /// Creates a Wald test for whether a population mean equals the specified value.
     ///
     /// - Parameter meanUnderNullHypothesis: The population mean if the null hypothesis is true.
@@ -122,7 +122,7 @@ extension WaldTest where DataType == Double {
     }
 }
 
-extension WaldTest where DataType == [Double] {
+extension WaldTest where Sample == ([Double], [Double]) {
     /// A Wald test for whether the two populations have the same mean.
     ///
     /// ## Usage
@@ -130,23 +130,15 @@ extension WaldTest where DataType == [Double] {
     /// let x: [Double]
     /// let y: [Double]
     ///
-    /// if WaldTest.sameMean.test(on: [x, y]) == .reject {
+    /// if WaldTest.sameMean.test(on: (x, y)) == .reject {
     ///     print("The means (probably) differ!")
     /// }
     /// ```
     ///
     /// ## Discussion
     /// This Wald test has the null hypothesis 𝑋̅ - 𝑌̅ = 0  where 𝑋̅ and 𝑌̅ are the population means.
-    ///
-    /// When calling ``HypothesisTest/test(on:atLevel:)`` or ``WaldTest/pValue(for:)``, make sure the `data`
-    /// consists of exactly 2 non-empty arrays.
     public static let sameMean = WaldTest(
-        parameterEstimator: { samples in
-            precondition(samples.count == 2)
-            
-            let firstSample = samples[0]
-            let secondSample = samples[1]
-            
+        parameterEstimator: { (firstSample, secondSample) in
             precondition(!firstSample.isEmpty && !secondSample.isEmpty)
             
             return firstSample.mean() - secondSample.mean()
@@ -154,12 +146,7 @@ extension WaldTest where DataType == [Double] {
         
         parameterValueUnderNullHypothesis: 0,
         
-        standardErrorEstimator: { samples in
-            // The necessary preconditions are already handled by the parameterEstimator above.
-            
-            let firstSample = samples[0]
-            let secondSample = samples[1]
-            
+        standardErrorEstimator: { (firstSample, secondSample) in
             let firstStatistic = firstSample.sampleVariance() / Double(firstSample.count)
             let secondStatistic = secondSample.sampleVariance() / Double(secondSample.count)
             

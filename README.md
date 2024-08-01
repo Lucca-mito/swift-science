@@ -49,7 +49,7 @@ let x: [Double]
 let y: [Double]
 
 // Test whether two populations have the same mean.
-if WaldTest.sameMean.test(on: [x, y]) == .reject {
+if WaldTest.sameMean.test(on: (x, y)) == .reject {
     print("The means (probably) differ!")
 }
 ```
