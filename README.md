@@ -124,7 +124,7 @@ print(normalCDF(0)) // 0.5
 ```swift
 let normal1 = NormalDistribution.standard // Type: NormalDistribution<Double>
 let normal2 = NormalDistribution(mean: 70, variance: 9) // Type: NormalDistribution<Double>
-let normal2 = NormalDistribution(over: Float.self, mean: 70, variance: 9) // Type: NormalDistribution<Float>
+let normal3 = NormalDistribution(over: Float.self, mean: 70, variance: 9) // Type: NormalDistribution<Float>
 ```
 [^2]: All probability distributions over floats can have their precision customized (`Double` if 
 omitted) and all probability distributions over integers can have their capacity customized (`Int` 
