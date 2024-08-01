@@ -13,12 +13,11 @@ Choosing Swift for your scientific code enables it to have both:
 If you're new to Swift, learn more about it [here](https://www.swift.org/about). 
 
 ### Generics
-The Swift Science package has a strong focus on *generic programming*. In most 
-packages for scientific computing (for Swift or otherwise), some or all of the functionality is 
-locked to a specific point in the precision–performance tradeoff, usually at machine precision. In 
-contrast, all[^1] functions, structures, and protocols in Swift Science are *generic* over the types 
-used for values and statistics. This means that everything in Swift Science has easy-to-use support 
-for:
+The Swift Science package has a strong focus on *generic programming*. In most packages for 
+scientific computing (for Swift or otherwise), some or all of the functionality is locked to a 
+specific point in the precision–performance tradeoff, usually at machine precision. In contrast, 
+all[^1] functions, structures, and protocols in Swift Science are *generic* over the types used for 
+values and statistics. This means that everything in Swift Science has easy-to-use support for:
 - Extended- and arbitrary-precision floats and integers when you want to prioritize computational accuracy.
 - Machine-precision floats (`Double`) and integers (`Int`) by default to prioritize speed.
 - `Float16` and `Int8` when you want to prioritize lower memory usage.
@@ -32,7 +31,8 @@ precision — so that is the only supported precision.
 
 ## Feature overview
 ### Hypothesis testing
-Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swift-science/documentation/science/hypothesistest) that comes built into Swift Science is the [`WaldTest`](https://lucca-mito.github.io/swift-science/documentation/science/waldtest):
+Currently, the only type of [`HypothesisTest`](https://lucca-mito.github.io/swift-science/documentation/science/hypothesistest) 
+that comes built into Swift Science is the [`WaldTest`](https://lucca-mito.github.io/swift-science/documentation/science/waldtest):
 
 ```swift
 let data: [Double]
@@ -65,7 +65,8 @@ print(customTest.pValue(for: data))
 Built-in support for (at least) the *t*-test is part of the near-future plans for the project.
 
 ### Sample statistics
-For continuous types, such as floats and complex numbers, statistics are computed to the same precision as the type:
+For continuous types, such as floats and complex numbers, statistics are computed to the same 
+precision as the type:
 ```swift
 let data: [Complex<Double>] = [-.i / 2, .exp(1) + .i]
 
@@ -77,12 +78,17 @@ print(data.sampleVariance()) // 4.819528049465324
 print(data.populationVariance()) // 2.409764024732662
 ```
 
-For integer types, specify the desired precision:
+For integer data, specify the desired precision of the floating-point mean:
 ```swift
 let data = 0...100
-let halfPrecision: Float16 = data.mean()
-let doublePrecision: Double = data.mean()
-print(halfPrecision, doublePrecision) // 49.97 50.0
+
+// Type: Double. If omitted, the precision is always Double.
+let doublePrecisionMean = data.mean()
+
+// Type: Float16
+let halfPrecisionMean = data.mean(toPrecision: Float16.self)
+
+print(doublePrecisionMean, halfPrecisionMean) // 50.0 49.97
 ```
 
 ### Distribution statistics
@@ -114,8 +120,24 @@ let normalCDF = normal.probability(ofAtMost:)
 print(normalCDF(0)) // 0.5
 ```
 
+### Customizing distribution precision[^2]
+```swift
+let normal1 = NormalDistribution.standard // Type: NormalDistribution<Double>
+let normal2 = NormalDistribution(mean: 70, variance: 9) // Type: NormalDistribution<Double>
+let normal2 = NormalDistribution(over: Float.self, mean: 70, variance: 9) // Type: NormalDistribution<Float>
+```
+[^2]: All probability distributions over floats can have their precision customized (`Double` if 
+omitted) and all probability distributions over integers can have their capacity customized (`Int` 
+if omitted). So you can, for example, have the domain of any continuous distribution (such as 
+`NormalDistribution`) be an arbitrary-precision float type, and you can have the domain of any 
+discrete distribution (such as `PoissonDistribution`) be an infinite-capacity integer type.
+
 ### Sampling from a distribution
-If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) (which all built-in distributions do), you can [`sample`](https://lucca-mito.github.io/swift-science/documentation/science/samplable/sample(count:)) random values from them. You can combine this with other Swift Science features, such as sample statistics, to run estimation experiments:
+If a [`ProbabilityDistribution`](https://lucca-mito.github.io/swift-science/documentation/science/probabilitydistribution) 
+conforms to [`Samplable`](https://lucca-mito.github.io/swift-science/documentation/science/samplable) 
+(which all built-in distributions do), you can [`sample`](https://lucca-mito.github.io/swift-science/documentation/science/samplable/sample(count:)) 
+random values from them. You can combine this with other Swift Science features, such as sample 
+statistics, to run estimation experiments:
 ```swift
 let distribution: some DistributionWithMean & Samplable
 
@@ -129,4 +151,5 @@ print(meanEstimate.isApproximatelyEqual(to: distribution.mean))
 This project is very new. All suggestions and contributions are welcome.
 
 ## Future directions
-Please see the [_project plans_](https://github.com/Lucca-mito/swift-science/wiki/Project-plans) page of the wiki.
+Please see the [_project plans_](https://github.com/Lucca-mito/swift-science/wiki/Project-plans) 
+page of the wiki.
