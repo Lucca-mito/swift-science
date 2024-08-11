@@ -16,7 +16,7 @@ generate-docs:
 	--output-path docs \
 	--source-service github \
 	--source-service-base-url https://github.com/lucca-mito/swift-science/blob/main \
-	--checkout-path $(PWD)
+	--checkout-path "$(PWD)"
 
 # Build the documentation website but don't update the docs directory. For this build, SwiftPM cannot be sandboxed.
 preview-docs:
@@ -27,4 +27,4 @@ preview-docs:
 	--include-extended-types \
 	--source-service github \
 	--source-service-base-url https://github.com/lucca-mito/swift-science/blob/main \
-	--checkout-path $(PWD)
+	--checkout-path "$(PWD)"
