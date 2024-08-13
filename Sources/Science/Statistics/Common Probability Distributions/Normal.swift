@@ -12,6 +12,7 @@ import RealModule
 /// [normal distribution]: https://en.wikipedia.org/wiki/Normal_distribution
 public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByFloatLiteral {
     /// The ``DistributionWithMean/mean`` of the normal distribution.
+    ///
     /// ## Example
     /// ```swift
     /// let normal = NormalDistribution.standard
@@ -20,6 +21,12 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     public let mean: RealType
     
     /// The ``DistributionWithVariance/variance`` of the normal distribution.
+    ///
+    /// ## Example
+    /// ```swift
+    /// let normal = NormalDistribution(mean: 70, standardDeviation: 3)
+    /// print(normal.variance) // 9.0
+    /// ```
     public let variance: RealType
     
     // NormalDistribution conforms to DistributionWithVariance via DistributionWithMoments (see
@@ -33,9 +40,20 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     // NormalDistribution overrides the default (computed) implementation of standardDeviation with
     // this stored property:
     /// The standard deviation of the normal distribution.
+    ///
+    /// ## Example
+    /// ```swift
+    /// let normal = NormalDistribution(mean: 70, variance: 9)
+    /// print(normal.standardDeviation) // 3.0
+    /// ```
     public let standardDeviation: RealType
     
     /// Creates a normal distribution with the given mean and variance.
+    ///
+    /// - Parameters:
+    ///   - domain: The floating-point type used for values from, and statistics of, this distribution. Defaults to `Double.self` if omitted.
+    ///   - mean: The ``mean`` or _expected value_ of the normal distribution, commonly denoted by 𝜇.
+    ///   - variance: The ``variance`` of the normal distribution, commonly denoted by 𝜎².
     ///
     /// - Precondition: `variance` > 0
     ///
@@ -53,6 +71,11 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     }
     
     /// Creates a normal distribution with the given mean and standard deviation.
+    ///
+    /// - Parameters:
+    ///   - domain: The floating-point type used for values from, and statistics of, this distribution. Defaults to `Double.self` if omitted.
+    ///   - mean: The ``mean`` or _expected value_ of the normal distribution, commonly denoted by 𝜇.
+    ///   - variance: The standard deviation of the normal distribution, commonly denoted by 𝜎.
     ///
     /// - Precondition: `standardDeviation` > 0
     ///
@@ -93,9 +116,9 @@ extension NormalDistribution: ProbabilityDistribution {
     /// The cumulative distribution function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
-    public func probability(ofAtMost RealType: RealType) -> RealType {
+    public func probability(ofAtMost value: RealType) -> RealType {
         .erfc(
-            (mean - RealType) /
+            (mean - value) /
             (.sqrt(2) * standardDeviation)
         ) / 2
     }
@@ -108,8 +131,8 @@ extension NormalDistribution: ContinuousDistribution {
     /// The probability density function of the normal distribution.
     ///
     /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
-    public func probabilityDensity(at RealType: RealType) -> RealType {
-        let numerator: RealType = .exp(-.pow(RealType - mean, 2) / variance / 2)
+    public func probabilityDensity(at value: RealType) -> RealType {
+        let numerator: RealType = .exp(-.pow(value - mean, 2) / variance / 2)
         let denominator: RealType = .sqrt(2 * variance * .pi)
         return numerator / denominator
     }
@@ -161,8 +184,8 @@ where
     ///
     /// [Box-Muller transform]:https://en.wikipedia.org/wiki/Box–Muller_transform#Basic_form
     public func sample() -> RealType {
-        let uniform1 = RealType.random(in: 0..<1)
-        let uniform2 = RealType.random(in: 0..<1)
+        let uniform1 = RealType.random(in: 0 ..< 1)
+        let uniform2 = RealType.random(in: 0 ..< 1)
         
         let standardNormalVariate = RealType.sqrt(-2 * .log(uniform1)) * .cos(2 * .pi * uniform2)
         

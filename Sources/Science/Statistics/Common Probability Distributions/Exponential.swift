@@ -28,18 +28,18 @@ extension ExponentialDistribution: ProbabilityDistribution {
     public var isSymmetric: Bool { false }
     
     /// The cumulative distribution function of the exponential distribution.
-    public func probability(ofAtMost RealType: RealType) -> RealType {
-        1 - .exp(-rate * RealType)
+    public func probability(ofAtMost value: RealType) -> RealType {
+        1 - .exp(-rate * value)
     }
 }
 
 extension ExponentialDistribution: ContinuousDistribution {
     /// The probability density function of the exponential distribution.
-    public func probabilityDensity(at RealType: RealType) -> RealType {
-        if RealType >= 0  {
-            return rate * .exp(-rate * RealType)
+    public func probabilityDensity(at value: RealType) -> RealType {
+        if value >= 0  {
+            rate * .exp(-rate * value)
         } else {
-            return 0
+            0
         }
     }
 }
