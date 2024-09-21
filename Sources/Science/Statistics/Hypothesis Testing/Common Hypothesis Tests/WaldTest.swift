@@ -70,8 +70,13 @@ public struct WaldTest<Sample>: HypothesisTest {
     ///
     /// The second parameter is ignored, and is present solely because ``HypothesisTest`` requires it. Regardless, you rarely
     /// need to use this function directly; use ``test(on:atLevel:)`` or ``pValue(for:)`` instead.
-    public func criticalValue(at level: ProbabilityOfTypeIError, for _: Sample) -> Double {
+    public func criticalValue(at level: ProbabilityOfTypeIError) -> Double {
         -NormalDistribution.standard.quantile(level / 2)
+    }
+    
+    @available(*, deprecated, renamed: "criticalValue(at:)", message: "Use criticalValue(at:) instead. The critical value of the Wald test depends only on the level, and not on the sample size; this overload is kept only for conformance to the HypothesisTest protocol.")
+    public func criticalValue(at level: ProbabilityOfTypeIError, for _: Sample) -> Double {
+        criticalValue(at: level)
     }
     
     /// Runs the Wald test on the given `data` and reports the p-value.

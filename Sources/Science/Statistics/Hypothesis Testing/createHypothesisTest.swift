@@ -19,39 +19,39 @@
 ///
 /// Use this function to create a custom single-purpose hypothesis test that doesn't have test parameters. To create a custom *type* of
 /// hypothesis test, declare a structure conforming to ``HypothesisTest`` instead of using this function.
-public func createHypothesisTest<DataType>(
-    testStatistic: @escaping ([DataType]) -> Double,
-    criticalValue: @escaping (ProbabilityOfTypeIError, [DataType]) -> Double,
-    pValue:        @escaping ([DataType]) -> ProbabilityOfTypeIError
+public func createHypothesisTest<Sample>(
+    testStatistic: @escaping (Sample) -> Double,
+    criticalValue: @escaping (ProbabilityOfTypeIError, Sample) -> Double,
+    pValue:        @escaping (Sample) -> ProbabilityOfTypeIError
 ) -> some HypothesisTest {
     AnyHypothesisTest(testStatistic, criticalValue, pValue)
 }
 
 /// Type-erased HypothesisTest. Solely used as the hidden return type of `createHypothesisTest`.
-fileprivate struct AnyHypothesisTest<DataType>: HypothesisTest {
-    let testStatisticClosure: ([DataType]) -> Double
-    let criticalValueClosure: (ProbabilityOfTypeIError, [DataType]) -> Double
-    let pValueClosure:        ([DataType]) -> ProbabilityOfTypeIError
+fileprivate struct AnyHypothesisTest<Sample>: HypothesisTest {
+    let testStatisticClosure: (Sample) -> Double
+    let criticalValueClosure: (ProbabilityOfTypeIError, Sample) -> Double
+    let pValueClosure:        (Sample) -> ProbabilityOfTypeIError
     
     init(
-        _ testStatisticClosure: @escaping ([DataType]) -> Double,
-        _ criticalValueClosure: @escaping (ProbabilityOfTypeIError, [DataType]) -> Double,
-        _ pValueClosure:        @escaping ([DataType]) -> ProbabilityOfTypeIError
+        _ testStatisticClosure: @escaping (Sample) -> Double,
+        _ criticalValueClosure: @escaping (ProbabilityOfTypeIError, Sample) -> Double,
+        _ pValueClosure:        @escaping (Sample) -> ProbabilityOfTypeIError
     ) {
         self.testStatisticClosure = testStatisticClosure
         self.criticalValueClosure = criticalValueClosure
         self.pValueClosure = pValueClosure
     }
     
-    func testStatistic(_ data: [DataType]) -> Double {
+    func testStatistic(_ data: Sample) -> Double {
         testStatisticClosure(data)
     }
     
-    func criticalValue(at level: ProbabilityOfTypeIError, for data: [DataType]) -> Double {
+    func criticalValue(at level: ProbabilityOfTypeIError, for data: Sample) -> Double {
         criticalValueClosure(level, data)
     }
     
-    func pValue(for data: [DataType]) -> ProbabilityOfTypeIError {
+    func pValue(for data: Sample) -> ProbabilityOfTypeIError {
         pValueClosure(data)
     }
 }

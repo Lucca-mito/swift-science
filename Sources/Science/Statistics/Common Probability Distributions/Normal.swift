@@ -75,7 +75,7 @@ public struct NormalDistribution<RealType> where RealType: Real & ExpressibleByF
     /// - Parameters:
     ///   - domain: The floating-point type used for values from, and statistics of, this distribution. Defaults to `Double.self` if omitted.
     ///   - mean: The ``mean`` or _expected value_ of the normal distribution, commonly denoted by 𝜇.
-    ///   - variance: The standard deviation of the normal distribution, commonly denoted by 𝜎.
+    ///   - standardDeviation: The standard deviation of the normal distribution, commonly denoted by 𝜎.
     ///
     /// - Precondition: `standardDeviation` > 0
     ///
