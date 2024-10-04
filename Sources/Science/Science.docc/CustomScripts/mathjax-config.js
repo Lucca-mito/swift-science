@@ -1,0 +1,3 @@
+MathJax = {
+  tex: { inlineMath: [['$', '$']] }
+};

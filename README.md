@@ -7,8 +7,8 @@ Please see the [documentation website](https://lucca-mito.github.io/swift-scienc
 ## Why Swift Science?
 ### The Swift programming language
 Choosing Swift for your scientific code enables it to have both:
-- The performance and correctness of a compiled, statically-typed language.
-- The abstractions and safety of a modern, high-level language.
+- The performance and type safety of a compiled, statically-typed language.
+- The ease of use and expressivity of a modern, high-level language.
 
 If you're new to Swift, learn more about it [here](https://www.swift.org/about). 
 
@@ -20,7 +20,7 @@ all[^1] functions, structures, and protocols in Swift Science are *generic* over
 values and statistics. This means that everything in Swift Science has easy-to-use support for:
 - Extended- and arbitrary-precision floats and integers when you want to prioritize computational accuracy.
 - Machine-precision floats (`Double`) and integers (`Int`) by default to prioritize speed.
-- `Float16` and `Int8` when you want to prioritize lower memory usage.
+- `Float16` and `Int8` in resource-constrained or performance-critical environments.
 
 And anywhere in between.
 

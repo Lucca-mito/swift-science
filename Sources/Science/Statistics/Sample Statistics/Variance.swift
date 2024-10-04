@@ -37,12 +37,13 @@ where
     /// The sample variance of the collection.
     ///
     /// - Returns: The sample variance:
-    /// ![Sum, from i = 1 to n, of the squared norm of x_i minus mu. Everything divided by n minus 1.](sample-variance)
-    /// where 𝑛 is the collection's `count` and ‖𝑥ᵢ - 𝜇‖ is the ``Euclidean`` distance from each element 𝑥ᵢ to the sample mean 𝜇.
+    /// $$\frac{1}{n-1} \sum\_{i=1}^n \lVert x\_i - \mu\rVert^2$$
+    /// where $n$ is the collection's `count` and $\lVert x\_i - \mu\rVert$ is the ``Euclidean`` distance from each element $x\_i$ to
+    /// the sample mean $\mu$.
     ///
     /// - Precondition: There must be at least 2 elements in the collection.
     ///
-    /// The sample variance is similar to the population variance, but with *n* - 1 in the denominator instead of *n* (where *n* is the
+    /// The sample variance is similar to the population variance, but with $n - 1$ in the denominator instead of $n$ (where $n$ is the
     /// size of the collection). As a result,
     /// 1. The sample variance is always slightly greater than the population variance.
     /// 2. The sample variance better estimates the variance of the population (or the ``ProbabilityDistribution``) from

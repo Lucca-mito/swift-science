@@ -24,7 +24,8 @@ where
 {
     /// The (positive) rate parameter of the Poisson distribution, also known as λ.
     ///
-    /// If this Poisson distribution is modeling a counting process, `rate` represents the rate at which events occur in the process.
+    /// If this Poisson distribution models a counting process, `rate` represents the rate at which events occur in the process.
+    ///
     /// For example, suppose that a call center receives an average of 3 calls per minute and that the calls are independent from each
     /// other. Then the number of calls received during any given minute follows a Poisson distribution with `rate` 3.
     public let rate: Statistic

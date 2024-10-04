@@ -115,7 +115,7 @@ extension NormalDistribution where RealType == Double {
 extension NormalDistribution: ProbabilityDistribution {
     /// The cumulative distribution function of the normal distribution.
     ///
-    /// For the ``standard`` normal distribution, this function is usually denoted by Φ(𝑥).
+    /// For the ``standard`` normal distribution, this function is usually denoted by $\operatorname{Φ}(x)$.
     public func probability(ofAtMost value: RealType) -> RealType {
         .erfc(
             (mean - value) /
@@ -130,7 +130,10 @@ extension NormalDistribution: ProbabilityDistribution {
 extension NormalDistribution: ContinuousDistribution {
     /// The probability density function of the normal distribution.
     ///
-    /// For the ``standard`` normal distribution, this function is sometimes denoted by φ(𝑥).
+    /// The density at $x$ is given by:
+    /// $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}$$
+    ///
+    /// For the ``standard`` normal distribution, this function is sometimes denoted by $\operatorname{φ}(x)$.
     public func probabilityDensity(at value: RealType) -> RealType {
         let numerator: RealType = .exp(-.pow(value - mean, 2) / variance / 2)
         let denominator: RealType = .sqrt(2 * variance * .pi)
