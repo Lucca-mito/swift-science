@@ -1,12 +1,13 @@
 [
     {
+        "name": "mathjax-config",
+        "defer": true
+    },
+    {
         "url": "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js",
         "defer": true,
         "integrity": "sha384-KKWa9jJ1MZvssLeOoXG6FiOAZfAgmzsIIfw8BXwI9+kYm0lPCbC6yTQPBC00F1/L",
         "cross-origin": "anonymous"
-    },
-    {
-        "name": "mathjax-config"
     },
     {
         "code": "MathJax.typeset();",

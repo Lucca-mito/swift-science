@@ -132,6 +132,7 @@ extension NormalDistribution: ContinuousDistribution {
     ///
     /// The density at $x$ is given by:
     /// $$\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x - \mu)^2}{2 \sigma^2}}$$
+    /// Where $\mu$ and $\sigma^2$ are the ``mean`` and ``variance`` of the normal distribution, respectively.
     ///
     /// For the ``standard`` normal distribution, this function is sometimes denoted by $\operatorname{φ}(x)$.
     public func probabilityDensity(at value: RealType) -> RealType {
