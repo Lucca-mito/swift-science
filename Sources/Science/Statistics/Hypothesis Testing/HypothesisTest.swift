@@ -52,19 +52,19 @@ public protocol HypothesisTest {
     /// You rarely need to use this function directly. Use ``test(on:atLevel:)`` or ``pValue(for:)`` instead.
     func criticalValue(at level: ProbabilityOfTypeIError, for sample: Sample) -> Double
     
-    /// Runs the hypothesis test on the given `data` and reports the p-value
+    /// Runs the hypothesis test on the given `sample` and reports the p-value
     ///
-    /// - Parameter sample: The data to run the test on.
+    /// - Parameter sample: The sample data to run the test on.
     ///
     /// - Returns: The smallest level at which the test rejects the null hypothesis.
-    /// In other words, it's the smallest ``ProbabilityOfTypeIError`` for this test given the `data`.
+    /// In other words, it's the smallest ``ProbabilityOfTypeIError`` for this test given the `sample`.
     ///
     /// The closer the p-value is to 0, the more confident we can be that the data is incompatible with the null hypothesis.
     func pValue(for sample: Sample) -> ProbabilityOfTypeIError
 }
 
 extension HypothesisTest {
-    /// Runs the hypothesis test on the given `data` and either *rejects* or *fails to reject* the null hypothesis.
+    /// Runs the hypothesis test on the given `sample` and either *rejects* or *fails to reject* the null hypothesis.
     ///
     /// - Parameters:
     ///   - sample: The sample data to run the test on.

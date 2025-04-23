@@ -51,7 +51,7 @@ fileprivate struct AnyHypothesisTest<Sample>: HypothesisTest {
         criticalValueClosure(level, data)
     }
     
-    func pValue(for data: Sample) -> ProbabilityOfTypeIError {
-        pValueClosure(data)
+    func pValue(for sample: Sample) -> ProbabilityOfTypeIError {
+        pValueClosure(sample)
     }
 }
