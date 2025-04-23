@@ -41,7 +41,7 @@ where
     /// where $n$ is the collection's `count` and $\lVert x\_i - \mu\rVert$ is the ``Euclidean`` distance from each element $x\_i$ to
     /// the sample mean $\mu$.
     ///
-    /// - Precondition: There must be at least 2 elements in the collection.
+    /// - Precondition: There must be at least two elements in the collection.
     ///
     /// The sample variance is similar to the population variance, but with $n - 1$ in the denominator instead of $n$ (where $n$ is the
     /// size of the collection). As a result,
@@ -83,7 +83,7 @@ extension Collection where Element: BinaryInteger {
     /// The sample variance of the integer collection.
     /// - Returns: The sample variance as a `FloatingPoint` number.
     /// - Parameter precision: The precision to which the variance should be computed. If omitted, defaults to `Double` precision.
-    /// - Precondition: There must be at least 2 elements in the collection.
+    /// - Precondition: There must be at least two elements in the collection.
     public func sampleVariance<FloatingPointType>(
         toPrecision precision: FloatingPointType.Type = Double.self
     ) -> FloatingPointType
